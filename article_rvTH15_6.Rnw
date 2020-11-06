@@ -20,6 +20,7 @@
 # options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
 library("MASS")
 library("extrafont") #;library("ggplot")
+library("igraph")
 opts_chunk$set(prompt=TRUE, fig.pos = 'H', results='asis', highlight=FALSE)
 options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
 # options(replace.assign=TRUE, width=90, prompt="R> ")
@@ -572,7 +573,7 @@ information such as relative contributions of the authors may be added here
 %% - Titles in the .bib should be in title case.
 %% - DOIs should be included where available.
 
-\bibliography{D:/DocumentationArcheo/biblio10}
+\bibliography{bibref}
 
 
 %% -- Appendix (if any) --------------------------------------------------------
