@@ -35,9 +35,9 @@ loadfonts(device = "win")
 %% - \Plainauthor{} without affiliations
 %% - Separate authors by \And or \AND (in \author) or by comma (in \Plainauthor).
 %% - \AND starts a new line, \And does not.
-\author{Thomas Huet\\UMR 5140}
+\author{Thomas Huet\\UMR 5140 \And Craig Alexander \And Jose Pozo}
 %   \And Second Author\\Plus Affiliation}
-\Plainauthor{Thomas Huet}
+\Plainauthor{Thomas Huet, Craig Alexander, Jose Pozo}
 
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
@@ -152,7 +152,7 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 \begin{figure}[H] 
 \centering
 \includegraphics[scale=0.15]{gis_1}
-\caption{\label{fig:gis1} GIS interface. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two attributes of the GU \code{personnage} (character).}
+\caption{\label{fig:gis1} GIS interface. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (character).}
 \end{figure}
 
 \begin{itemize}
