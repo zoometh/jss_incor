@@ -42,9 +42,9 @@ loadfonts(device = "win")
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{Modelling Prehistorical Iconographic Compositions. The \proglang{R} package \pkg{decorr}}
-\Plaintitle{Modelling Prehistorical Iconographic Compositions. The R package 'decorr'}
-\Shorttitle{Modelling Prehistorical Iconographic Compositions}
+\title{Modelling Prehistoric Iconographic Compositions. The \proglang{R} package \pkg{decorr}}
+\Plaintitle{Modelling Prehistoric Iconographic Compositions. The R package 'decorr'}
+\Shorttitle{Modelling Prehistoric Iconographic Compositions}
 
 %% - \Abstract{} almost as usual
 \Abstract{
