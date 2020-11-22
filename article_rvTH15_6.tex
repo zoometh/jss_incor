@@ -133,8 +133,8 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.15]{gis_1}
-\caption{\label{fig:gis1} GIS interface. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (character).}
+\includegraphics[scale=0.1]{gis_1}
+\caption{\label{fig:gis1} GIS interface, Cerro Muriano 1 decoration. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (anthropomorph).}
 \end{figure}
 
 \begin{itemize}
@@ -143,8 +143,16 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 
 Finally, it is quite common that a graphical composition shows superimpositions between different UGs permit to distinguish different decoration phases for a single support. So, at first, the analyse must be performed on each different phases of decoration separately. This stratigraphical information (\code{A} \emph{over} \code{B}, or \code{B} \emph{under} \code{A}) helps to understand the relative chronology between GUs and must be recorded. A simple way to achieve this is to introduce the new tag \code{'>'} for the for the type of edge. This type of edges is directed. The textual notation of such an edge is \code{'->-'}. For example \code{A ->- B} means that \code{A} crosses \code{B} (ie, \code{A} overlaps \code{B} in the stratigraphical sense).
 
+\begin{figure}[H] 
+\centering
+\includegraphics[scale=0.1]{gis_2}
+\caption{\label{fig:gis1} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
+\end{figure}
+
 \section{The R package decorr} \label{sec:models}
 
+
+%
 The \pkg{decorr} package can be downloaded from GitHub
 %
 \begin{CodeChunk}
@@ -175,13 +183,8 @@ A training dataset (nodes and edges coordinates, decoration images) is stored in
 
 The dataframe storing the inventory of decorations is \code{imgs}. The field \code{imgs$idf} is the short name of the decoration, useful during statistical analysis. The primary key of each decoration is the concatenate of \code{imgs$site} and \code{imgs$decor}. These keys will allow joints with the other dataframes (\code{nodes} and \code{edges})\\
 %
-\begin{kframe}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'magick' was built under R version 3.6.3}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Linking to ImageMagick 6.9.9.14\\\#\# Enabled features: cairo, freetype, fftw, ghostscript, lcms, pango, rsvg, webp\\\#\# Disabled features: fontconfig, x11}}\end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Sun Nov 22 13:33:53 2020
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Sun Nov 22 14:29:55 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{|p{0.5cm}|p{2.5cm}|p{2.5cm}|p{8.5cm}|}
@@ -227,11 +230,11 @@ R> plot(out.img)
 \end{verbatim}
 \end{kframe}\begin{figure}[H]
 
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-4-1} 
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
 
 }
 
-\caption{\label{fig:figs}Decoration images of the training dataset}\label{fig:unnamed-chunk-4}
+\caption{\label{fig:figs}Decoration images of the training dataset}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 
@@ -261,7 +264,7 @@ R> print(xtable::xtable(head(nodes),
 +        table.placement="H")
 \end{verbatim}
 \end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Sun Nov 22 13:33:54 2020
+% Sun Nov 22 14:29:56 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{rl}
@@ -297,7 +300,7 @@ R> print(xtable::xtable(head(edges),
 +        table.placement="H")
 \end{verbatim}
 \end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Sun Nov 22 13:33:54 2020
+% Sun Nov 22 14:29:56 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{rl}
@@ -418,7 +421,7 @@ R> print(xtable::xtable(eds.df[1,],
 +        table.placement="H")
 \end{verbatim}
 \end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Sun Nov 22 13:33:54 2020
+% Sun Nov 22 14:29:56 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{rllrrlrrrr}
@@ -462,11 +465,11 @@ R> plot(image_trim(img.graph))
 \end{verbatim}
 \end{kframe}\begin{figure}[H]
 
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
+{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
 
 }
 
-\caption{\label{fig:figs}Torrejon Rubio 1 decoration}\label{fig:unnamed-chunk-10}
+\caption{\label{fig:figs}Torrejon Rubio 1 decoration}\label{fig:unnamed-chunk-11}
 \end{figure}
 
 

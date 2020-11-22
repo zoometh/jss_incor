@@ -151,8 +151,8 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.15]{gis_1}
-\caption{\label{fig:gis1} GIS interface. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (character).}
+\includegraphics[scale=0.1]{gis_1}
+\caption{\label{fig:gis1} GIS interface, Cerro Muriano 1 decoration. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (anthropomorph).}
 \end{figure}
 
 \begin{itemize}
@@ -161,8 +161,20 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 
 Finally, it is quite common that a graphical composition shows superimpositions between different UGs permit to distinguish different decoration phases for a single support. So, at first, the analyse must be performed on each different phases of decoration separately. This stratigraphical information (\code{A} \emph{over} \code{B}, or \code{B} \emph{under} \code{A}) helps to understand the relative chronology between GUs and must be recorded. A simple way to achieve this is to introduce the new tag \code{'>'} for the for the type of edge. This type of edges is directed. The textual notation of such an edge is \code{'->-'}. For example \code{A ->- B} means that \code{A} crosses \code{B} (ie, \code{A} overlaps \code{B} in the stratigraphical sense).
 
+\begin{figure}[H] 
+\centering
+\includegraphics[scale=0.1]{gis_2}
+\caption{\label{fig:gis1} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
+\end{figure}
+
 \section{The R package decorr} \label{sec:models}
 
+<<results='asis', include=FALSE, echo=FALSE, warning=FALSE>>=
+library("decorr")
+library("igraph")
+library("magick")
+@
+%
 The \pkg{decorr} package can be downloaded from GitHub
 %
 \begin{CodeChunk}
@@ -193,11 +205,11 @@ A training dataset (nodes and edges coordinates, decoration images) is stored in
 
 The dataframe storing the inventory of decorations is \code{imgs}. The field \code{imgs$idf} is the short name of the decoration, useful during statistical analysis. The primary key of each decoration is the concatenate of \code{imgs$site} and \code{imgs$decor}. These keys will allow joints with the other dataframes (\code{nodes} and \code{edges})\\
 %
-<<results='asis', echo=FALSE>>=
-library("decorr")
-library("igraph")
-library("magick")
-# par(mar=c(0,0,0,0))
+<<results='asis', echo=FALSE, warning=FALSE>>=
+# library("decorr")
+# library("igraph")
+# library("magick")
+# # par(mar=c(0,0,0,0))
 imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
                    sep="\t", stringsAsFactors = FALSE)
 print(xtable::xtable(imgs,
@@ -214,7 +226,7 @@ print(xtable::xtable(imgs,
       include.rownames=FALSE)
 @
 %
-The \pkg{decorr} package training dataset is composed by four stelaes decorations drawings \citep{DiazGuardamino10} belonging to the so-called 'Warrior stelae' family -- with about 140 stelae -- dated to the Late Bronze Age of SW Iberian peninsula \citep{Celestino01}. At first the drawings dataset can be checked by using the \code{imgs} dataframe and the \pkg{magick} package.
+The \pkg{decorr} package training dataset is composed by five stelaes decorations drawings \citep{DiazGuardamino10} belonging to the so-called 'Warrior stelae' family -- with about 140 stelae -- dated to the Late Bronze Age of SW Iberian peninsula \citep{Celestino01}. At first the drawings dataset can be checked by using the \code{imgs} dataframe and the \pkg{magick} package.
 %
 <<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=13, fig.height=13, fig.cap="\\label{fig:figs}Decoration images of the training dataset">>=
 # library("magick")
@@ -234,7 +246,8 @@ for(i in 1:nrow(imgs)){
   lims[[length(lims)+1]]<- i1
 }
 out.img <- image_append(c(image_append(c(lims[[1]],lims[[2]])),
-                          image_append(c(lims[[3]],lims[[4]]))),
+                          image_append(c(lims[[3]],lims[[4]])),
+                          image_append(lims[[5]])),
                         stack = TRUE)
 plot(out.img)
 @
