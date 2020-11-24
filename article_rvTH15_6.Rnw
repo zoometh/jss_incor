@@ -73,12 +73,12 @@ loadfonts(device = "win")
 
 \section[Introduction]{Introduction} \label{sec:intro}
 
-Symbolic practices is a characteristic trait of human societies. Even discussed, such practices seems to start between 233,000 to 800,00 BC \citep{dErrico00}, covering more than 97\% of total human societies time span. Symbolism cover a large range of practices, from ochre deposit in a tomb, to menhir alignements, passing through wall fresco. This latter, what might be called "iconographical practices", probably shows the most complex and interesting testimonies of past societies symbolism. For decades, its study was linked to history of religion because commonly seen as closely linked to cultual practices and believes. Since the \textit{New Archaeology} developpement during the 60's \citep{Clarke14}, symbolic expressions start to be studied with the same formal methods (statistics, seriations, distribution maps, etc.) as any another aspect of social organisation: settlement patterns, tools \emph{chaine op\'eratoire}, susbsitence strategies, etc. \citep{Renfrew91}. But unlike many aspects of the material culture where technological requirements and technical efficiency determine the choice of the raw material and the of the object -- a flint blade for cutting, a pottery for containing, a house for living --, the function of an iconographic composition cannot be drawn directly from itself. Whether these last decades study of ancient iconography had  undergone significative improvements at the site scale -- with GIS/database statistics, paleoenvironmental restitutions, etc. -- and at the sign scale with the development of archaeological sciences -- radiocarbon dating, use-wear analysis, elemental analysis, etc. --, these improvement do not necessarly help to understand the semantic content of the iconography.
+Symbolic practices is a characteristic trait of human societies. Even discussed, such practices seems to start between 233,000 to 800,00 BC \citep{dErrico00}, covering more than 97\% of total human societies time span. Symbolism cover a large range of practices, from ochre deposit in a tomb, to menhir alignements, passing through wall fresco. This latter, what might be called "iconographical practices", probably shows the most complex and interesting testimonies of past societies symbolism. For decades, its study was linked to history of religion because commonly seen as closely linked to cultual practices and believes. Since the \textit{New Archaeology} developpement during the 60's \citep{Clarke14}, symbolic expressions start to be studied with the same formal methods (statistics, seriations, distribution maps, etc.) as any another aspect of social organisation: settlement patterns, tools \emph{chaine op\'eratoire}, susbsitence strategies, etc. \citep{Renfrew91}. But unlike many aspects of the material culture where technological requirements and technical efficiency determine the choice of the raw material and the shape of the object -- a flint blade for cutting, a pottery for containing, a house for living --, the function of an iconographic composition cannot be drawn directly from itself. Whether these last decades study of ancient iconography had  undergone significative improvements at the site scale -- with GIS/database statistics, paleoenvironmental restitutions, etc. -- and at the sign scale with the development of archaeological sciences -- radiocarbon dating, use-wear analysis, elemental analysis, etc. --, these improvement do not necessarly help to understand the semantic content of the iconography.
 
 Semantics or semiotics can be defined as a system of conventional features -- called signs -- organised also in conventional manners. Until our days, formal methods to study ancient iconography semantics have been mostlty been grounded  -- explicitly or not -- on the prime principle of Saussurian linguistic: the '\emph{linearity of the signifier}' \citep{Saussure89}.  
 Writing is one of the most rational semiographical system with a clear distinction between signified and signifier and the development of the signified on a linear axis. Even if we do not understand the meaning of the signs, writing can easily be modelled with Graph theory and recurent patterns can be identified. For example, the 3-letters word "\code{art}" can be modelled with three vertices (\code{a}, \code{r}, \code{t}) and two edges (one between \code{a} and \code{r}, the other between \code{r} and \code{t}). In \proglang{R}, these features, concatenated in this order with a \code{paste0()}, is \code{art}, and not \code{rat}.
 
-<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=10, fig.height=3, fig.cap="\\label{fig:figs}concatenate of graphical units (GUs) is art">>=
+<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=10, fig.height=3, fig.cap="\\label{fig:figs}Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
 # par(mar=c(0,0,0,0))
 g <- graph_from_literal(a-+r, r-+t)
 plot(g,
@@ -92,9 +92,9 @@ plot(g,
      edge.arrow.size=.5)
 @
 
-But, as stated, in Prehistorical the writing system does not exists. Spatial relationships between graphical features, or graphical units, are not necessarly linear and directed but could most probably be more multi-directional and undirected: the direction of the interactions of pairwise GUs can be in any order.
+But, as stated, in Prehistorical the writing system does not exists. Spatial relationships between graphical features, or graphical units, are not necessarly linear and directed but could most probably be more multi-directional and undirected: the direction of the interactions of pairwise graphical units can be in any order.
 
-<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=2, fig.height=2, fig.cap="\\label{fig:figs}Potential spatial relations between GUs.">>=
+<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=2, fig.height=2, fig.cap="\\label{fig:figs}Potential spatial relations between graphical units">>=
 par(mar=c(0.1,0.1,0.1,0.1) )
 ugs <- data.frame(name=c("a","r","t"))
 lks <- data.frame(from=c("a", "r", "t"),to=c("r", "t", "a"),type=c("=","=","="))
@@ -109,45 +109,45 @@ plot(g,
      )
 @
 
-Because of the inherent variability of iconography, and because graphical and spatial proximities between GUs are generaly not quantified, applying the Saussurian model to any prehistorical graphical content had led to considerable problems:
+Because of the inherent variability of iconography, and because graphical and spatial proximities between graphical units are generaly not quantified, applying the Saussurian model to any prehistorical graphical content had led to considerable problems:
 \begin{itemize}
 \setlength\itemsep{.05em}
   \item unexplicit groupings of graphical units -- like graphical units grouped into \emp{figures},  \emp{figures} grouped into \emp{patterns}, \emp{patterns} grouped into \emp{motives}, etc. -- with tedious number of groups
   \item consistency, proximities and relationships between these groups are often implicit and not quantified
-  \item studies develop proper descriptive vocabularies, singular relationships of grouped, idosyncratic methods in a site-dependend or period-dependend scales 
+  \item studies develop proper descriptive vocabularies, singular relationships of grouping, idosyncratic methods at site-dependend or period-dependend scales 
 \end{itemize}
 
-These issues limit drastically the possibility to conduct cross-cultural comparisons and to draw a synthesis of humankind's symbolism at a large scale and over the long-term. 
+These issues limit drastically the possibility to conduct cross-cultural comparisons and to draw a synthesis of humankind's symbolism at a large scale and over the long-term.  
 \\
 \\
-In this article we present the \proglang{R} package \pkg{decorr}. Its purpose is to formalise a method based on relative neighborhood graphs to analyse any graphical content. As any formal system, iconography can be modelled as spatial features related one with the other depending on rules of spatial proximities, as state by the First Law of Geography: "\emph{everything is related to everything else, but near things are more related than distant things}" \citep{Tobler70}. The principal idea of our model is that any graphical system can be represented by features connected (or not) to each other depending on their spatial proximity. To map and analyse these proximities, the model uses concepts and methods coming from Graph Theory. This package has been grounded on the seminal work of \citet{Alexander08} and its first IT implementation by \citet{Huet18a}. 
+In this article we present the \proglang{R} package \pkg{decorr}. Its purpose is to formalise a method based on relative neighborhood graphs (RNG) to analyse any graphical content (here: decorations). As any formal system, iconography can be modelled as spatial features related one with the other depending on rules of spatial proximities; as state by the First Law of Geography: "\emph{everything is related to everything else, but near things are more related than distant things}" \citep{Tobler70}. And, because any graphical system is composed by features (mostly shapes) displayed spatialy, these systems can be represented by features connected (or not) to each other depending on their spatial proximity. To map and analyse these proximities, the model uses concepts and methods coming from Graph Theory. This package has been grounded on the seminal work of \citet{Alexander08} and its first IT implementation by \citet{Huet18a}. 
 
 \section[Model]{Graph theory Model} \label{sec:model}
 
-Graph theory offers a conceptual framework and indices (global at the entire graph scale, local at the vertex scale) to deal with notions of networks, relationships and neighbourhoods. Graphical units (GUs) can be modelled as vertices (nodes) and their spatial relations can be modelled as edges. The different levels of GUs spatial organisation can be retrieve by a relative neighborhood graphs analysis (Graph Theory) and a spatial (GIS) analysis.
+Graph theory offers a conceptual framework and indices (global at the entire graph scale, local at the vertex scale) to deal with notions of networks, relationships and neighbourhoods. Graphical units (GUs) can be modelled as vertices (nodes) separated one with another by undecorated areas. Their spatial relations can be modelled as edges. The different levels of GUs spatial organisation can be retrieve by a relative neighborhood graphs analysis (Graph Theory) and a spatial (GIS) analysis.
 
-Nodes and edges -- repectively GUs and connexions between GUs -- are created on a GIS interface. Indeed, for large series of graphical decorations, GIS offers the most suitable and flexible interface to register all GUs and to get their coordinates. These \emph{x} and \emph{y} coordinates, measured in pixels, are relative to the decoration figure which is open in the first place in a new GIS project without any projection system. The decoration image is considerated as the basemap of the project and will cover the region of interest of the analysis. The decoration image can be binarized: GUs are considerated active, the undecorated parts of the support -- the background -- are considerated inactive. The entire decoration image is tiled into different GUs' area of influence like a Voronoi diagram of the support where the Voronoi seeds are the GUs. Exist a link between a pair of GUs when their area of influence share a common border. A RNG -- also called a geometric graph, or a planar graph -- is constructed from GUs (nodes) and their proximity links (edges). The graph itself is as a subgraph of a Delaunay triangulation.
+Nodes and edges -- repectively GUs and connexions between GUs -- are created on a GIS interface. Indeed, for large series of decorated supports, GIS offers the most suitable and flexible interface to register all GUs and to get their coordinates. These \emph{x} and \emph{y} coordinates, measured in pixels, are relative to the decoration figure which is open in the first place in a new GIS project without any projection system. The decoration image is considerated as the basemap of the project and will cover the region of interest of the analysis. The decoration image can be binarized: GUs are considerated active, the undecorated parts of the support -- the background -- are considerated inactive. The entire decoration image is tiled into different GUs' area of influence like a Voronoi diagram of the support where the Voronoi seeds are the GUs. Exist a link between a pair of GUs when their area of influence share a common border. A neighborhood graphs (RNG) -- also called a geometric graph, or a planar graph -- is constructed from GUs (nodes) and their proximity links (edges). The graph itself is as a subgraph of a Delaunay triangulation. The entire graphical content of the decoration is mapped with the RNG, so a decoration graph is a one component graph.
 
 
 \begin{figure}[H]
 \centering
 \includegraphics{gis}
-\caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age \emp{Cerro Muriano 1} stele (drawing: \cite{DiazGuardamino10}) with its extent (\code{xmin, xmax, ymin, ymax}); B) After the polygonisation of the GUs, including the border of the stelae, the Voronoi cells, the centroid of GUs and the links between GUs having adjacent cells (ie, sharing a border) are calculated; C) For each GUs, \emph{x} and \emph{y} are calculated; D) At least one variable, like the \code{type} of the GUs is defined in order to compute composition analysis. A simplier solution will be to create directly centroids (\code{POINTS}) on the GUs and to draw the edges manually}
+\caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age \emp{Cerro Muriano 1} stele (drawing: \cite{DiazGuardamino10}) with its extent (\code{xmin, xmax, ymin, ymax}); B) After the polygonisation of the GUs (\code{POLYGONS}), including the border of the stelae, the Voronoi cells, the centroid of GUs and the links between GUs having adjacent cells (ie, sharing a border) are calculated; C) For each GUs, \emph{x} and \emph{y} are calculated; D) At least one variable, like the \code{type} of the GUs (for example 'anthropomorph', 'horned helmet') is defined in order to compute composition analysis. A simplier solution will be to create directly centroids (\code{POINTS}) on the GUs and to draw the edges manually}
 \end{figure}
 
-This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic properties of GUs (type, technology, color, orientation, size, etc.) and the types of relations they share. Here, we will only consider one property for the nodes, its type (column \code{type}), and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.
+This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic variables of GUs (\code{type}, \code{technologie}, \code{color}, \code{size}, etc.) and the types of relations they share. Here, we will only consider one property for the nodes, its \code{type}, and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.
 
 \begin{itemize}
   \item \emph{normal} edges
 \end{itemize}
 
-By convention, two different GUs having a Voronoi cell sharing a border, have a common edge tagged \code{'='} and represented with a plain line. The textual notation of such an edge is \code{'-=-'}. For example: \code{1 -=- 4} means that the nodes \code{1} and \code{4} have a common border.
+By convention, two contemporaneous GUs having a Voronoi cell sharing a border, have a common edge tagged \code{'='}. This proximity is represented with a plain line. The textual notation of such an edge is \code{'-=-'}. For example: \code{1 -=- 4} means that the nodes \code{1} and \code{4} have a common border.
 
 \begin{itemize}
   \item \emph{attribute} edges
 \end{itemize}
 
-It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a character) and one or various \emph{attribute units} (eg, a helmet, male sex). Broadly speaking, for further statistical analysis, it is better to use this \emph{attribute} method than to multiply the categories of GUs. To record this information, a new type of edge, tagged with \code{'+'}, is be introduced. This type of edges is directed and, by convention, displayed with a dashed line. Its starts from the \emph{main unit} and ends with the \emph{attribute units}. The textual notation of such an edge is \code{'-+-'}. For example \code{4 -+- 6} means that the main node \code{4} has the attribute node \code{6}.
+It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a character) and one or various \emph{attribute units} (eg, a helmet, male sex). Broadly speaking, for further statistical analysis, it is better to use this \emph{attribute} method than to multiply the categories of GUs. To record this information, a new type of edge, tagged with \code{'+'}, is be introduced. This type of edges is directed and, by convention, displayed with a dashed line. Its starts from the \emph{main unit} and ends with the \emph{attribute unit}. The textual notation of such an edge is \code{'-+-'}. For example \code{4 -+- 6} means that the main node \code{4} has the attribute node \code{6}.
 
 \begin{figure}[H] 
 \centering
@@ -166,6 +166,26 @@ Finally, it is quite common that a graphical composition shows superimpositions 
 \includegraphics[scale=0.1]{gis_2}
 \caption{\label{fig:gis1} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
 \end{figure}
+
+
+
+\begin{table}[H]
+% \begin{center}
+  \centering
+ \begin{tabular}{|p{.5cm} p{.5cm} p{.5cm} p{2cm} p{2cm} p{5cm}|}
+ \hline
+  % node A & type of edge & node B & undirected & birel & stratigraphical meaning \\
+ node 1 & edge type & node 2 & (un)directed & \emph{birel} & description \\
+ \hline
+  \code{A} & \code{=} & \code{B} & undirected & $ A \cap B = \emptyset $ & \code{A} and \code{B} are disjoint, \code{A} and \code{B} can be contemporaneous \\
+  \code{A} & \code{+} & \code{B} & directed & $ A \cap B = A $ & \code{A} and \code{B} are contemporaneous, \code{B} is an attribute of \code{A} \\
+  \code{A} & \code{>} & \code{B} & directed & $ A \cap B = \exists $ & \code{A} overlaps \code{B}, \code{A} can be more recent than \code{B} \\
+ % \code{1} & = & 2 & undirected & A \cap B = \varnothing & 1 and 2 can be contemporaneous \\
+ \hline
+\end{tabular}
+\caption{Synthesis for the different types of relations between GUs}\label{tab1}
+% \end{center}
+\end{table}
 
 \section{The R package decorr} \label{sec:models}
 
@@ -302,9 +322,9 @@ Once these three dataframes loaded, the list of decoration graphs can be calcula
 
 \subsection{\code{list\_dec()} function} \label{sec:funlistdec}
 
-The \code{list\_dec()} function allows to calculate graphs for all decorations stored into \code{nodes}, \code{edges} and \code{images}. The result is a list of decoration graph. The first graph of can be plotted
+The \code{list\_dec()} function allows to calculate graphs for all decorations stored into \code{nodes}, \code{edges} and \code{images}. The result is a list of decoration graph. The first graph of the list can be plotted
 
-<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=2.5, fig.height=2.5, fig.cap="\\label{fig:figs}Plot of the first graph of the list">>=
+<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=4, fig.height=4, fig.cap="\\label{fig:figs}Plot of the first graph of the list">>=
 # par(mar=c(0.1,0.1,0.1,0.1))
 # library("decorr")
 # library("magick")
@@ -354,7 +374,7 @@ Functions allowing to create a RNG for a single decoration are:
 
 The \code{read_nds()} function is close to the \proglang{R} native \code{read.table()} function, but allows to read \emph{shapefiles} of nodes.
 
-The \code{read_eds()} permits to read a \emph{shapefiles} of edges or to retrieve the coordinates of the the edges from the \code{nodes} dataframe. For example, the first \emph{Torrejon Rubio 1} edge, between the nodes \code{6} and \code{5}, has the starting point (xa = 366.7001, ya = -563.1358) and the ending point (xb = 490.1195, yb = -513.2428)
+The \code{read_eds()} permits to read a \emph{shapefiles} of edges or to retrieve the coordinates of the the edges from the \code{nodes} dataframe. For example, the first \emph{Torrejon Rubio 1} edge, between the nodes \code{6} and \code{5}, has the starting point (\code{xa} = 366.7001, \code{ya} = -563.1358) and the ending point (\code{xb} = 490.1195, \code{yb} = -513.2428)
 
 <<results='asis', echo=TRUE>>=
 # library(decorr)
@@ -373,7 +393,7 @@ print(xtable::xtable(eds.df[1,],
 
 \begin{itemize}
 \setlength\itemsep{.1em}
-  \item \code{plot_dec_grph ()} allows to plot a RNG over a decoration image
+  \item \code{plot_dec_grph()} allows to plot a RNG over a decoration image
 \end{itemize}
 
 Once, the \code{imgs}, \code{nodes} and \code{edges} dataframes have been read, the decoration graph is build and can be plotted, here for the \emph{Torrejon Rubio 1} decoration. The \code{lbl.txt} parameter allows to decide which field of the nodes will be displayed as the label, by default this is the \code{nodes$id} field, but here it is the \code{nodes$type} field.
@@ -392,7 +412,7 @@ img.graph <- plot_dec_grph(nds.df = nds.df,
                            decor = dec,
                            doss = system.file("extdata", package = "decorr"),
                            lbl.txt = "type",
-                           lbl.size=1.7,
+                           lbl.size=2,
                            shw = c("nodes","edges"))
 plot(image_trim(img.graph))
 @
@@ -406,7 +426,7 @@ Functions allowing to compare different decorations with RNG are
   \item \code{list_nds_compar()} and \code{list_eds_compar()} functions allow to compare respectively the common nodes and the common edges between two decorations
 \end{itemize}
 
-Comparisons between pairwise of decorations are first stored into a list. These comparisons are performed for nodes and/or edges. There are four (4) decorations in the default dataset, so there is $\frac{4!}{(4-2)!2!}={6}$ pairwise comparisons
+Comparisons between pairwise of decorations are first stored into a list. These comparisons are performed for nodes and/or edges. There are five (5) decorations in the default dataset, so there is $\frac{5!}{(5-2)!2!}={10}$ pairwise comparisons
 
 <<results='asis', echo=TRUE>>=
 # set wd to data folder
@@ -418,15 +438,23 @@ df.edges.compar <- data.frame(decor.A=c(g.compar[[1]][[1]]$decor,
                                        g.compar[[3]][[1]]$decor,
                                        g.compar[[4]][[1]]$decor,
                                        g.compar[[5]][[1]]$decor,
-                                       g.compar[[6]][[1]]$decor),
+                                       g.compar[[6]][[1]]$decor,
+                                       g.compar[[7]][[1]]$decor,
+                                       g.compar[[8]][[1]]$decor,
+                                       g.compar[[9]][[1]]$decor,
+                                       g.compar[[10]][[1]]$decor),
                               decor.B=c(g.compar[[1]][[2]]$decor,
                                        g.compar[[2]][[2]]$decor,
                                        g.compar[[3]][[2]]$decor,
                                        g.compar[[4]][[2]]$decor,
                                        g.compar[[5]][[2]]$decor,
-                                       g.compar[[6]][[2]]$decor))
+                                       g.compar[[6]][[2]]$decor,
+                                       g.compar[[7]][[2]]$decor,
+                                       g.compar[[8]][[2]]$decor,
+                                       g.compar[[9]][[2]]$decor,
+                                       g.compar[[10]][[2]]$decor))
 print(xtable::xtable(df.edges.compar,
-                     caption="Pairwise comparisons dataframe between decor.A and decor.B",
+                     caption="Pairwise comparisons dataframe between decor A and decor B",
                      label="Test_table_1",
                      size=7),
       table.placement="H")
@@ -437,7 +465,7 @@ print(xtable::xtable(df.edges.compar,
   \item \code{plot_nds_compar()} and \code{plot_eds_compar()} functions allow to plot and save two figures side-by-side for a decorations pairwise with, respectively, common nodes and common edges identified
 \end{itemize}
 
-The \code{plot_nds_compar()}and \code{plot_eds_compar()} functions create a \code{.png} image of two decorations plotted side-by-side with common nodes or edges identified. Functions returns also the name of the image. The common edges or nodes are displayed in red by default.
+The \code{plot_nds_compar()}and \code{plot_eds_compar()} functions create a \code{.png} image of two or more decorations plotted side-by-side with common nodes or edges identified and returns the names of the images. The common edges or nodes are displayed in red by default.
 Let us choose the decorations \code{1} (\emph{Cerro Muriano 1}) and \code{4} (\emph{Zarza de Montsanchez}) and identify common edges.
 
 <<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.height=8, fig.cap="\\label{fig:figs}comparisons between 1 (Cerro Muriano 1) and 4 (Zarza de Montsanchez) decorations">>=
@@ -548,23 +576,7 @@ The background is considered as homogeneous but a crack, a pit, a something can 
 The plasticity of Graph Theory allows to develop conventions in order to quote the different types of relations s.
 Its geographical equivalent is a Thiessen polygon
 
-\begin{table}[H]
-% \begin{center}
-  \centering
- \begin{tabular}{|p{.5cm} p{.5cm} p{.5cm} p{2cm} p{2cm} p{5cm}|}
- \hline
-  % node A & type of edge & node B & undirected & birel & stratigraphical meaning \\
- node 1 & edge type & node 2 & (un)directed & \emph{birel} & description \\
- \hline
-  \code{A} & \code{=} & \code{B} & undirected & $ A \cap B = \emptyset $ & \code{A} and \code{B} are disjoint, \code{A} and \code{B} can be contemporaneous \\
-  \code{A} & \code{+} & \code{B} & directed & $ A \cap B = A $ & \code{A} and \code{B} are contemporaneous, \code{B} is an attribute of \code{A} \\
-  \code{A} & \code{>} & \code{B} & directed & $ A \cap B = \exists $ & \code{A} overlaps \code{B}, \code{A} can be more recent than \code{B} \\
- % \code{1} & = & 2 & undirected & A \cap B = \varnothing & 1 and 2 can be contemporaneous \\
- \hline
-\end{tabular}
-\caption{Synthesis for the different types of relations between GUs}\label{tab1}
-% \end{center}
-\end{table}
+
 
 
 \section*{Acknowledgments}
