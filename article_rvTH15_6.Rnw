@@ -15,7 +15,7 @@
 %% new custom commands
 \newcommand{\class}[1]{`\code{#1}'}
 \newcommand{\fct}[1]{\code{#1()}}
-
+% \setlist[itemize]{noitemsep, topsep=0pt}
 <<preliminaries, echo=FALSE, include=FALSE, cache=FALSE >>=
 # options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
 library("MASS")
@@ -52,8 +52,8 @@ loadfonts(device = "win")
   We present the \pkg{decorr} \proglang{R} package which grounds concepts, methods and tools to analyse any ancient graphical systems. Our asumption is that i) any graphical system is a spatial distribution of features, and ii) these features have possibly any meaningful relationships one with another depending on their pairwise spatial proximities. To model the graphical compositions we employ concepts coming from the Graph Theory. To ensure the feasability of this type of analysis, we propose a GIS-based method for inputs and a serie of functions for data management.   
 }
 
-\Keywords{Iconography, Prehistory, Graph Theory, Graph Drawing, Spatial Analysis, \proglang{R}}
-\Plainkeywords{Iconography, Prehistory, Graph Theory, Graph Drawing, Spatial Analysis, R}
+\Keywords{Semiotics, Iconography, Prehistory, Graphs, Spatial Analysis, Binary Topological Relationships (\emph{birel}), \proglang{R}}
+\Plainkeywords{Semiotics, Iconography, Prehistory, Graphs, Spatial Analysis, Binary Topological Relationships (birel), R}
 
 \Address{
   Thomas Huet\\
@@ -77,8 +77,8 @@ Symbolic practices is a characteristic trait of human societies. Even discussed,
 
 Semantics or semiotics can be defined as a system of conventional features -- called signs -- organised also in conventional manners. Until our days, formal methods to study ancient iconography semantics have been mostlty been grounded  -- explicitly or not -- on the prime principle of Saussurian linguistic: the '\emph{linearity of the signifier}' \citep{Saussure89}.  
 Writing is one of the most rational semiographical system with a clear distinction between signified and signifier and the development of the signified on a linear axis. Even if we do not understand the meaning of the signs, writing can easily be modelled with Graph theory and recurent patterns can be identified. For example, the 3-letters word "\code{art}" can be modelled with three vertices (\code{a}, \code{r}, \code{t}) and two edges (one between \code{a} and \code{r}, the other between \code{r} and \code{t}). In \proglang{R}, these features, concatenated in this order with a \code{paste0()}, is \code{art}, and not \code{rat}.
-
-<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=10, fig.height=3, fig.cap="\\label{fig:figs}Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
+\smallbreak
+<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=10, fig.height=5, fig.cap="\\label{fig:figs}Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
 # par(mar=c(0,0,0,0))
 g <- graph_from_literal(a-+r, r-+t)
 plot(g,
@@ -120,22 +120,26 @@ Because of the inherent variability of iconography, and because graphical and sp
 These issues limit drastically the possibility to conduct cross-cultural comparisons and to draw a synthesis of humankind's symbolism at a large scale and over the long-term.  
 \\
 \\
-In this article we present the \proglang{R} package \pkg{decorr}. Its purpose is to formalise a method based on relative neighborhood graphs (RNG) to analyse any graphical content (here: decorations). As any formal system, iconography can be modelled as spatial features related one with the other depending on rules of spatial proximities; as state by the First Law of Geography: "\emph{everything is related to everything else, but near things are more related than distant things}" \citep{Tobler70}. And, because any graphical system is composed by features (mostly shapes) displayed spatialy, these systems can be represented by features connected (or not) to each other depending on their spatial proximity. To map and analyse these proximities, the model uses concepts and methods coming from Graph Theory. This package has been grounded on the seminal work of \citet{Alexander08} and its first IT implementation by \citet{Huet18a}. 
+In this article we present the \proglang{R} package \pkg{decorr}. Its purpose is to formalise a method based on relative neighborhood graphs (RNG) to analyse any graphical content (here: decorations). As any formal system, iconography can be modelled as spatial features related one with the other depending on rules of spatial proximities; as state by the First Law of Geography: "\emph{everything is related to everything else, but near things are more related than distant things}" \citep{Tobler70}. And, because any graphical system is composed by features (mostly shapes) displayed spatialy, these systems can be represented by features connected (or not) to each other depending on their spatial proximity. To map and analyse these proximities, the model uses concepts and methods coming from Graph Theory, GIS and binary topological relationships (\emph{birel}) modeling. This package has been grounded on the seminal work of \citet{Alexander08} and its first IT implementation by \citet{Huet18a}. 
 
 \section[Model]{Graph theory Model} \label{sec:model}
 
-Graph theory offers a conceptual framework and indices (global at the entire graph scale, local at the vertex scale) to deal with notions of networks, relationships and neighbourhoods. Graphical units (GUs) can be modelled as vertices (nodes) separated one with another by undecorated areas. Their spatial relations can be modelled as edges. The different levels of GUs spatial organisation can be retrieve by a relative neighborhood graphs analysis (Graph Theory) and a spatial (GIS) analysis.
+Graph theory offers a conceptual framework and indices (global at the entire graph scale, local at the vertex scale) to deal with notions of networks, relationships and neighbourhoods. Graphical units (GUs) can be modelled as vertices (nodes) separated one with another by undecorated areas. Their spatial relations can be modelled as edges. The different levels of GUs spatial organisation can be retrieve by a relative neighborhood graphs analysis (Graph Theory) and a spatial (GIS) analysis.\\
+% \smallbreak
+Nodes and edges -- repectively GUs and connexions between GUs -- are created on a GIS interface. Indeed, for large series of decorated supports, GIS offers the most suitable and flexible interface to register all GUs and to get their coordinates. The decoration image is considerated as the basemap of the project and will cover the region of interest of the analysis (ie, all the graphical content). The decoration image can be binarized: GUs are considerated active, the undecorated parts of the support -- the background -- are considerated inactive. The polygonisation of the GUs (\code{POLYGONS}), including the border of the stelae, allows to calculated their Voronoi seeds (ie, their centroid) and Voronoi cells (ie, their area of influence). So, the entire decoration image is tiled and condidered as a Voronoi diagram. Centroids of the GUs (\code{POINTS}) are calculated and considered as the graph nodes, their locations (\emph{x} and \emph{y} coordinates, measured in pixels) are relative to each decoration. Exist edges (\code{LINES}) between pairs of GUs when their Voronoi cells share a common border (\emph{birel}: 'touches').\\
+The entire graphical content of the decoration is mapped with a neighborhood graphs (RNG) -- ie geometric graph, or planar graph -- of GUs centroids (nodes) and GUs proximity links (edges). So a decoration graph is a one component graph which is the dual graph of the Voronoi diagram (Fig. \ref{fig:gis}).
 
-Nodes and edges -- repectively GUs and connexions between GUs -- are created on a GIS interface. Indeed, for large series of decorated supports, GIS offers the most suitable and flexible interface to register all GUs and to get their coordinates. These \emph{x} and \emph{y} coordinates, measured in pixels, are relative to the decoration figure which is open in the first place in a new GIS project without any projection system. The decoration image is considerated as the basemap of the project and will cover the region of interest of the analysis. The decoration image can be binarized: GUs are considerated active, the undecorated parts of the support -- the background -- are considerated inactive. The entire decoration image is tiled into different GUs' area of influence like a Voronoi diagram of the support where the Voronoi seeds are the GUs. Exist a link between a pair of GUs when their area of influence share a common border. A neighborhood graphs (RNG) -- also called a geometric graph, or a planar graph -- is constructed from GUs (nodes) and their proximity links (edges). The graph itself is as a subgraph of a Delaunay triangulation. The entire graphical content of the decoration is mapped with the RNG, so a decoration graph is a one component graph.
-
-
+% \begin{figure}
 \begin{figure}[H]
 \centering
 \includegraphics{gis}
-\caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age \emp{Cerro Muriano 1} stele (drawing: \cite{DiazGuardamino10}) with its extent (\code{xmin, xmax, ymin, ymax}); B) After the polygonisation of the GUs (\code{POLYGONS}), including the border of the stelae, the Voronoi cells, the centroid of GUs and the links between GUs having adjacent cells (ie, sharing a border) are calculated; C) For each GUs, \emph{x} and \emph{y} are calculated; D) At least one variable, like the \code{type} of the GUs (for example 'anthropomorph', 'horned helmet') is defined in order to compute composition analysis. A simplier solution will be to create directly centroids (\code{POINTS}) on the GUs and to draw the edges manually}
+\caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age \emp{Cerro Muriano 1} stelae (drawing: \cite{DiazGuardamino10}) opened in new GIS project without any projection system with its extent (\code{xmin, xmax, ymin, ymax} in pixels); B) Polygonsiation of the GUs, calculation of their centroids (nodes), calculation of the Voronoi cells, calculation of the proximity links (edges); C) plot of the relative \emph{x} and \emph{y} coordinates of the GUs centroids; D) plot of the values in the \code{type} of the GUs}
 \end{figure}
 
-This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic variables of GUs (\code{type}, \code{technologie}, \code{color}, \code{size}, etc.) and the types of relations they share. Here, we will only consider one property for the nodes, its \code{type}, and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.
+Whether this theoritical process include image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.
+\smallbreak
+
+This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic variables of GUs (\code{type}, \code{technologie}, \code{color}, \code{size}, etc.) and the types of relations they share. At least one variable, like the \code{type} of the GUs ('anthropomorph', 'horned helmet', etc.), is defined in order to compute composition analysis. Here, we will only consider one property for the nodes, its \code{type}, and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.
 
 \begin{itemize}
   \item \emph{normal} edges
@@ -147,11 +151,11 @@ By convention, two contemporaneous GUs having a Voronoi cell sharing a border, h
   \item \emph{attribute} edges
 \end{itemize}
 
-It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a character) and one or various \emph{attribute units} (eg, a helmet, male sex). Broadly speaking, for further statistical analysis, it is better to use this \emph{attribute} method than to multiply the categories of GUs. To record this information, a new type of edge, tagged with \code{'+'}, is be introduced. This type of edges is directed and, by convention, displayed with a dashed line. Its starts from the \emph{main unit} and ends with the \emph{attribute unit}. The textual notation of such an edge is \code{'-+-'}. For example \code{4 -+- 6} means that the main node \code{4} has the attribute node \code{6}.
+It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a character) and one or various \emph{attribute units} (eg, a helmet, male sex). Broadly speaking, for further statistical analysis, it is better to use this \emph{attribute} method than to multiply the categories of GUs. To record this information, a new type of edge, tagged with \code{'+'}, is be introduced. This type of edges is directed and, by convention, displayed with a dashed line. Its starts from the \emph{main unit} and ends with the \emph{attribute unit}. The textual notation of such an edge is \code{'-+-'}. For example \code{4 -+- 6} means that the main node \code{4} has the attribute node \code{6} (Fig. \ref{fig:gis_1}).
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.1]{gis_1}
+\includegraphics[scale=0.05]{gis_1}
 \caption{\label{fig:gis1} GIS interface, Cerro Muriano 1 decoration. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (anthropomorph).}
 \end{figure}
 
@@ -159,15 +163,16 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
   \item \emph{overlapping} edges
 \end{itemize}
 
-Finally, it is quite common that a graphical composition shows superimpositions between different UGs permit to distinguish different decoration phases for a single support. So, at first, the analyse must be performed on each different phases of decoration separately. This stratigraphical information (\code{A} \emph{over} \code{B}, or \code{B} \emph{under} \code{A}) helps to understand the relative chronology between GUs and must be recorded. A simple way to achieve this is to introduce the new tag \code{'>'} for the for the type of edge. This type of edges is directed. The textual notation of such an edge is \code{'->-'}. For example \code{A ->- B} means that \code{A} crosses \code{B} (ie, \code{A} overlaps \code{B} in the stratigraphical sense).
+Finally, it is quite common that a graphical composition shows superimpositions between different UGs permit to distinguish different decoration phases for a single support. So, at first, the analyse must be performed on each different phases of decoration separately. This stratigraphical information (\code{A} \emph{over} \code{B}, or \code{B} \emph{under} \code{A}) helps to understand the relative chronology between GUs and must be recorded. A simple way to achieve this is to introduce the new tag \code{'>'} for the for the type of edge. This type of edges is directed. The textual notation of such an edge is \code{'->-'}. For example \code{A ->- B} means that \code{A} crosses \code{B} (ie, \code{A} overlaps \code{B} in the stratigraphical sense) (Fig. \ref{fig:gis_2}).
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.1]{gis_2}
+\includegraphics[scale=0.05]{gis_2}
 \caption{\label{fig:gis1} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
 \end{figure}
 
 
+These different kind of relationships are resumed with their birel equivalencies in the following table (Tab. \ref{table:tedges})
 
 \begin{table}[H]
 % \begin{center}
@@ -175,16 +180,17 @@ Finally, it is quite common that a graphical composition shows superimpositions 
  \begin{tabular}{|p{.5cm} p{.5cm} p{.5cm} p{2cm} p{2cm} p{5cm}|}
  \hline
   % node A & type of edge & node B & undirected & birel & stratigraphical meaning \\
- node 1 & edge type & node 2 & (un)directed & \emph{birel} & description \\
+ GU.1 & edge type & GU.2 & (un)directed & \emph{birel} & description \\
  \hline
-  \code{A} & \code{=} & \code{B} & undirected & $ A \cap B = \emptyset $ & \code{A} and \code{B} are disjoint, \code{A} and \code{B} can be contemporaneous \\
+  \code{A} & \code{=} & \code{B} & undirected & $ A \cap B = \emptyset $ & \code{A} and \code{B} are disjoint \code{A} and \code{B} contemporaneous \\
   \code{A} & \code{+} & \code{B} & directed & $ A \cap B = A $ & \code{A} and \code{B} are contemporaneous, \code{B} is an attribute of \code{A} \\
-  \code{A} & \code{>} & \code{B} & directed & $ A \cap B = \exists $ & \code{A} overlaps \code{B}, \code{A} can be more recent than \code{B} \\
+  \code{A} & \code{>} & \code{B} & directed & $ A \cap B = \exists $ & \code{A} overlaps \code{B}, \code{A} is more recent than \code{B} \\
  % \code{1} & = & 2 & undirected & A \cap B = \varnothing & 1 and 2 can be contemporaneous \\
  \hline
 \end{tabular}
 \caption{Synthesis for the different types of relations between GUs}\label{tab1}
 % \end{center}
+\label{table:tedges}
 \end{table}
 
 \section{The R package decorr} \label{sec:models}
@@ -223,7 +229,7 @@ A training dataset (nodes and edges coordinates, decoration images) is stored in
 \item The \code{imgs} dataframe
 \end{itemize}
 
-The dataframe storing the inventory of decorations is \code{imgs}. The field \code{imgs$idf} is the short name of the decoration, useful during statistical analysis. The primary key of each decoration is the concatenate of \code{imgs$site} and \code{imgs$decor}. These keys will allow joints with the other dataframes (\code{nodes} and \code{edges})\\
+The inventory of decorations is stored in the \code{imgs} dataframe. The field \code{imgs$idf} is the short name of the decoration, useful during statistical analysis. The primary key of each decoration is the concatenate of \code{imgs$site} and \code{imgs$decor}. These keys will allow joints with the other dataframes (\code{nodes} and \code{edges})\\
 %
 <<results='asis', echo=FALSE, warning=FALSE>>=
 # library("decorr")
@@ -246,9 +252,10 @@ print(xtable::xtable(imgs,
       include.rownames=FALSE)
 @
 %
-The \pkg{decorr} package training dataset is composed by five stelaes decorations drawings \citep{DiazGuardamino10} belonging to the so-called 'Warrior stelae' family -- with about 140 stelae -- dated to the Late Bronze Age of SW Iberian peninsula \citep{Celestino01}. At first the drawings dataset can be checked by using the \code{imgs} dataframe and the \pkg{magick} package.
+The \pkg{decorr} package training dataset is composed by five stelaes decorations drawings \citep{DiazGuardamino10} belonging to the so-called 'Warrior stelae' family -- with about 140 stelae -- dated to the Late Bronze Age of SW Iberian peninsula \citep{Celestino01}. \\
+At first the drawings dataset can be checked by using the \code{imgs} dataframe and the \pkg{magick} package (Fig. \ref{fig:timg})
 %
-<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=13, fig.height=13, fig.cap="\\label{fig:figs}Decoration images of the training dataset">>=
+<<timg, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=18, fig.height=13, fig.cap="\\label{fig:figs}Decoration images of the training dataset">>=
 # library("magick")
 pth <- system.file("extdata", package = "decorr")
 imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
@@ -265,9 +272,8 @@ for(i in 1:nrow(imgs)){
                        size = 25, color = "red")
   lims[[length(lims)+1]]<- i1
 }
-out.img <- image_append(c(image_append(c(lims[[1]],lims[[2]])),
-                          image_append(c(lims[[3]],lims[[4]])),
-                          image_append(lims[[5]])),
+out.img <- image_append(c(image_append(c(lims[[1]],lims[[2]],lims[[3]])),
+                          image_append(c(lims[[4]],lims[[5]]))),
                         stack = TRUE)
 plot(out.img)
 @
@@ -285,24 +291,24 @@ edges <- read.table(system.file("extdata", "edges.csv", package = "decorr"),
 \item The \code{nodes} dataframe
 \end{itemize}
 
-It contains the required minimum variables for the analysis.
+It contains the required minimum variables for the analysis (Fig. \ref{fig:tnds}).
 
-<<results='asis', echo=TRUE>>=
+<<tnds, results='asis', echo=TRUE>>=
 caption <- "Nodes (from \\code{nodes.csv} dataframe)}"
 print(xtable::xtable(head(nodes),
                      caption = caption),
       table.placement="H")
 @
 
-The primary key of the decoration is based on two fields: \code{nodes$site} and \code{nodes$decor}. The site is the current unit of analysis in Prehistory and Archaeology, but since a site can have various decorated objects, a primary key on two fields is necessary. The \code{nodes$id} is the identifier of the node. The \code{nodes$type} field is the default variable for further statistical analysis. Here, \code{nodes$type} refers to the typology of the GUs (anthropomorph, weapons, etc.). The \code{nodes$x} and \code{nodes$y} columns refer to the \emph{x} and \emph{}y coordinates of the nodes. As said, in the first place theses coordinates come from the GIS. But, in a GIS, the coordinates origin (0, 0) is the bottom-left corner and exist negative values, while this origin is top-left for any \proglang{R} matrices (rasters, grids, dataframes, etc.) with only positive values. To recover the correct the \emph{y} value of GUs nodes and edges, that is to say the \emph{y} value on the decoration image, the \pkg{decorr} calculate the absolute \emph{y} value and used the image height as a constant offset.
+Since a prehistorical site can have various decorated objects, the primary key of the decoration is based on two fields: \code{nodes$site} and \code{nodes$decor}. The \code{nodes$id} is the identifier of the node. The \code{nodes$type} field is the default variable for further statistical analysis. Here, \code{nodes$type} refers to the typology of the GUs (anthropomorph, weapons, etc.). The \code{nodes$x} and \code{nodes$y} columns refer to the \emph{x} and \emph{}y coordinates of the nodes. As said, in the first place theses coordinates come from the GIS. But, in a GIS, the coordinates origin (0, 0) is the bottom-left corner and exist negative values, while this origin is top-left for any \proglang{R} matrices (rasters, grids, dataframes, etc.) with only positive values. To recover the local \emph{y} value of GUs nodes and edges on the decoration image, the absolute value \emph{y} value and the image height, as a constant offset, are computed.
 
 \begin{itemize}
 \item The \code{edges} dataframe
 \end{itemize}
 
-The \code{edges} dataframe is quite similar to the \code{nodes} dataframe.
+The \code{edges} dataframe is quite similar to the \code{nodes} dataframe (Fig. \ref{fig:teds}).
 
-<<edgesdf, results='asis', echo=TRUE>>=
+<<teds, results='asis', echo=TRUE>>=
 caption <- "Edges (from \\code{edges.csv} dataframe)}"
 print(xtable::xtable(head(edges),
                caption=caption,
@@ -310,29 +316,29 @@ print(xtable::xtable(head(edges),
       table.placement="H")
 @
 
-Fields \code{edges$site} and \code{edges$decor} are the primary key of decoration. The fields \code{edges$a} and \code{edges$b} are the equivalent to columns \emph{from} and \emph{to} in Graph theory. Even if undirected graphs will the most common models in further studies, this direction helps to distinguish between nodes. The first column \code{edges$a} is the identifier of starting node or \emph{main node} or \emph{overlapping node}. The second column \code{edges$b} is the identifier of the ending node or \emph{attribue node} or \emph{overlapped node}. The \code{edges$type} is the type of relation (normal, attribute, overlapping, etc.) between the starting node and the ending node. There is no need to get the coordinates of the edges, these coordinates are calculated from the \code{nodes} dataframe. For example, Table \ref{edgesdf} shows that the first edge of the \emph{Cerro Muriano 1} decoration connects the nodes \code{1} and \code{8} (respectively in column \code{edges$a} and \code{edges$b}). A way to retrieve these connected nodes' coordinates will be:
+Fields \code{edges$site} and \code{edges$decor} are the primary key of decoration. The fields \code{edges$a} and \code{edges$b} are the equivalent to columns \emph{from} and \emph{to} in Graph theory. Even if undirected graphs will the most common models in further studies, this direction helps to distinguish between nodes. The first column \code{edges$a} is the identifier of starting node or \emph{main node} or \emph{overlapping node}. The second column, \code{edges$b}, is the identifier of the ending node or \emph{attribue node} or \emph{overlapped node}. The \code{edges$type} is the type of relation (normal, attribute, overlapping, etc.) between the starting node and the ending node. There is no need to record the coordinates of the edges, these coordinates are calculated from the \code{nodes} dataframe. For example, Table \ref{teds} shows that the Cerro Muriano 1 decoration's first edge connects the nodes \code{1} and \code{8} (respectively in column \code{edges$a} and \code{edges$b}). A way to retrieve these connected nodes' coordinates will be:
 
 <<results='asis', echo=TRUE>>=
 cm.1 <- subset(nodes, decor == "Cerro Muriano 1" & id == 1)[,c("x","y")]
 cm.8 <- subset(nodes, decor == "Cerro Muriano 1" & id == 8)[,c("x","y")]
-cat(as.numeric(cm.1),";",as.numeric(cm.8))
+paste(as.numeric(cm.1),";",as.numeric(cm.8))
 @
 
-Once these three dataframes loaded, the list of decoration graphs can be calculated with the \code{list_dec()} function.
+Once these dataframes loaded, the list of decoration graphs can be calculated with the \code{list_dec()} function.
 
 \subsection{\code{list\_dec()} function} \label{sec:funlistdec}
 
-The \code{list\_dec()} function allows to calculate graphs for all decorations stored into \code{nodes}, \code{edges} and \code{images}. The result is a list of decoration graph. The first graph of the list can be plotted
+The \code{list\_dec()} function allows to calculate graphs for all decorations stored into \code{nodes}, \code{edges} and \code{images}. The result is a list of decoration graph. The first graph of the list can be plotted (Fig. \ref{fig:igraph})
 
-<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=4, fig.height=4, fig.cap="\\label{fig:figs}Plot of the first graph of the list">>=
+<<igraph, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=4, fig.height=4, fig.cap="\\label{fig:figs}R interface. Plot of the first graph of the list">>=
 # par(mar=c(0.1,0.1,0.1,0.1))
 # library("decorr")
 # library("magick")
 # imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
 #                       sep="\t", stringsAsFactors = FALSE)
-# nodes <- read.table(system.file("extdata", "nodes.csv", package = "decorr"),
+# nodes <- read.table(system.file("extdata", "nodes.tsv", package = "decorr"),
 #                     sep="\t",stringsAsFactors = FALSE)
-# edges <- read.table(system.file("extdata", "edges.csv", package = "decorr"),
+# edges <- read.table(system.file("extdata", "edges.tsv", package = "decorr"),
 #                     sep="\t",stringsAsFactors = FALSE)
 lgrph <- list_dec(imgs,nodes,edges,var="type")
 plot(lgrph[[1]],
@@ -372,33 +378,42 @@ Functions allowing to create a RNG for a single decoration are:
   \item \code{read_nds()} and \code{read_eds()} functions allow to read respectively a file of nodes and a file of edges (\code{.tsv} or \code{.shp} files)
 \end{itemize}
 
-The \code{read_nds()} function is close to the \proglang{R} native \code{read.table()} function, but allows to read \emph{shapefiles} of nodes.
+The \code{read_nds()} function is close to the \proglang{R} native \code{read.table()} function, but allows to read \emph{shapefiles} of nodes. For example, for the Torrejon Rubio 1 decoration, the 6th GUs is a sword (\code{epee}) (Table \ref{nd}).
 
-The \code{read_eds()} permits to read a \emph{shapefiles} of edges or to retrieve the coordinates of the the edges from the \code{nodes} dataframe. For example, the first \emph{Torrejon Rubio 1} edge, between the nodes \code{6} and \code{5}, has the starting point (\code{xa} = 366.7001, \code{ya} = -563.1358) and the ending point (\code{xb} = 490.1195, \code{yb} = -513.2428)
-
-<<results='asis', echo=TRUE>>=
+<<nd, results='asis', echo=TRUE, fig.cap="Sixth node of the Torrejon Rubio 1 decoration, the sword">>=
 # library(decorr)
 sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
-nds.df <- read_nds(site = sit, decor = dec, dev = ".tsv",
+nds.df <- read_nds(site = sit, decor = dec, dev = ".shp",
                    doss = system.file("extdata", package = "decorr"))
-eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
-                   doss = system.file("extdata", package = "decorr"))
-print(xtable::xtable(eds.df[1,],
-                     caption="first edge of the dataframe",
-                     label="Test_table_1",
+print(xtable::xtable(nds.df[6,],
+                     caption="Sixth node (GU 6) of the Torrejon Rubio 1 decoration",
+                     label="nd",
                      size=7),
       table.placement="H")
 @
-\end{figure}
+
+The \code{read_eds()} permits to read a \emph{shapefiles} of edges or to retrieve the coordinates of the the edges from the \code{nodes} dataframe (Table \ref{ed}).
+
+<<ed, results='asis', echo=TRUE, fig.cap="First edge of the Torrejon Rubio 1 decoration, the proximity between the sword (GU 6) and the fibula (GU 5)">>=
+# library(decorr)
+eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
+                   doss = system.file("extdata", package = "decorr"))
+print(xtable::xtable(eds.df[1,],
+                     caption="First edge of the Torrejon Rubio 1 decoration, the proximity between the sword (GU 6) and the fibula (GU 5)",
+                     label="eds.df",
+                     size=7),
+      table.placement="H")
+@
+% \end{figure}
 
 \begin{itemize}
 \setlength\itemsep{.1em}
   \item \code{plot_dec_grph()} allows to plot a RNG over a decoration image
 \end{itemize}
 
-Once, the \code{imgs}, \code{nodes} and \code{edges} dataframes have been read, the decoration graph is build and can be plotted, here for the \emph{Torrejon Rubio 1} decoration. The \code{lbl.txt} parameter allows to decide which field of the nodes will be displayed as the label, by default this is the \code{nodes$id} field, but here it is the \code{nodes$type} field.
+Once, the \code{imgs}, \code{nodes} and \code{edges} dataframes have been read, the decoration graph is build and can be plotted. The \code{lbl.txt} parameter allows to decide which field of the nodes will be displayed as the label, by default this is the \code{nodes$id} field, but here it is the \code{nodes$type} field (Figure \ref{tr_st}).
 
-<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=3, fig.cap="\\label{fig:figs}Torrejon Rubio 1 decoration">>=
+<<tr_st, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=3, fig.cap="\\label{fig:figs}Torrejon Rubio 1 decoration">>=
 # library("decorr")
 par(mar=c(0,0,0,0))
 sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
@@ -428,37 +443,37 @@ Functions allowing to compare different decorations with RNG are
 
 Comparisons between pairwise of decorations are first stored into a list. These comparisons are performed for nodes and/or edges. There are five (5) decorations in the default dataset, so there is $\frac{5!}{(5-2)!2!}={10}$ pairwise comparisons
 
-<<results='asis', echo=TRUE>>=
-# set wd to data folder
-# setwd(system.file("extdata", package = "decorr"))
-# library("decorr")
-g.compar <- list_eds_compar(lgrph,"type")
-df.edges.compar <- data.frame(decor.A=c(g.compar[[1]][[1]]$decor,
-                                       g.compar[[2]][[1]]$decor,
-                                       g.compar[[3]][[1]]$decor,
-                                       g.compar[[4]][[1]]$decor,
-                                       g.compar[[5]][[1]]$decor,
-                                       g.compar[[6]][[1]]$decor,
-                                       g.compar[[7]][[1]]$decor,
-                                       g.compar[[8]][[1]]$decor,
-                                       g.compar[[9]][[1]]$decor,
-                                       g.compar[[10]][[1]]$decor),
-                              decor.B=c(g.compar[[1]][[2]]$decor,
-                                       g.compar[[2]][[2]]$decor,
-                                       g.compar[[3]][[2]]$decor,
-                                       g.compar[[4]][[2]]$decor,
-                                       g.compar[[5]][[2]]$decor,
-                                       g.compar[[6]][[2]]$decor,
-                                       g.compar[[7]][[2]]$decor,
-                                       g.compar[[8]][[2]]$decor,
-                                       g.compar[[9]][[2]]$decor,
-                                       g.compar[[10]][[2]]$decor))
-print(xtable::xtable(df.edges.compar,
-                     caption="Pairwise comparisons dataframe between decor A and decor B",
-                     label="Test_table_1",
-                     size=7),
-      table.placement="H")
-@
+% <<results='asis', echo=TRUE>>=
+% # set wd to data folder
+% # setwd(system.file("extdata", package = "decorr"))
+% # library("decorr")
+% g.compar <- list_eds_compar(lgrph,"type")
+% df.edges.compar <- data.frame(decor.A=c(g.compar[[1]][[1]]$decor,
+%                                        g.compar[[2]][[1]]$decor,
+%                                        g.compar[[3]][[1]]$decor,
+%                                        g.compar[[4]][[1]]$decor,
+%                                        g.compar[[5]][[1]]$decor,
+%                                        g.compar[[6]][[1]]$decor,
+%                                        g.compar[[7]][[1]]$decor,
+%                                        g.compar[[8]][[1]]$decor,
+%                                        g.compar[[9]][[1]]$decor,
+%                                        g.compar[[10]][[1]]$decor),
+%                               decor.B=c(g.compar[[1]][[2]]$decor,
+%                                        g.compar[[2]][[2]]$decor,
+%                                        g.compar[[3]][[2]]$decor,
+%                                        g.compar[[4]][[2]]$decor,
+%                                        g.compar[[5]][[2]]$decor,
+%                                        g.compar[[6]][[2]]$decor,
+%                                        g.compar[[7]][[2]]$decor,
+%                                        g.compar[[8]][[2]]$decor,
+%                                        g.compar[[9]][[2]]$decor,
+%                                        g.compar[[10]][[2]]$decor))
+% print(xtable::xtable(df.edges.compar,
+%                      caption="Pairwise comparisons dataframe between decor A and decor B",
+%                      label="Test_table_1",
+%                      size=7),
+%       table.placement="H")
+% @
 
 \begin{itemize}
 \setlength\itemsep{.1em}
@@ -466,16 +481,16 @@ print(xtable::xtable(df.edges.compar,
 \end{itemize}
 
 The \code{plot_nds_compar()}and \code{plot_eds_compar()} functions create a \code{.png} image of two or more decorations plotted side-by-side with common nodes or edges identified and returns the names of the images. The common edges or nodes are displayed in red by default.
-Let us choose the decorations \code{1} (\emph{Cerro Muriano 1}) and \code{4} (\emph{Zarza de Montsanchez}) and identify common edges.
+Let us choose the decorations \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Montsanchez) and identify common edges.
 
 <<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.height=8, fig.cap="\\label{fig:figs}comparisons between 1 (Cerro Muriano 1) and 4 (Zarza de Montsanchez) decorations">>=
 par(mar=c(0,0,0,0))
 eds_compar <- plot_eds_compar(g.compar, c(1,4),
                               doss = system.file("extdata", package = "decorr"))
-plot(image_trim(image_read(eds_compar)))
+plot(magick::image_trim(magick::image_read(eds_compar)))
 @
 
-The comparison shows that \code{1} (\emph{Cerro Muriano 1}) and \code{4} (\emph{Zarza de Montsanchez}) decorations have two (2) common edges: \code{lance -=- personnage} and \code{personnage -=- bouclier}.
+The comparison shows that \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Montsanchez) decorations have two (2) common edges: \code{lance -=- personnage} and \code{personnage -=- bouclier}.
 
 \begin{itemize}
 \setlength\itemsep{.1em}
