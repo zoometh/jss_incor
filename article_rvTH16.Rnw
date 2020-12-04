@@ -1,4 +1,4 @@
-\documentclass[article]{jss}\usepackage{knitr}
+\documentclass[article]{jss}
 
 %% -- LaTeX packages and custom commands ---------------------------------------
 
@@ -16,7 +16,19 @@
 \newcommand{\class}[1]{`\code{#1}'}
 \newcommand{\fct}[1]{\code{#1()}}
 % \setlist[itemize]{noitemsep, topsep=0pt}
-
+<<preliminaries, echo=FALSE, include=FALSE, cache=FALSE >>=
+# options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
+library("MASS")
+library("extrafont") #;library("ggplot")
+library("igraph")
+opts_chunk$set(prompt=TRUE, fig.pos = 'H', results='asis', highlight=FALSE)
+options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
+options(SweaveHooks=list(fig=function()par(mar=c(0, 0, 0, 0))))
+# options(replace.assign=TRUE, width=90, prompt="R> ")
+opts_knit$set(concordance=TRUE, self.contained=FALSE, background = "#FFFFFF")
+# knitr::opts_chunk$set(fig.pos = 'H')
+loadfonts(device = "win")
+@
 
 %% -- Article metainformation (author, title, ...) -----------------------------
 
@@ -54,7 +66,7 @@
   E-mail: \email{thomashuet7@gmail.com}\\
 %  URL: \url{https://eeecon.uibk.ac.at/~zeileis/}
 }
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
 \begin{document}
 % \SweaveOpts{concordance=TRUE}
 % \Sweave2knitr("article_rvTH14_1.Rnw")
@@ -67,29 +79,35 @@ Symbolic practices is a characteristic trait of human societies. Even discussed,
 Semantics or semiotics can be defined as a system of conventional features -- called signs -- organised also in conventional manners. Until our days, formal methods to study ancient iconography semantics have been mostlty been grounded  -- explicitly or not -- on the prime principle of Saussurian linguistic: the '\emph{linearity of the signifier}' \citep{Saussure89}.  
 Writing is one of the most rational semiographical system with a clear distinction between signified and signifier and the development of the signified on a linear axis. Even if we do not understand the meaning of the signs, writing can easily be modelled with Graph theory and recurent patterns can be identified. For example, the 3-letters word "\code{art}" can be modelled with three vertices (\code{a}, \code{r}, \code{t}) and two edges (one between \code{a} and \code{r}, the other between \code{r} and \code{t}). In \proglang{R}, these features, concatenated in this order with a \code{paste0()}, is \code{art}, and not \code{rat}.
 \smallbreak
-\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/a_r_t-1} 
-
-}
-
-\caption{\label{fig:figs}Concatenate of 'a', 'r' and 't' graphical units is 'art'}\label{fig:a_r_t}
-\end{figure}
-
-
+<<a_r_t, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=3, fig.cap="\\label{fig:figs}Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
+g <- graph_from_literal(a-+r, r-+t)
+plot(g,
+     layout = cbind(seq(-1,1,length.out = gorder(g)), 0),
+     vertex.color="white",
+     vertex.frame.color="white",
+     vertex.size=60,
+     vertex.label.cex=1.5,
+     vertex.label.color="black",
+     vertex.label.family="Courier New",
+     edge.arrow.size=.5)
+@
 
 But, as stated, in Prehistorical the writing system does not exists. Spatial relationships between graphical features, or graphical units, are not necessarly linear and directed but could most probably be more multi-directional and undirected: the direction of the interactions of pairwise graphical units can be in any order.
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-1-1} 
-
-}
-
-\caption{\label{fig:figs}Potential spatial relations between graphical units}\label{fig:unnamed-chunk-1}
-\end{figure}
-
-
+<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=2, fig.height=2, fig.cap="\\label{fig:figs}Potential spatial relations between graphical units">>=
+par(mar=c(0.1,0.1,0.1,0.1) )
+ugs <- data.frame(name=c("a","r","t"))
+lks <- data.frame(from=c("a", "r", "t"),to=c("r", "t", "a"),type=c("=","=","="))
+g <- igraph::graph_from_data_frame(lks, directed=FALSE, vertices= ugs)
+plot(g,
+     vertex.color="white",
+     vertex.frame.color="white",
+     vertex.size=80,
+     vertex.label.cex=1,
+     vertex.label.color="black",
+     vertex.label.family="Courier New"
+     )
+@
 
 Because of the inherent variability of iconography, and because graphical and spatial proximities between graphical units are generaly not quantified, applying the Saussurian model to any prehistorical graphical content had led to considerable problems:
 \begin{itemize}
@@ -118,12 +136,11 @@ The entire graphical content of the decoration is mapped with a neighborhood gra
 \caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age \emp{Cerro Muriano 1} stelae (drawing: \cite{DiazGuardamino10}) opened in new GIS project without any projection system with its extent (\code{xmin, xmax, ymin, ymax} in pixels); B) Polygonsiation of the GUs, calculation of their centroids (nodes), calculation of the Voronoi cells, calculation of the proximity links (edges); C) plot of the relative \emph{x} and \emph{y} coordinates of the GUs centroids; D) plot of the values in the \code{type} of the GUs}
 \end{figure}
 
-Whether this theoritical process include image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.
-\smallbreak
-This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic variables of GUs (\code{type}, \code{technologie}, \code{color}, \code{size}, etc.) and the types of relations they share. At least one variable, like the \code{type} of the GUs ('anthropomorph', 'horned helmet', etc.), is defined in order to compute composition analysis. Here, we will only consider one property for the nodes, its \code{type}, and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.
-\smallbreak
+Whether this theoritical process include image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.\\
+This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic variables of GUs (\code{type}, \code{technologie}, \code{color}, \code{size}, etc.) and the types of relations they share. At least one variable, like the \code{type} of the GUs ('anthropomorph', 'horned helmet', etc.), is defined in order to compute composition analysis. Here, we will only consider one property for the nodes, its \code{type}, and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.\\
+\\
 \textbf{\emph{normal}} edges
-\smallbreak
+\\
 % \begin{itemize}
 %   \item \emph{normal} edges
 % \end{itemize}
@@ -138,13 +155,13 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.025]{gis_1}
+\includegraphics[height=8cm]{gis_1}
 \caption{\label{fig:gis1} GIS interface, Cerro Muriano 1 decoration. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (anthropomorph).}
 \end{figure}
 
-\smallbreak
+\\
 \textbf{\emph{overlapping}} edges
-\smallbreak
+\\
 % \begin{itemize}
 %   \item \emph{overlapping} edges
 % \end{itemize}
@@ -153,8 +170,8 @@ Finally, it is quite common that a graphical composition shows superimpositions 
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.025]{gis_2}
-\caption{\label{fig:gis1} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
+\includegraphics[height=8cm]{gis_2}
+\caption{\label{fig:gis_2} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
 \end{figure}
 
 
@@ -181,7 +198,11 @@ These different kind of relationships are resumed with their birel equivalencies
 
 \section{The R package decorr} \label{sec:models}
 
-
+<<results='asis', include=FALSE, echo=FALSE, warning=FALSE>>=
+library("decorr")
+library("igraph")
+library("magick")
+@
 %
 The \pkg{decorr} package can be downloaded from GitHub
 %
@@ -213,73 +234,61 @@ A training dataset (nodes and edges coordinates, decoration images) is stored in
 
 The inventory of decorations is stored in the \code{imgs} dataframe. The field \code{imgs$idf} is the short name of the decoration, useful during statistical analysis. The primary key of each decoration is the concatenate of \code{imgs$site} and \code{imgs$decor}. These keys will allow joints with the other dataframes (\code{nodes} and \code{edges})\\
 %
-% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:06 2020
-\begin{table}[H]
-\centering
-\begin{tabular}{|p{0.5cm}|p{2.5cm}|p{2.5cm}|p{8.5cm}|}
-  \hline
-idf & site & decor & img \\ 
-  \hline
-  1 & Cerro Muriano & Cerro Muriano 1 & Cerro\_Muriano.Cerro\_Muriano\_1.jpg \\ 
-    2 & Torrejon Rubio & Torrejon Rubio 1 & Torrejon\_Rubio.Torrejon\_Rubio\_1.jpg \\ 
-    3 & Brozas & Brozas & Brozas.Brozas.jpg \\ 
-    4 & Zarza de Montanchez & Zarza De Montanchez & Zarza\_de\_Montanchez.Zarza\_De\_Montanchez.jpg \\ 
-    5 & Ibahernando & Ibahernando & Ibahernando.Ibahernando.jpg \\ 
-   \hline
-\end{tabular}
-\caption{The studied corpus, the \code{imgs.tsv} dataframe} 
-\label{Test_table}
-\end{table}
-
+<<results='asis', echo=FALSE, warning=FALSE>>=
+# library("decorr")
+# library("igraph")
+# library("magick")
+# # par(mar=c(0,0,0,0))
+imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
+                   sep="\t", stringsAsFactors = FALSE)
+print(xtable::xtable(imgs,
+                     caption="The studied corpus, the \\code{imgs.tsv} dataframe",
+                     label="Test_table",
+                     size=6,
+                     align=c(
+                       "|p{0.01cm}|",
+                       "|p{0.5cm}|",
+                       "p{2.5cm}|",
+                       "p{2.5cm}|",
+                       "p{8.5cm}|")),
+      table.placement="H",
+      include.rownames=FALSE)
+@
 %
 The \pkg{decorr} package training dataset is composed by five stelaes decorations drawings \citep{DiazGuardamino10} belonging to the so-called 'Warrior stelae' family -- with about 140 stelae -- dated to the Late Bronze Age of SW Iberian peninsula \citep{Celestino01}. \\
 At first the drawings dataset can be checked by using the \code{imgs} dataframe and the \pkg{magick} package (Fig. \ref{fig:timg})
 %
-\begin{kframe}
-\begin{verbatim}
-R> # library("magick")
-R> pth <- system.file("extdata", package = "decorr")
-R> imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
-+                     sep="\t", stringsAsFactors = FALSE)
-R> lims <- list()
-R> for(i in 1:nrow(imgs)){
-+    i1 <- image_read(paste0(pth,"\\",imgs[i,"img"]))
-+    lbl.txt <- paste0(imgs[i,"idf"],"\n",
-+                      imgs[i,"site"],"\n",
-+                      imgs[i,"decor"],"\n",
-+                      imgs[i,"img"],"\n",
-+                      image_info(i1)$width,"*",image_info(i1)$height," px")
-+    i1 <- image_annotate(i1,lbl.txt,location = "northwest",
-+                         size = 30, color = "red")
-+    lims[[length(lims)+1]]<- i1
-+  }
-R> out.img <- image_append(c(image_append(c(lims[[1]],lims[[2]],lims[[3]])),
-+                            image_append(c(lims[[4]],lims[[5]]))),
-+                          stack = TRUE)
-R> plot(out.img)
-\end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/timg-1} 
-
+<<timg, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=18, fig.height=13, fig.cap="\\label{fig:figs}Decoration images of the training dataset">>=
+# library("magick")
+pth <- system.file("extdata", package = "decorr")
+imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
+                   sep="\t", stringsAsFactors = FALSE)
+lims <- list()
+for(i in 1:nrow(imgs)){
+  i1 <- image_read(paste0(pth,"\\",imgs[i,"img"]))
+  lbl.txt <- paste0(imgs[i,"idf"],"\n",
+                    imgs[i,"site"],"\n",
+                    imgs[i,"decor"],"\n",
+                    imgs[i,"img"],"\n",
+                    image_info(i1)$width,"*",image_info(i1)$height," px")
+  i1 <- image_annotate(i1,lbl.txt,location = "northwest",
+                       size = 30, color = "red")
+  lims[[length(lims)+1]]<- i1
 }
-
-\caption{\label{fig:figs}Decoration images of the training dataset}\label{fig:timg}
-\end{figure}
-
-
+out.img <- image_append(c(image_append(c(lims[[1]],lims[[2]],lims[[3]])),
+                          image_append(c(lims[[4]],lims[[5]]))),
+                        stack = TRUE)
+plot(out.img)
+@
 %
 To construct a graph overlapping the decoration images listed in the \code{images} dataframe, the first step is to load \code{nodes} and \code{edges} dataframes.
 %
-\begin{kframe}
-\begin{verbatim}
-R> nodes <- read.table(system.file("extdata", "nodes.csv", package = "decorr"),
-+                      sep=";",stringsAsFactors = FALSE)
-R> edges <- read.table(system.file("extdata", "edges.csv", package = "decorr"),
-+                      sep=";",stringsAsFactors = FALSE)
-\end{verbatim}
-\end{kframe}
+<<echo=TRUE>>=
+nodes <- read.table(system.file("extdata", "nodes.csv", package = "decorr"),
+                    sep=";",stringsAsFactors = FALSE)
+edges <- read.table(system.file("extdata", "edges.csv", package = "decorr"),
+                    sep=";",stringsAsFactors = FALSE)
+@
 
 \begin{itemize}
 \item The \code{nodes} dataframe
@@ -287,32 +296,12 @@ R> edges <- read.table(system.file("extdata", "edges.csv", package = "decorr"),
 
 It contains the required minimum variables for the analysis (Fig. \ref{fig:tnds}).
 
-\begin{kframe}
-\begin{verbatim}
-R> caption <- "Nodes (from \\code{nodes.csv} dataframe)}"
-R> print(xtable::xtable(head(nodes),
-+                       caption = caption),
-+        table.placement="H")
-\end{verbatim}
-\end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:07 2020
-\begin{table}[H]
-\centering
-\begin{tabular}{rllrlrr}
-  \hline
- & site & decor & id & type & x & y \\ 
-  \hline
-1 & Cerro Muriano & Cerro Muriano 1 &   1 & personnage & 349.81 & -298.32 \\ 
-  2 & Cerro Muriano & Cerro Muriano 1 &   2 & casque & 349.81 & -243.99 \\ 
-  3 & Cerro Muriano & Cerro Muriano 1 &   3 & lance & 238.46 & -298.32 \\ 
-  4 & Cerro Muriano & Cerro Muriano 1 &   4 & bouclier & 446.02 & -381.17 \\ 
-  5 & Cerro Muriano & Cerro Muriano 1 &   5 & peigne & 283.00 & -358.01 \\ 
-  6 & Cerro Muriano & Cerro Muriano 1 &   7 & sexe\_masculin & 342.69 & -427.49 \\ 
-   \hline
-\end{tabular}
-\caption{Nodes (from \code{nodes.csv} dataframe)}} 
-\end{table}
-
+<<tnds, results='asis', echo=TRUE>>=
+caption <- "Nodes (from \\code{nodes.csv} dataframe)}"
+print(xtable::xtable(head(nodes),
+                     caption = caption),
+      table.placement="H")
+@
 
 Since a prehistorical site can have various decorated objects, the primary key of the decoration is based on two fields: \code{nodes$site} and \code{nodes$decor}. The \code{nodes$id} is the identifier of the node. The \code{nodes$type} field is the default variable for further statistical analysis. Here, \code{nodes$type} refers to the typology of the GUs (anthropomorph, weapons, etc.). The \code{nodes$x} and \code{nodes$y} columns refer to the \emph{x} and \emph{}y coordinates of the nodes. As said, in the first place theses coordinates come from the GIS. But, in a GIS, the coordinates origin (0, 0) is the bottom-left corner and exist negative values, while this origin is top-left for any \proglang{R} matrices (rasters, grids, dataframes, etc.) with only positive values. To recover the local \emph{y} value of GUs nodes and edges on the decoration image, the absolute value \emph{y} value and the image height, as a constant offset, are computed.
 
@@ -322,46 +311,21 @@ Since a prehistorical site can have various decorated objects, the primary key o
 
 The \code{edges} dataframe is quite similar to the \code{nodes} dataframe (Fig. \ref{fig:teds}).
 
-\begin{kframe}
-\begin{verbatim}
-R> caption <- "Edges (from \\code{edges.csv} dataframe)}"
-R> print(xtable::xtable(head(edges),
-+                 caption=caption,
-+                 label="edgesdf"),
-+        table.placement="H")
-\end{verbatim}
-\end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:07 2020
-\begin{table}[H]
-\centering
-\begin{tabular}{rllrrl}
-  \hline
- & site & decor & a & b & type \\ 
-  \hline
-1 & Cerro Muriano & Cerro Muriano 1 &   1 &   4 & = \\ 
-  2 & Cerro Muriano & Cerro Muriano 1 &   1 &   5 & = \\ 
-  3 & Cerro Muriano & Cerro Muriano 1 &   3 &   5 & = \\ 
-  4 & Cerro Muriano & Cerro Muriano 1 &   1 &   2 & + \\ 
-  5 & Cerro Muriano & Cerro Muriano 1 &   1 &   7 & + \\ 
-  6 & Cerro Muriano & Cerro Muriano 1 &   3 &   1 & = \\ 
-   \hline
-\end{tabular}
-\caption{Edges (from \code{edges.csv} dataframe)}} 
-\label{edgesdf}
-\end{table}
-
+<<teds, results='asis', echo=TRUE>>=
+caption <- "Edges (from \\code{edges.csv} dataframe)}"
+print(xtable::xtable(head(edges),
+               caption=caption,
+               label="edgesdf"),
+      table.placement="H")
+@
 
 Fields \code{edges$site} and \code{edges$decor} are the primary key of decoration. The fields \code{edges$a} and \code{edges$b} are the equivalent to columns \emph{from} and \emph{to} in Graph theory. Even if undirected graphs will the most common models in further studies, this direction helps to distinguish between nodes. The first column \code{edges$a} is the identifier of starting node or \emph{main node} or \emph{overlapping node}. The second column, \code{edges$b}, is the identifier of the ending node or \emph{attribue node} or \emph{overlapped node}. The \code{edges$type} is the type of relation (normal, attribute, overlapping, etc.) between the starting node and the ending node. There is no need to record the coordinates of the edges, these coordinates are calculated from the \code{nodes} dataframe. For example, Table \ref{teds} shows that the Cerro Muriano 1 decoration's first edge connects the nodes \code{1} and \code{8} (respectively in column \code{edges$a} and \code{edges$b}). A way to retrieve these connected nodes' coordinates will be:
 
-\begin{kframe}
-\begin{verbatim}
-R> cm.1 <- subset(nodes, decor == "Cerro Muriano 1" & id == 1)[,c("x","y")]
-R> cm.8 <- subset(nodes, decor == "Cerro Muriano 1" & id == 8)[,c("x","y")]
-R> paste(as.numeric(cm.1),";",as.numeric(cm.8))
-\end{verbatim}
-\end{kframe}[1] "349.814824824793 ; 451.148926746119"  
-[2] "-298.324408661478 ; -237.478157148203"
-
+<<results='asis', echo=TRUE>>=
+cm.1 <- subset(nodes, decor == "Cerro Muriano 1" & id == 1)[,c("x","y")]
+cm.8 <- subset(nodes, decor == "Cerro Muriano 1" & id == 8)[,c("x","y")]
+paste(as.numeric(cm.1),";",as.numeric(cm.8))
+@
 
 Once these dataframes loaded, the list of decoration graphs can be calculated with the \code{list_dec()} function.
 
@@ -369,29 +333,18 @@ Once these dataframes loaded, the list of decoration graphs can be calculated wi
 
 The \code{list\_dec()} function allows to calculate graphs for all decorations stored into \code{nodes}, \code{edges} and \code{images}. The result is a list of decoration graph. The first graph of the list can be plotted (Fig. \ref{fig:igraph})
 
-\begin{kframe}
-\begin{verbatim}
-R> lgrph <- list_dec(imgs,nodes,edges,var="type")
-R> plot(lgrph[[1]],
-+       vertex.color = "orange",
-+       vertex.frame.color="orange",
-+       vertex.label.color = "black",
-+       vertex.size = 8,
-+       vertex.label.cex = 0.6,
-+       edge.color = "orange",
-+       vertex.label.family="Helvetica"
-+  )
-\end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/igraph-1} 
-
-}
-
-\caption{\label{fig:figs}R interface. Plot of the first graph of the list}\label{fig:igraph}
-\end{figure}
-
-
+<<igraph, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=4, fig.cap="\\label{fig:figs}R interface. Plot of the first graph of the list">>=
+lgrph <- list_dec(imgs,nodes,edges,var="type")
+plot(lgrph[[1]],
+     vertex.color = "orange",
+     vertex.frame.color="orange",
+     vertex.label.color = "black",
+     vertex.size = 8,
+     vertex.label.cex = 0.6,
+     edge.color = "orange",
+     vertex.label.family="Helvetica"
+)
+@
 
 
 The others \pkg{decorr} package functions can be divided into:
@@ -421,59 +374,29 @@ Functions allowing to create a RNG for a single decoration are:
 
 The \code{read_nds()} function is close to the \proglang{R} native \code{read.table()} function, but allows to read \emph{shapefiles} of nodes. For example, for the Torrejon Rubio 1 decoration, the 6th GUs is a sword (\code{epee}) (Table \ref{nd}).
 
-\begin{kframe}
-\begin{verbatim}
-R> # library(decorr)
-R> sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
-R> nds.df <- read_nds(site = sit, decor = dec, dev = ".shp",
-+                     doss = system.file("extdata", package = "decorr"))
-R> print(xtable::xtable(nds.df[6,],
-+                       # caption="Sixth node (GU 6) of the Torrejon Rubio 1 decoration",
-+                       label="nd",
-+                       size=7),
-+        table.placement="H")
-\end{verbatim}
-\end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:08 2020
-\begin{table}[H]
-\centering
-\begin{tabular}{rllrlrr}
-  \hline
- & site & decor & id & type & x & y \\ 
-  \hline
-13 & Torrejon Rubio & Torrejon Rubio 1 &   6 & epee & 366.70 & -563.14 \\ 
-   \hline
-\end{tabular}
-\label{nd}
-\end{table}
-
+<<nd, results='asis', echo=TRUE, fig.cap="Sixth node of the Torrejon Rubio 1 decoration, the sword">>=
+# library(decorr)
+sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
+nds.df <- read_nds(site = sit, decor = dec, dev = ".shp",
+                   doss = system.file("extdata", package = "decorr"))
+print(xtable::xtable(nds.df[6,],
+                     # caption="Sixth node (GU 6) of the Torrejon Rubio 1 decoration",
+                     label="nd",
+                     size=7),
+      table.placement="H")
+@
 
 The \code{read_eds()} permits to read a \emph{shapefiles} of edges or to retrieve the coordinates of the the edges from the \code{nodes} dataframe (Table \ref{ed}).
 
-\begin{kframe}
-\begin{verbatim}
-R> eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
-+                     doss = system.file("extdata", package = "decorr"))
-R> print(xtable::xtable(eds.df[1,],
-+                       # caption="First edge of the Torrejon Rubio 1 decoration, the proximity between the sword (GU 6) and the fibula (GU 5)",
-+                       label="eds.df",
-+                       size=7),
-+        table.placement="H")
-\end{verbatim}
-\end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:08 2020
-\begin{table}[H]
-\centering
-\begin{tabular}{rllrrlrrrr}
-  \hline
- & site & decor & a & b & type & xa & ya & xb & yb \\ 
-  \hline
-9 & Torrejon Rubio & Torrejon Rubio 1 &   6 &   5 & = & 366.70 & -563.14 & 490.12 & -513.24 \\ 
-   \hline
-\end{tabular}
-\label{eds.df}
-\end{table}
-
+<<ed, results='asis', echo=TRUE, fig.cap="First edge of the Torrejon Rubio 1 decoration, the proximity between the sword (GU 6) and the fibula (GU 5)">>=
+eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
+                   doss = system.file("extdata", package = "decorr"))
+print(xtable::xtable(eds.df[1,],
+                     # caption="First edge of the Torrejon Rubio 1 decoration, the proximity between the sword (GU 6) and the fibula (GU 5)",
+                     label="eds.df",
+                     size=7),
+      table.placement="H")
+@
 % \end{figure}
 
 \begin{itemize}
@@ -483,34 +406,23 @@ R> print(xtable::xtable(eds.df[1,],
 
 Once, the \code{imgs}, \code{nodes} and \code{edges} dataframes have been read, the decoration graph is build and can be plotted. The \code{lbl.txt} parameter allows to decide which field of the nodes will be displayed as the label, by default this is the \code{nodes$id} field, but here it is the \code{nodes$type} field (Figure \ref{tr_st}).
 
-\begin{kframe}
-\begin{verbatim}
-R> # library("decorr")
-R> par(mar=c(0,0,0,0))
-R> sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
-R> nds.df <- read_nds(site = sit, decor = dec, dev = ".tsv",
-+                     doss = system.file("extdata", package = "decorr"))
-R> eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
-+                     doss = system.file("extdata", package = "decorr"))
-R> img.graph <- plot_dec_grph(nodes = nds.df,
-+                             edges = eds.df,
-+                             site = sit,
-+                             decor = dec,
-+                             doss = system.file("extdata", package = "decorr"),
-+                             lbl.txt = "type",
-+                             lbl.size=2)
-R> plot(image_trim(img.graph))
-\end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/tr_st-1} 
-
-}
-
-\caption{\label{fig:figs}Torrejon Rubio 1 decoration}\label{fig:tr_st}
-\end{figure}
-
-
+<<tr_st, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=4, fig.asp=1, fig.cap="\\label{fig:figs}Torrejon Rubio 1 decoration">>=
+# library("decorr")
+par(mar=c(0,0,0,0))
+sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
+nds.df <- read_nds(site = sit, decor = dec, dev = ".tsv",
+                   doss = system.file("extdata", package = "decorr"))
+eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
+                   doss = system.file("extdata", package = "decorr"))
+img.graph <- plot_dec_grph(nodes = nds.df,
+                           edges = eds.df,
+                           site = sit,
+                           decor = dec,
+                           doss = system.file("extdata", package = "decorr"),
+                           lbl.txt = "type",
+                           lbl.size=2)
+plot(image_trim(img.graph))
+@
 
 \subsection{Decoration comparison functions} \label{sec:functions_one}
 
@@ -563,25 +475,14 @@ Comparisons between pairwise of decorations are first stored into a list. These 
 The \code{plot_nds_compar()}and \code{plot_eds_compar()} functions create a \code{.png} image of two or more decorations plotted side-by-side with common nodes or edges identified and returns the names of the images. The common edges or nodes are displayed in red by default.
 Let us choose the decorations \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Montsanchez) and identify common edges.
 
-\begin{kframe}
-\begin{verbatim}
-R> # par(mar=c(0,0,0,0))
-R> g.compar <- list_compar(lgrph,"type")
-R> eds_compar <- plot_compar(g.compar, c(1,4),
-+                            focus = "edges",
-+                            doss = system.file("extdata", package = "decorr"))
-R> plot(magick::image_trim(magick::image_read(eds_compar)))
-\end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
-
-}
-
-\caption{\label{fig:figs}comparisons between 1 (Cerro Muriano 1) and 4 (Zarza de Montsanchez) decorations}\label{fig:unnamed-chunk-6}
-\end{figure}
-
-
+<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.height=8, fig.cap="\\label{fig:figs}comparisons between 1 (Cerro Muriano 1) and 4 (Zarza de Montsanchez) decorations">>=
+# par(mar=c(0,0,0,0))
+g.compar <- list_compar(lgrph,"type")
+eds_compar <- plot_compar(g.compar, c(1,4),
+                          focus = "edges",
+                          doss = system.file("extdata", package = "decorr"))
+plot(magick::image_trim(magick::image_read(eds_compar)))
+@
 
 The comparison shows that \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Montsanchez) decorations have two (2) common edges: \code{lance -=- personnage} and \code{personnage -=- bouclier}.
 
@@ -592,37 +493,17 @@ The comparison shows that \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Mont
 
 \code{same_nds()} and \code{same_eds()} allow to repectively count matching nodes and matching edges between decoration pairwises. The result is a square matrix between all pairwise comparisons with the number of common nodes or edges in the cells. For example, we can compute the matrix of common edges.
 
-\begin{kframe}
-\begin{verbatim}
-R> df.same_edges <- same_eds(lgrph,"type")
-R> caption <- "Number of same edges between all decoration pairwise comparisons"
-R> print(xtable::xtable(df.same_edges,
-+                       caption = caption,
-+                       label = "Test_table_2",
-+                       size = 8,
-+                       digits = c(0)),
-+        table.placement="H",
-+        include.rownames = TRUE)
-\end{verbatim}
-\end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:13 2020
-\begin{table}[H]
-\centering
-\begin{tabular}{rrrrrr}
-  \hline
- & 1 & 2 & 3 & 4 & 5 \\ 
-  \hline
-1 & 7 & 2 & 3 & 4 & 2 \\ 
-  2 & 2 & 10 & 5 & 7 & 3 \\ 
-  3 & 3 & 5 & 6 & 4 & 3 \\ 
-  4 & 4 & 7 & 4 & 10 & 3 \\ 
-  5 & 2 & 3 & 3 & 3 & 4 \\ 
-   \hline
-\end{tabular}
-\caption{Number of same edges between all decoration pairwise comparisons} 
-\label{Test_table_2}
-\end{table}
-
+<<results='asis', echo=TRUE>>=
+df.same_edges <- same_neds(lgrph, "type", "edges")
+caption <- "Number of same edges between all decoration pairwise comparisons"
+print(xtable::xtable(df.same_edges,
+                     caption = caption,
+                     label = "Test_table_2",
+                     size = 8,
+                     digits = c(0)),
+      table.placement="H",
+      include.rownames = TRUE)
+@
 
 For these two last exemples, the edges comparisons between the decoration \code{1} and the decoration \code{4} show that they have two (2) common edges.
 
@@ -633,32 +514,32 @@ As said, since the precise location of the GUs is usualy not registred, the most
 \begin{table}[H]
 \begin{minipage}{.45\textwidth}
 \centering
-% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:13 2020
-\begin{tabular}{rrrrrr}
-  & 1 & 2 & 3 & 4 & 5 \\ 
- 1 & 7 & 2 & 3 & 4 & 2 \\ 
-  2 & 2 & 10 & 5 & 7 & 3 \\ 
-  3 & 3 & 5 & 6 & 4 & 3 \\ 
-  4 & 4 & 7 & 4 & 10 & 3 \\ 
-  5 & 2 & 3 & 3 & 3 & 4 \\ 
-  \end{tabular}
-
+<<echo=FALSE,results='asis' >>=
+library("xtable")
+# library("MASS");library(decorr);library(xtable);library(magick)
+# imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
+#                    sep="\t",stringsAsFactors = FALSE)
+# nodes <- read.table(system.file("extdata", "nodes.tsv", package = "decorr"),
+#                     sep="\t",stringsAsFactors = FALSE)
+# edges <- read.table(system.file("extdata", "edges.tsv", package = "decorr"),
+#                     sep="\t",stringsAsFactors = FALSE)
+# lgrph <- list_dec(imgs,nodes,edges,"type")
+df.same_edges <- same_neds(lgrph, "type", "edges")
+df.same_nodes<- same_neds(lgrph, "type", "nodes")
+# library("xtable")
+print(xtable(df.same_nodes, digits=c(0)),
+      floating=FALSE,
+      hline.after=NULL)
+@
 \captionof{table}{Common nodes table}
 \end{minipage}
 \begin{minipage}{.45\textwidth}
 \centering
-% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:13 2020
-\begin{tabular}{rrrrrr}
-  & 1 & 2 & 3 & 4 & 5 \\ 
- 1 & 7 & 2 & 3 & 4 & 2 \\ 
-  2 & 2 & 10 & 5 & 7 & 3 \\ 
-  3 & 3 & 5 & 6 & 4 & 3 \\ 
-  4 & 4 & 7 & 4 & 10 & 3 \\ 
-  5 & 2 & 3 & 3 & 3 & 4 \\ 
-  \end{tabular}
-
+<<echo=FALSE,results='asis'>>=
+print(xtable(df.same_edges, digits=c(0)),
+      floating=FALSE,
+      hline.after=NULL)
+@
 \captionof{table}{Common edges table}
 \end{minipage}
 \end{table}
@@ -666,46 +547,31 @@ As said, since the precise location of the GUs is usualy not registred, the most
 Once the heatmap matrices calculated, the native \code{dist()} and \code{hclust()} functions \citep{R19} are calculated from the inverse matrices with the function \code{inv()} of the \pkg{matlib} package \citep{Friendly20}
 
 \begin{figure}[H]
-\begin{kframe}
-\begin{verbatim}
-R> library("matlib")
-R> par(mfrow=c(1,2))
-R> dist.nodes  <- dist(inv(as.matrix(df.same_nodes)))
-R> dist.edges  <- dist(inv(as.matrix(df.same_edges)))
-R> plot(hclust(dist.nodes), hang = -1, main = "common nodes")
-R> plot(hclust(dist.edges), hang = -1, main = "common edges")
-\end{verbatim}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
-
+<<echo=TRUE, warning=FALSE>>=
+library("matlib")
+par(mfrow=c(1,2))
+dist.nodes  <- dist(inv(as.matrix(df.same_nodes)))
+dist.edges  <- dist(inv(as.matrix(df.same_edges)))
+plot(hclust(dist.nodes), hang = -1, main = "common nodes")
+plot(hclust(dist.edges), hang = -1, main = "common edges")
+@
 \end{figure}
 
 Results of classifications show that for both common nodes and common edges, the most different decorations are \code{1} and \code{4}. These two decorations share four (4) common nodes and, as previously seen, only two (2) common edges.
 In any cases decorations \code{2} and \code{3} are closer to decoration \code{4} than to decoration \code{1}, but their classifications changes depending on counting of common nodes or common edges. While decorations \code{2} and \code{4} have 7 common edges and 7 common nodes, plotting the comparisons for \code{3} and \code{4}, helps to understand the differences between the two classifications.
 
-\begin{kframe}
-\begin{verbatim}
-R> par(mar=c(0,0,0,0))
-R> par(mfrow=c(2,1))
-R> g.compar <- list_compar(lgrph,"type")
-R> nds_compar.3.4 <- plot_nds_compar(g.compar, c(3,4),
-+                                    doss = system.file("extdata", package = "decorr"))
-R> plot(image_read(nds_compar.3.4))
-R> # g.compar <- list_eds_compar(lgrph,"type")
-R> eds_compar.3.4 <- plot_eds_compar(g.compar, c(3,4),
-+                                doss = system.file("extdata", package = "decorr"))
-R> plot(image_read(eds_compar.3.4))
-\end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
-
-}
-
-\caption{\label{fig:figs}Decoration comparisons between 3 and 4}\label{fig:unnamed-chunk-11}
-\end{figure}
-
-
+<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.cap="\\label{fig:figs}Decoration comparisons between 3 and 4">>=
+par(mar=c(0,0,0,0))
+par(mfrow=c(2,1))
+g.compar <- list_compar(lgrph,"type")
+nds_compar.3.4 <- plot_nds_compar(g.compar, c(3,4),
+                                  doss = system.file("extdata", package = "decorr"))
+plot(image_read(nds_compar.3.4))
+# g.compar <- list_eds_compar(lgrph,"type")
+eds_compar.3.4 <- plot_eds_compar(g.compar, c(3,4),
+                              doss = system.file("extdata", package = "decorr"))
+plot(image_read(eds_compar.3.4))
+@
 
 Decorations \code{3} and \code{4} share four (4) common GUs (\code{bouclier, epee, lance, miroir}) but  these GUs have different spatial organisations with only one common edge (\code{bouclier -=- lance}). At the opposite, decorations \code{2} and \code{4} show more properly the same compositions.
 

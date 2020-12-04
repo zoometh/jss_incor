@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.4.9)  1 DEC 2020 11:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.4.9)  4 DEC 2020 10:37
 entering extended mode
-**./article_rvTH15_6.tex
-(article_rvTH15_6.tex
+**./article_rvTH16.tex
+(article_rvTH16.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 75 language(s) loaded.
 (jss.cls
@@ -360,8 +360,7 @@ Package: alltt 1997/06/16 v2.0g defines alltt environment
 Package: thumbpdf 2014/07/15 v3.16 Inclusion of thumbnails (HO)
 
 
-Package thumbpdf Warning: Thumbnail data file `article_rvTH15_6.tpt' not found.
-
+Package thumbpdf Warning: Thumbnail data file `article_rvTH16.tpt' not found.
 
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
@@ -672,16 +671,7 @@ Package caption3 Info: TeX engine: e-TeX on input line 64.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 )
-(article_rvTH15_6.aux
-
-LaTeX Warning: Label `fig:figs' multiply defined.
-
-
-LaTeX Warning: Label `fig:gis1' multiply defined.
-
-
-LaTeX Warning: Label `fig:figs' multiply defined.
-
+(article_rvTH16.aux
 
 LaTeX Warning: Label `fig:figs' multiply defined.
 
@@ -691,14 +681,8 @@ LaTeX Warning: Label `fig:figs' multiply defined.
 
 LaTeX Warning: Label `sec:functions_one' multiply defined.
 
-
-LaTeX Warning: Label `fig:figs' multiply defined.
-
-
-LaTeX Warning: Label `fig:figs' multiply defined.
-
 )
-\openout1 = `article_rvTH15_6.aux'.
+\openout1 = `article_rvTH16.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
 LaTeX Font Info:    ... okay on input line 58.
@@ -766,7 +750,7 @@ LaTeX Info: Redefining \ref on input line 58.
 LaTeX Info: Redefining \pageref on input line 58.
 LaTeX Info: Redefining \nameref on input line 58.
 
-(article_rvTH15_6.out) (article_rvTH15_6.out
+(article_rvTH16.out) (article_rvTH16.out
 ! Missing \endcsname inserted.
 <to be read again> 
                    \bgroup 
@@ -1345,7 +1329,7 @@ I'll try to recover; but if the error is serious,
 you'd better type `E' or `X' now and fix your file.
 
 \@outlinefile=\write5
-\openout5 = `article_rvTH15_6.out'.
+\openout5 = `article_rvTH16.out'.
 
 <jsslogo.jpg, id=30, 540.0175pt x 393.47pt>
 File: jsslogo.jpg Graphic file (type jpg)
@@ -1606,44 +1590,165 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [5]
+Underfull \hbox (badness 10000) in paragraph at lines 121--130
+
+ []
+
+
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 6 []
  []
 
 [6 <./imgs/gis.png>]
 
-LaTeX Warning: Reference `fig:gis_1' on page 7 undefined on input line 137.
+LaTeX Warning: Reference `fig:gis_1' on page 7 undefined on input line 136.
 
 <./imgs/gis_1.png, id=117, 284.9847pt x 422.0568pt>
 File: ./imgs/gis_1.png Graphic file (type png)
 <use ./imgs/gis_1.png>
-Package pdftex.def Info: ./imgs/gis_1.png  used on input line 141.
-(pdftex.def)             Requested size: 7.12285pt x 10.54881pt.
+Package pdftex.def Info: ./imgs/gis_1.png  used on input line 140.
+(pdftex.def)             Requested size: 354.1427pt x 227.6239pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+! LaTeX Error: There's no line here to end.
 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 \textbf
+             {\emph{overlapping}} edges
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 145--150
+
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 151.
+
+<./imgs/gis_2.png, id=119, 284.9847pt x 422.0568pt>
+File: ./imgs/gis_2.png Graphic file (type png)
+<use ./imgs/gis_2.png>
+Package pdftex.def Info: ./imgs/gis_2.png  used on input line 155.
+(pdftex.def)             Requested size: 354.1427pt x 227.6239pt.
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 7
  []
 
-[7]
+[7 <./imgs/gis_1.png>]
 
-LaTeX Warning: Reference `fig:gis_2' on page 8 undefined on input line 152.
+Package xcolor Warning: Incompatible color definition on input line 160.
+
+
+Overfull \hbox (11.09521pt too wide) in paragraph at lines 168--168
+[]\T1/lmr/m/n/10.95 GU.1| 
+ []
+
+
+Overfull \hbox (7.06534pt too wide) in paragraph at lines 168--168
+[]\T1/lmr/m/n/10.95 edge
+ []
+
+
+Overfull \hbox (6.76146pt too wide) in paragraph at lines 168--168
+\T1/lmr/m/n/10.95 type| 
+ []
+
+
+Overfull \hbox (11.09521pt too wide) in paragraph at lines 168--168
+[]\T1/lmr/m/n/10.95 GU.2| 
+ []
+
+
+Overfull \hbox (2.13344pt too wide) in paragraph at lines 168--168
+[]\T1/lmr/m/n/10.95 (un)directed| 
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 199.
+
+
+Package xcolor Warning: Incompatible color definition on input line 199.
+
+
+Package xcolor Warning: Incompatible color definition on input line 200.
+
+
+Package xcolor Warning: Incompatible color definition on input line 200.
+
+
+Package xcolor Warning: Incompatible color definition on input line 201.
+
+
+Package xcolor Warning: Incompatible color definition on input line 201.
 
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 8 []
  []
 
-[8 <./imgs/gis_1.png>]
-<./imgs/gis_2.png, id=130, 284.9847pt x 422.0568pt>
-File: ./imgs/gis_2.png Graphic file (type png)
-<use ./imgs/gis_2.png>
-Package pdftex.def Info: ./imgs/gis_2.png  used on input line 156.
-(pdftex.def)             Requested size: 7.12285pt x 10.54881pt.
+[8 <./imgs/gis_2.png>]
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package xcolor Warning: Incompatible color definition on input line 202.
+
+
+Package xcolor Warning: Incompatible color definition on input line 202.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
+[]\T1/lmr/m/n/10.95 Torrejon Ru-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
+[]\T1/lmr/m/n/10.95 Torrejon Ru-
+ []
+
+
+Overfull \hbox (4.73996pt too wide) in paragraph at lines 226--227
+[]\T1/lmr/m/n/10.95 Zarza_de_Montanchez.Zarza_De_Montanchez.jpg| 
+ []
+
+
+Overfull \hbox (3.6848pt too wide) in paragraph at lines 219--230
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--232
+
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 235.
+
+
+Package xcolor Warning: Incompatible color definition on input line 235.
+
+
+Package xcolor Warning: Incompatible color definition on input line 235.
+
+
+Package xcolor Warning: Incompatible color definition on input line 235.
+
+
+Package xcolor Warning: Incompatible color definition on input line 236.
+
+
+Package xcolor Warning: Incompatible color definition on input line 238.
+
+
+Package xcolor Warning: Incompatible color definition on input line 261.
+
+
+Package xcolor Warning: Incompatible color definition on input line 261.
+
+
+Package xcolor Warning: Incompatible color definition on input line 261.
 
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
@@ -1652,90 +1757,97 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 
 [9]
 
-Package xcolor Warning: Incompatible color definition on input line 161.
+Package xcolor Warning: Incompatible color definition on input line 261.
 
 
-Overfull \hbox (11.09521pt too wide) in paragraph at lines 169--169
-[]\T1/lmr/m/n/10.95 GU.1| 
+Package xcolor Warning: Incompatible color definition on input line 261.
+
+<figure/timg-1.pdf, id=168, 1300.86pt x 939.51pt>
+File: figure/timg-1.pdf Graphic file (type pdf)
+<use figure/timg-1.pdf>
+Package pdftex.def Info: figure/timg-1.pdf  used on input line 263.
+(pdftex.def)             Requested size: 442.65375pt x 319.68721pt.
+
+Package xcolor Warning: Incompatible color definition on input line 274.
+
+
+Overfull \hbox (11.4962pt too wide) in paragraph at lines 280--280
+[]\T1/lmtt/m/n/10.95 R> nodes <- read.table(system.file("extdata", "nodes.csv",
+ package = "decorr"),[] 
  []
 
 
-Overfull \hbox (7.06534pt too wide) in paragraph at lines 169--169
-[]\T1/lmr/m/n/10.95 edge
+Overfull \hbox (11.4962pt too wide) in paragraph at lines 280--280
+[]\T1/lmtt/m/n/10.95 R> edges <- read.table(system.file("extdata", "edges.csv",
+ package = "decorr"),[] 
  []
 
 
-Overfull \hbox (6.76146pt too wide) in paragraph at lines 169--169
-\T1/lmr/m/n/10.95 type| 
- []
+Package xcolor Warning: Incompatible color definition on input line 281.
 
 
-Overfull \hbox (11.09521pt too wide) in paragraph at lines 169--169
-[]\T1/lmr/m/n/10.95 GU.2| 
- []
+Package xcolor Warning: Incompatible color definition on input line 281.
 
 
-Overfull \hbox (2.13344pt too wide) in paragraph at lines 169--169
-[]\T1/lmr/m/n/10.95 (un)directed| 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package xcolor Warning: Incompatible color definition on input line 281.
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 10 []
  []
 
-[10 <./imgs/gis_2.png>]
+[10 <./figure/timg-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 200.
-
-
-Package xcolor Warning: Incompatible color definition on input line 200.
+Package xcolor Warning: Incompatible color definition on input line 281.
 
 
-Package xcolor Warning: Incompatible color definition on input line 201.
+Package xcolor Warning: Incompatible color definition on input line 281.
 
 
-Package xcolor Warning: Incompatible color definition on input line 201.
+LaTeX Warning: Reference `fig:tnds' on page 11 undefined on input line 287.
 
 
-Package xcolor Warning: Incompatible color definition on input line 202.
+Package xcolor Warning: Incompatible color definition on input line 289.
 
 
-Package xcolor Warning: Incompatible color definition on input line 202.
+Package xcolor Warning: Incompatible color definition on input line 296.
 
 
-Package xcolor Warning: Incompatible color definition on input line 203.
+Package xcolor Warning: Incompatible color definition on input line 296.
+
+! Extra }, or forgotten \endgroup.
+\@endfloatbox ...pagefalse \outer@nobreak \egroup 
+                                                  \color@endbox 
+l.313 \end{table}
+                 
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
 
 
-Package xcolor Warning: Incompatible color definition on input line 203.
+LaTeX Warning: Reference `fig:teds' on page 11 undefined on input line 322.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--225
-[]\T1/lmr/m/n/10.95 Torrejon Ru-
- []
+Package xcolor Warning: Incompatible color definition on input line 324.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--225
-[]\T1/lmr/m/n/10.95 Torrejon Ru-
- []
+Package xcolor Warning: Incompatible color definition on input line 332.
 
 
-Overfull \hbox (4.73996pt too wide) in paragraph at lines 227--228
-[]\T1/lmr/m/n/10.95 Zarza_de_Montanchez.Zarza_De_Montanchez.jpg| 
- []
+Package xcolor Warning: Incompatible color definition on input line 332.
 
-
-Overfull \hbox (3.6848pt too wide) in paragraph at lines 220--231
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 214--233
-
- []
+! Extra }, or forgotten \endgroup.
+\@endfloatbox ...pagefalse \outer@nobreak \egroup 
+                                                  \color@endbox 
+l.350 \end{table}
+                 
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -1744,36 +1856,76 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 
 [11]
 
-Package xcolor Warning: Incompatible color definition on input line 236.
+LaTeX Warning: Reference `teds' on page 12 undefined on input line 353.
 
 
-Package xcolor Warning: Incompatible color definition on input line 236.
+Package xcolor Warning: Incompatible color definition on input line 355.
 
 
-Package xcolor Warning: Incompatible color definition on input line 236.
+Package xcolor Warning: Incompatible color definition on input line 361.
 
 
-Package xcolor Warning: Incompatible color definition on input line 236.
+Package xcolor Warning: Incompatible color definition on input line 361.
 
 
-Package xcolor Warning: Incompatible color definition on input line 237.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 367.
 
 
-Package xcolor Warning: Incompatible color definition on input line 239.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 367.
 
 
-Package xcolor Warning: Incompatible color definition on input line 262.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 367.
 
 
-Package xcolor Warning: Incompatible color definition on input line 262.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\hyphenchar' on input line 367.
 
-<figure/timg-1.pdf, id=171, 1300.86pt x 939.51pt>
-File: figure/timg-1.pdf Graphic file (type pdf)
-<use figure/timg-1.pdf>
-Package pdftex.def Info: figure/timg-1.pdf  used on input line 264.
-(pdftex.def)             Requested size: 442.65375pt x 319.68721pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\font' on input line 367.
+
+
+Package hyperref Warning: Composite letter `\texttilde+1'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\texttilde' on input line 367.
+
+
+LaTeX Warning: Reference `fig:igraph' on page 12 undefined on input line 369.
+
+
+Package xcolor Warning: Incompatible color definition on input line 371.
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 377.
+
+Package xcolor Warning: Incompatible color definition on input line 377.
+
+
+Overfull \hbox (11.4962pt too wide) in paragraph at lines 377--377
+[]\T1/lmtt/b/n/10.95 ## Error in list_dec(imgs, nodes, edges, var = "type"): un
+used argument (var =
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 390.
+
+
+Overfull \hbox (40.23987pt too wide) in paragraph at lines 390--390
+[]\T1/lmtt/b/n/10.95 ## Error in plot(lgrph[[1]], vertex.color = "orange", vert
+ex.frame.color = "orange",
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 390.
+
+
+Package xcolor Warning: Incompatible color definition on input line 390.
+
+
+Package xcolor Warning: Incompatible color definition on input line 390.
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -1782,83 +1934,96 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 
 [12]
 
-Package xcolor Warning: Incompatible color definition on input line 275.
+Package xcolor Warning: Incompatible color definition on input line 390.
 
 
-Overfull \hbox (11.4962pt too wide) in paragraph at lines 281--281
-[]\T1/lmtt/m/n/10.95 R> nodes <- read.table(system.file("extdata", "nodes.csv",
- package = "decorr"),[] 
+Package xcolor Warning: Incompatible color definition on input line 390.
+
+
+Package xcolor Warning: Incompatible color definition on input line 405.
+
+
+Package xcolor Warning: Incompatible color definition on input line 405.
+
+
+Package xcolor Warning: Incompatible color definition on input line 418.
+
+
+Package caption Warning: \label without proper reference on input line 443.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `nd' on page 13 undefined on input line 418.
+
+
+Package xcolor Warning: Incompatible color definition on input line 420.
+
+
+Overfull \hbox (68.98354pt too wide) in paragraph at lines 431--431
+[]\T1/lmtt/m/n/10.95 +                       # caption="Sixth node (GU 6) of th
+e Torrejon Rubio 1 decoration",[] 
  []
 
 
-Overfull \hbox (11.4962pt too wide) in paragraph at lines 281--281
-[]\T1/lmtt/m/n/10.95 R> edges <- read.table(system.file("extdata", "edges.csv",
- package = "decorr"),[] 
- []
+Package xcolor Warning: Incompatible color definition on input line 432.
 
 
-Package xcolor Warning: Incompatible color definition on input line 282.
+Package xcolor Warning: Incompatible color definition on input line 432.
 
 
-Package xcolor Warning: Incompatible color definition on input line 282.
-
-
-LaTeX Warning: Reference `fig:tnds' on page 13 undefined on input line 288.
-
-
-Package xcolor Warning: Incompatible color definition on input line 290.
-
-
-Package xcolor Warning: Incompatible color definition on input line 297.
-
-
-Package xcolor Warning: Incompatible color definition on input line 297.
-
-! Extra }, or forgotten \endgroup.
-\@endfloatbox ...pagefalse \outer@nobreak \egroup 
-                                                  \color@endbox 
-l.314 \end{table}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-Underfull \vbox (badness 1859) has occurred while \output is active []
+LaTeX Warning: Reference `ed' on page 13 undefined on input line 447.
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 13
  []
 
-[13 <./figure/timg-1.pdf>]
+[13]
 
-LaTeX Warning: Reference `fig:teds' on page 14 undefined on input line 323.
-
-
-Package xcolor Warning: Incompatible color definition on input line 325.
+Package xcolor Warning: Incompatible color definition on input line 449.
 
 
-Package xcolor Warning: Incompatible color definition on input line 333.
+Overfull \hbox (385.16388pt too wide) in paragraph at lines 458--458
+[]\T1/lmtt/m/n/10.95 +                       # caption="First edge of the Torre
+jon Rubio 1 decoration, the proximity between the sword (GU 6) and the fibula (
+GU 5)",[] 
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 333.
-
-! Extra }, or forgotten \endgroup.
-\@endfloatbox ...pagefalse \outer@nobreak \egroup 
-                                                  \color@endbox 
-l.351 \end{table}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
+Package xcolor Warning: Incompatible color definition on input line 459.
 
 
-LaTeX Warning: Reference `teds' on page 14 undefined on input line 354.
+Package xcolor Warning: Incompatible color definition on input line 459.
+
+
+LaTeX Warning: Reference `tr_st' on page 14 undefined on input line 480.
+
+
+Package xcolor Warning: Incompatible color definition on input line 482.
+
+
+Overfull \hbox (17.24493pt too wide) in paragraph at lines 498--498
+[]\T1/lmtt/m/n/10.95 +                             doss = system.file("extdata"
+, package = "decorr"),[] 
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 501.
+
+
+Overfull \hbox (28.7424pt too wide) in paragraph at lines 501--501
+[]\T1/lmtt/b/n/10.95 ## Error in plot_dec_grph(nodes = nds.df, edges = eds.df, 
+site = sit, decor = dec,
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 506.
+
+
+Package xcolor Warning: Incompatible color definition on input line 506.
+
+
+Package xcolor Warning: Incompatible color definition on input line 506.
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -1867,58 +2032,43 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 
 [14]
 
-Package xcolor Warning: Incompatible color definition on input line 356.
+Package xcolor Warning: Incompatible color definition on input line 559.
 
 
-Package xcolor Warning: Incompatible color definition on input line 362.
+Package xcolor Warning: Incompatible color definition on input line 566.
 
 
-Package xcolor Warning: Incompatible color definition on input line 362.
+Overfull \hbox (11.4962pt too wide) in paragraph at lines 570--570
+[]\T1/lmtt/m/n/10.95 +                            doss = system.file("extdata",
+ package = "decorr"))[] 
+ []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\catcode' on input line 368.
+Package xcolor Warning: Incompatible color definition on input line 573.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\catcode' on input line 368.
+Overfull \hbox (68.98354pt too wide) in paragraph at lines 573--573
+[]\T1/lmtt/b/n/10.95 ## Error in plot_compar(g.compar, c(1, 4), focus = "edges"
+, doss = system.file("extdata",
+ []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\catcode' on input line 368.
+Package xcolor Warning: Incompatible color definition on input line 578.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\hyphenchar' on input line 368.
+Overfull \hbox (5.74747pt too wide) in paragraph at lines 578--578
+[]\T1/lmtt/b/n/10.95 ## Error in magick::image_read(eds_compar): path must be U
+RL, filename or raw
+ []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\font' on input line 368.
+Package xcolor Warning: Incompatible color definition on input line 578.
 
 
-Package hyperref Warning: Composite letter `\texttilde+1'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\texttilde' on input line 368.
+Package xcolor Warning: Incompatible color definition on input line 578.
 
 
-Package xcolor Warning: Incompatible color definition on input line 370.
-
-
-Package xcolor Warning: Incompatible color definition on input line 372.
-
-
-Package xcolor Warning: Incompatible color definition on input line 385.
-
-
-Package xcolor Warning: Incompatible color definition on input line 385.
-
-<figure/igraph-1.pdf, id=196, 289.08pt x 505.89pt>
-File: figure/igraph-1.pdf Graphic file (type pdf)
-<use figure/igraph-1.pdf>
-Package pdftex.def Info: figure/igraph-1.pdf  used on input line 387.
-(pdftex.def)             Requested size: 289.07928pt x 505.9119pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package xcolor Warning: Incompatible color definition on input line 589.
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -1926,135 +2076,17 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [15]
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-\T1/lmr/m/n/10.95 16 []
- []
-
-[16 <./figure/igraph-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 409.
-
-
-Package xcolor Warning: Incompatible color definition on input line 409.
-
-
-Package xcolor Warning: Incompatible color definition on input line 422.
-
-
-Package caption Warning: \label without proper reference on input line 447.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `nd' on page 17 undefined on input line 422.
-
-
-Package xcolor Warning: Incompatible color definition on input line 424.
-
-
-Overfull \hbox (68.98354pt too wide) in paragraph at lines 435--435
-[]\T1/lmtt/m/n/10.95 +                       # caption="Sixth node (GU 6) of th
-e Torrejon Rubio 1 decoration",[] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 436.
-
-
-Package xcolor Warning: Incompatible color definition on input line 436.
-
-
-LaTeX Warning: Reference `ed' on page 17 undefined on input line 451.
-
-
-Package xcolor Warning: Incompatible color definition on input line 453.
-
-
-Overfull \hbox (385.16388pt too wide) in paragraph at lines 462--462
-[]\T1/lmtt/m/n/10.95 +                       # caption="First edge of the Torre
-jon Rubio 1 decoration, the proximity between the sword (GU 6) and the fibula (
-GU 5)",[] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 463.
-
-
-Package xcolor Warning: Incompatible color definition on input line 463.
-
-
-LaTeX Warning: Reference `tr_st' on page 17 undefined on input line 484.
-
-
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-[] \T1/lmr/m/n/10.95 17
- []
-
-[17]
-
-Package xcolor Warning: Incompatible color definition on input line 486.
-
-
-Overfull \hbox (17.24493pt too wide) in paragraph at lines 503--503
-[]\T1/lmtt/m/n/10.95 +                             doss = system.file("extdata"
-, package = "decorr"),[] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 504.
-
-
-Package xcolor Warning: Incompatible color definition on input line 504.
-
-<figure/tr_st-1.pdf, id=231, 289.08pt x 289.08pt>
-File: figure/tr_st-1.pdf Graphic file (type pdf)
-<use figure/tr_st-1.pdf>
-Package pdftex.def Info: figure/tr_st-1.pdf  used on input line 506.
-(pdftex.def)             Requested size: 289.07928pt x 289.09251pt.
-
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-\T1/lmr/m/n/10.95 18 []
- []
-
-[18 <./figure/tr_st-1.pdf>]
-
-Package xcolor Warning: Incompatible color definition on input line 566.
-
-
-Overfull \hbox (11.4962pt too wide) in paragraph at lines 574--574
-[]\T1/lmtt/m/n/10.95 +                            doss = system.file("extdata",
- package = "decorr"))[] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 575.
-
-
-Package xcolor Warning: Incompatible color definition on input line 575.
-
-<figure/unnamed-chunk-6-1.pdf, id=241, 505.89pt x 578.16pt>
-File: figure/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-6-1.pdf  used on input line 577.
-(pdftex.def)             Requested size: 442.65375pt x 505.89758pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-[] \T1/lmr/m/n/10.95 19
- []
-
-[19]
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-\T1/lmr/m/n/10.95 20 []
- []
-
-[20 <./figure/unnamed-chunk-6-1.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 595.
 
 
-Overfull \hbox (17.24493pt too wide) in paragraph at lines 606--606
+Overfull \hbox (34.49113pt too wide) in paragraph at lines 595--595
+[]\T1/lmtt/b/n/10.95 ## Error in same_neds(lgrph, "type", "edges"): could not f
+ind function "same_neds"[] 
+ []
+
+
+Overfull \hbox (17.24493pt too wide) in paragraph at lines 604--604
 []\T1/lmtt/m/n/10.95 R> caption <- "Number of same edges between all decoration
  pairwise comparisons"[] 
  []
@@ -2063,84 +2095,137 @@ Overfull \hbox (17.24493pt too wide) in paragraph at lines 606--606
 Package xcolor Warning: Incompatible color definition on input line 607.
 
 
+Overfull \hbox (40.23987pt too wide) in paragraph at lines 607--607
+[]\T1/lmtt/b/n/10.95 ## Error in xtable::xtable(df.same_edges, caption = captio
+n, label = "Test_table_2",
+ []
+
+
 Package xcolor Warning: Incompatible color definition on input line 607.
 
 
-Package xcolor Warning: Incompatible color definition on input line 666.
+Package xcolor Warning: Incompatible color definition on input line 607.
 
 
-Package xcolor Warning: Incompatible color definition on input line 666.
+Package xcolor Warning: Incompatible color definition on input line 618.
 
 
-Package xcolor Warning: Incompatible color definition on input line 666.
+Package xcolor Warning: Incompatible color definition on input line 621.
 
 
-Package xcolor Warning: Incompatible color definition on input line 666.
+Package xcolor Warning: Incompatible color definition on input line 623.
 
 
-Package xcolor Warning: Incompatible color definition on input line 669.
+Package xcolor Warning: Incompatible color definition on input line 625.
+
+
+Package xcolor Warning: Incompatible color definition on input line 625.
+
+
+Package xcolor Warning: Incompatible color definition on input line 630.
+
+
+Package xcolor Warning: Incompatible color definition on input line 633.
+
+
+Package xcolor Warning: Incompatible color definition on input line 633.
+
+
+Package xcolor Warning: Incompatible color definition on input line 638.
+
+
+Package xcolor Warning: Incompatible color definition on input line 638.
+
+
+Package xcolor Warning: Incompatible color definition on input line 638.
+
+
+Package xcolor Warning: Incompatible color definition on input line 638.
+
+
+Package xcolor Warning: Incompatible color definition on input line 641.
+
+
+Package xcolor Warning: Incompatible color definition on input line 649.
+
+
+Package xcolor Warning: Incompatible color definition on input line 654.
+
+
+Package xcolor Warning: Incompatible color definition on input line 659.
+
+
+Package xcolor Warning: Incompatible color definition on input line 664.
+
+
+Package xcolor Warning: Incompatible color definition on input line 664.
+
+
+Underfull \vbox (badness 6188) has occurred while \output is active []
+
+
+Overfull \hbox (10.94998pt too wide) has occurred while \output is active
+\T1/lmr/m/n/10.95 16 []
+ []
+
+[16]
+
+Package xcolor Warning: Incompatible color definition on input line 670.
 
 
 Package xcolor Warning: Incompatible color definition on input line 678.
 
-<figure/unnamed-chunk-10-1.pdf, id=264, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-10-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-10-1.pdf  used on input line 679.
 
-(pdftex.def)             Requested size: 442.65375pt x 442.66037pt.
-
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-[] \T1/lmr/m/n/10.95 21
- []
-
-[21]
-
-Package xcolor Warning: Incompatible color definition on input line 686.
-
-
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-\T1/lmr/m/n/10.95 22 []
- []
-
-[22 <./figure/unnamed-chunk-10-1.pdf>]
-Overfull \hbox (57.48607pt too wide) in paragraph at lines 698--698
+Overfull \hbox (57.48607pt too wide) in paragraph at lines 681--681
 []\T1/lmtt/m/n/10.95 +                                    doss = system.file("e
 xtdata", package = "decorr"))[] 
  []
 
 
-Overfull \hbox (34.49113pt too wide) in paragraph at lines 698--698
+Package xcolor Warning: Incompatible color definition on input line 684.
+
+
+Overfull \hbox (5.74747pt too wide) in paragraph at lines 684--684
+[]\T1/lmtt/b/n/10.95 ## Error in plot_nds_compar(g.compar, c(3, 4), doss = syst
+em.file("extdata", :
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 689.
+
+
+Overfull \hbox (34.49113pt too wide) in paragraph at lines 693--693
 []\T1/lmtt/m/n/10.95 +                                doss = system.file("extda
 ta", package = "decorr"))[] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 699.
+Package xcolor Warning: Incompatible color definition on input line 696.
 
 
-Package xcolor Warning: Incompatible color definition on input line 699.
+Overfull \hbox (5.74747pt too wide) in paragraph at lines 696--696
+[]\T1/lmtt/b/n/10.95 ## Error in plot_eds_compar(g.compar, c(3, 4), doss = syst
+em.file("extdata", :
+ []
 
-<figure/unnamed-chunk-11-1.pdf, id=286, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-11-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-11-1.pdf  used on input line 701.
 
-(pdftex.def)             Requested size: 442.65375pt x 442.66037pt.
+Package xcolor Warning: Incompatible color definition on input line 701.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package xcolor Warning: Incompatible color definition on input line 701.
+
+
+Package xcolor Warning: Incompatible color definition on input line 701.
+
+
+Package xcolor Warning: Incompatible color definition on input line 701.
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-[] \T1/lmr/m/n/10.95 23
+[] \T1/lmr/m/n/10.95 17
  []
 
-[23]
-Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-\T1/lmr/m/n/10.95 24 []
- []
-
-[24 <./figure/unnamed-chunk-11-1.pdf>] (article_rvTH15_6.bbl
+[17] (article_rvTH16.bbl
 
 Package xcolor Warning: Incompatible color definition on input line 19.
 
@@ -2154,64 +2239,64 @@ Package xcolor Warning: Incompatible color definition on input line 36.
 Package xcolor Warning: Incompatible color definition on input line 61.
 
 
-Package xcolor Warning: Incompatible color definition on input line 85.
-
-
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-[] \T1/lmr/m/n/10.95 25
+\T1/lmr/m/n/10.95 18 []
  []
 
-[25]
+[18]
+
+Package xcolor Warning: Incompatible color definition on input line 85.
+
 
 Package xcolor Warning: Incompatible color definition on input line 96.
 
 )
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-\T1/lmr/m/n/10.95 26 []
+[] \T1/lmr/m/n/10.95 19
  []
 
-[26]
+[19]
 
-Package xcolor Warning: Incompatible color definition on input line 763.
+Package xcolor Warning: Incompatible color definition on input line 756.
 
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 776.
+(Font)              using `T1/lmr/bx/n' instead on input line 769.
 
 
-Package xcolor Warning: Incompatible color definition on input line 806.
+Package xcolor Warning: Incompatible color definition on input line 799.
 
 LaTeX Font Info:    Font shape `T1/pzc/m/n' in size <13> not available
-(Font)              Font shape `T1/pzc/mb/it' tried instead on input line 806.
+(Font)              Font shape `T1/pzc/mb/it' tried instead on input line 799.
 
-Package xcolor Warning: Incompatible color definition on input line 806.
-
-
-Package xcolor Warning: Incompatible color definition on input line 806.
+Package xcolor Warning: Incompatible color definition on input line 799.
 
 
-Package xcolor Warning: Incompatible color definition on input line 806.
+Package xcolor Warning: Incompatible color definition on input line 799.
+
+
+Package xcolor Warning: Incompatible color definition on input line 799.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-[] \T1/lmr/m/n/10.95 27
+\T1/lmr/m/n/10.95 20 []
  []
 
-[27]
+[20]
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
-\T1/lmr/m/n/10.95 28 []
+[] \T1/lmr/m/n/10.95 21
  []
 
-[28]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 806.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 806.
- (article_rvTH15_6.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 806.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 806.
-Package rerunfilecheck Info: File `article_rvTH15_6.out' has not changed.
+[21]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 799.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 799.
+ (article_rvTH16.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 799.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 799.
+Package rerunfilecheck Info: File `article_rvTH16.out' has not changed.
 (rerunfilecheck)             Checksum: A659B07B687E999B25CE83EDC1193C09;1330.
 
 
@@ -2223,16 +2308,16 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 806.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 799.
  ) 
 Here is how much of TeX's memory you used:
- 18350 strings out of 493305
- 343320 string characters out of 3138863
- 433796 words of memory out of 3000000
- 21448 multiletter control sequences out of 15000+200000
- 84900 words of font info for 54 fonts, out of 3000000 for 9000
+ 18312 strings out of 493305
+ 342336 string characters out of 3138863
+ 432558 words of memory out of 3000000
+ 21426 multiletter control sequences out of 15000+200000
+ 85218 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,11n,48p,1785b,437s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,11n,48p,1783b,427s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{Subsection.3.2.\\bgroup\040\\catcode\040`\\protec
 t\040\\T1\\textunderscore\04012\\relax\040\\catcode\040`\\unhbox\040\\voidb@x\0
 40\\bgroup\040\\let\040\\unhbox\040\\voidb@x\040\\setbox\040\\@tempboxa\040\\hb
@@ -2265,12 +2350,13 @@ ype1/public/lm/lmro10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
 ss10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt12.
-pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtto10.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on article_rvTH15_6.pdf (28 pages, 1883428 bytes).
+public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt12.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/public/lm/lmtto10.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/urw/zapfchan/uzcmi8a.pfb>
+Output written on article_rvTH16.pdf (21 pages, 1268361 bytes).
 PDF statistics:
- 425 PDF objects out of 1000 (max. 8388607)
- 93 named destinations out of 1000 (max. 500000)
- 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 364 PDF objects out of 1000 (max. 8388607)
+ 81 named destinations out of 1000 (max. 500000)
+ 96 words of extra memory for PDF output out of 10000 (max. 10000000)
 

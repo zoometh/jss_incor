@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{setspace}
+\begin{document}
+\doublespacing
+\section*{Question Part 1.}
+I am writing this document inside RStudio, using Sweave. I want everything 
+in the document to be doublespaced with the exception of R code chunks, 
+which I want to be singlespaced for the sake of tidiness and saving space. 
+It is important that the code chunks also run in R, since they may be doing 
+things like telling R to draw plots which will be part of the document.
+\section*{Question Part 2.}
+The problem that I seem to be having is that when I put in a command to 
+begin singlespacing and a command to end single spacing around an R code 
+chunk, text that is not inside the begin and end singlespacing command, for 
+some reason, ends up being singlespaced as well, even though as far as I can 
+tell it should be doublespaced, as can be seen with the text in this very 
+paragraph (if you've compiled it into a .pdf).
+
+\begin{minipage}{\linewidth}
+\singlespacing
+<<echo=TRUE>>=
+k=3
+mse=0.347
+d=0.85
+alpha=0.05
+n=30
+pwr.df=data.frame(row.names = 1:n)
+pwr.df$n=1:n
+@
+\end{minipage}
+Strangely, the problem doesn't occur for text which follows the "end" of the 
+singlespacing commmand, but text which comes before the 'begin' 
+singlespacing command is affected, as can be seen here.
+\end{document}

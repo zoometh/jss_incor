@@ -118,12 +118,11 @@ The entire graphical content of the decoration is mapped with a neighborhood gra
 \caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age \emp{Cerro Muriano 1} stelae (drawing: \cite{DiazGuardamino10}) opened in new GIS project without any projection system with its extent (\code{xmin, xmax, ymin, ymax} in pixels); B) Polygonsiation of the GUs, calculation of their centroids (nodes), calculation of the Voronoi cells, calculation of the proximity links (edges); C) plot of the relative \emph{x} and \emph{y} coordinates of the GUs centroids; D) plot of the values in the \code{type} of the GUs}
 \end{figure}
 
-Whether this theoritical process include image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.
-\smallbreak
-This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic variables of GUs (\code{type}, \code{technologie}, \code{color}, \code{size}, etc.) and the types of relations they share. At least one variable, like the \code{type} of the GUs ('anthropomorph', 'horned helmet', etc.), is defined in order to compute composition analysis. Here, we will only consider one property for the nodes, its \code{type}, and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.
-\smallbreak
+Whether this theoritical process include image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.\\
+This model has a minimal of \emph{a priori} definitions. Those definitions only concern the intrinsic variables of GUs (\code{type}, \code{technologie}, \code{color}, \code{size}, etc.) and the types of relations they share. At least one variable, like the \code{type} of the GUs ('anthropomorph', 'horned helmet', etc.), is defined in order to compute composition analysis. Here, we will only consider one property for the nodes, its \code{type}, and the most common types of relations between GUs: \emph{normal}, \emph{attribute} and \emph{overlapping} edges.\\
+\\
 \textbf{\emph{normal}} edges
-\smallbreak
+\\
 % \begin{itemize}
 %   \item \emph{normal} edges
 % \end{itemize}
@@ -138,13 +137,13 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.025]{gis_1}
+\includegraphics[height=8cm]{gis_1}
 \caption{\label{fig:gis1} GIS interface, Cerro Muriano 1 decoration. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (anthropomorph).}
 \end{figure}
 
-\smallbreak
+\\
 \textbf{\emph{overlapping}} edges
-\smallbreak
+\\
 % \begin{itemize}
 %   \item \emph{overlapping} edges
 % \end{itemize}
@@ -153,8 +152,8 @@ Finally, it is quite common that a graphical composition shows superimpositions 
 
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=0.025]{gis_2}
-\caption{\label{fig:gis1} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
+\includegraphics[height=8cm]{gis_2}
+\caption{\label{fig:gis_2} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
 \end{figure}
 
 
@@ -214,7 +213,7 @@ A training dataset (nodes and edges coordinates, decoration images) is stored in
 The inventory of decorations is stored in the \code{imgs} dataframe. The field \code{imgs$idf} is the short name of the decoration, useful during statistical analysis. The primary key of each decoration is the concatenate of \code{imgs$site} and \code{imgs$decor}. These keys will allow joints with the other dataframes (\code{nodes} and \code{edges})\\
 %
 % latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:06 2020
+% Fri Dec 04 10:36:29 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{|p{0.5cm}|p{2.5cm}|p{2.5cm}|p{8.5cm}|}
@@ -295,7 +294,7 @@ R> print(xtable::xtable(head(nodes),
 +        table.placement="H")
 \end{verbatim}
 \end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:07 2020
+% Fri Dec 04 10:36:31 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{rllrlrr}
@@ -331,7 +330,7 @@ R> print(xtable::xtable(head(edges),
 +        table.placement="H")
 \end{verbatim}
 \end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:07 2020
+% Fri Dec 04 10:36:31 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{rllrrl}
@@ -372,6 +371,10 @@ The \code{list\_dec()} function allows to calculate graphs for all decorations s
 \begin{kframe}
 \begin{verbatim}
 R> lgrph <- list_dec(imgs,nodes,edges,var="type")
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in list\_dec(imgs, nodes, edges, var = "{}type"{}): unused argument (var = "{}type"{})}}\begin{verbatim}
 R> plot(lgrph[[1]],
 +       vertex.color = "orange",
 +       vertex.frame.color="orange",
@@ -382,16 +385,9 @@ R> plot(lgrph[[1]],
 +       vertex.label.family="Helvetica"
 +  )
 \end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/igraph-1} 
-
-}
-
-\caption{\label{fig:figs}R interface. Plot of the first graph of the list}\label{fig:igraph}
-\end{figure}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot(lgrph[[1]], vertex.color = "{}orange"{}, vertex.frame.color = "{}orange"{}, : object 'lgrph' not found}}\end{kframe}
 
 
 The others \pkg{decorr} package functions can be divided into:
@@ -434,7 +430,7 @@ R> print(xtable::xtable(nds.df[6,],
 +        table.placement="H")
 \end{verbatim}
 \end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:08 2020
+% Fri Dec 04 10:36:35 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{rllrlrr}
@@ -461,7 +457,7 @@ R> print(xtable::xtable(eds.df[1,],
 +        table.placement="H")
 \end{verbatim}
 \end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:08 2020
+% Fri Dec 04 10:36:35 2020
 \begin{table}[H]
 \centering
 \begin{tabular}{rllrrlrrrr}
@@ -499,18 +495,15 @@ R> img.graph <- plot_dec_grph(nodes = nds.df,
 +                             doss = system.file("extdata", package = "decorr"),
 +                             lbl.txt = "type",
 +                             lbl.size=2)
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot\_dec\_grph(nodes = nds.df, edges = eds.df, site = sit, decor = dec, : unused argument (lbl.txt = "{}type"{})}}\begin{verbatim}
 R> plot(image_trim(img.graph))
 \end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/tr_st-1} 
-
-}
-
-\caption{\label{fig:figs}Torrejon Rubio 1 decoration}\label{fig:tr_st}
-\end{figure}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in assert\_image(image): object 'img.graph' not found}}\end{kframe}
 
 \subsection{Decoration comparison functions} \label{sec:functions_one}
 
@@ -567,21 +560,22 @@ Let us choose the decorations \code{1} (Cerro Muriano 1) and \code{4} (Zarza de 
 \begin{verbatim}
 R> # par(mar=c(0,0,0,0))
 R> g.compar <- list_compar(lgrph,"type")
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in utils::combn(1:length(lgrph), 2): object 'lgrph' not found}}\begin{verbatim}
 R> eds_compar <- plot_compar(g.compar, c(1,4),
 +                            focus = "edges",
 +                            doss = system.file("extdata", package = "decorr"))
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot\_compar(g.compar, c(1, 4), focus = "{}edges"{}, doss = system.file("{}extdata"{}, : object 'g.compar' not found}}\begin{verbatim}
 R> plot(magick::image_trim(magick::image_read(eds_compar)))
 \end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
-
-}
-
-\caption{\label{fig:figs}comparisons between 1 (Cerro Muriano 1) and 4 (Zarza de Montsanchez) decorations}\label{fig:unnamed-chunk-6}
-\end{figure}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in magick::image\_read(eds\_compar): path must be URL, filename or raw vector}}\end{kframe}
 
 The comparison shows that \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Montsanchez) decorations have two (2) common edges: \code{lance -=- personnage} and \code{personnage -=- bouclier}.
 
@@ -594,7 +588,11 @@ The comparison shows that \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Mont
 
 \begin{kframe}
 \begin{verbatim}
-R> df.same_edges <- same_eds(lgrph,"type")
+R> df.same_edges <- same_neds(lgrph, "type", "edges")
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in same\_neds(lgrph, "{}type"{}, "{}edges"{}): could not find function "{}same\_neds"{}}}\begin{verbatim}
 R> caption <- "Number of same edges between all decoration pairwise comparisons"
 R> print(xtable::xtable(df.same_edges,
 +                       caption = caption,
@@ -604,25 +602,9 @@ R> print(xtable::xtable(df.same_edges,
 +        table.placement="H",
 +        include.rownames = TRUE)
 \end{verbatim}
-\end{kframe}% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:13 2020
-\begin{table}[H]
-\centering
-\begin{tabular}{rrrrrr}
-  \hline
- & 1 & 2 & 3 & 4 & 5 \\ 
-  \hline
-1 & 7 & 2 & 3 & 4 & 2 \\ 
-  2 & 2 & 10 & 5 & 7 & 3 \\ 
-  3 & 3 & 5 & 6 & 4 & 3 \\ 
-  4 & 4 & 7 & 4 & 10 & 3 \\ 
-  5 & 2 & 3 & 3 & 3 & 4 \\ 
-   \hline
-\end{tabular}
-\caption{Number of same edges between all decoration pairwise comparisons} 
-\label{Test_table_2}
-\end{table}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in xtable::xtable(df.same\_edges, caption = caption, label = "{}Test\_table\_2"{}, : object 'df.same\_edges' not found}}\end{kframe}
 
 For these two last exemples, the edges comparisons between the decoration \code{1} and the decoration \code{4} show that they have two (2) common edges.
 
@@ -633,32 +615,22 @@ As said, since the precise location of the GUs is usualy not registred, the most
 \begin{table}[H]
 \begin{minipage}{.45\textwidth}
 \centering
-% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:13 2020
-\begin{tabular}{rrrrrr}
-  & 1 & 2 & 3 & 4 & 5 \\ 
- 1 & 7 & 2 & 3 & 4 & 2 \\ 
-  2 & 2 & 10 & 5 & 7 & 3 \\ 
-  3 & 3 & 5 & 6 & 4 & 3 \\ 
-  4 & 4 & 7 & 4 & 10 & 3 \\ 
-  5 & 2 & 3 & 3 & 3 & 4 \\ 
-  \end{tabular}
+\begin{kframe}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in same\_neds(lgrph, "{}type"{}, "{}edges"{}): could not find function "{}same\_neds"{}}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in same\_neds(lgrph, "{}type"{}, "{}nodes"{}): could not find function "{}same\_neds"{}}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in xtable(df.same\_nodes, digits = c(0)): object 'df.same\_nodes' not found}}\end{kframe}
 \captionof{table}{Common nodes table}
 \end{minipage}
 \begin{minipage}{.45\textwidth}
 \centering
-% latex table generated in R 3.6.1 by xtable 1.8-4 package
-% Tue Dec 01 11:36:13 2020
-\begin{tabular}{rrrrrr}
-  & 1 & 2 & 3 & 4 & 5 \\ 
- 1 & 7 & 2 & 3 & 4 & 2 \\ 
-  2 & 2 & 10 & 5 & 7 & 3 \\ 
-  3 & 3 & 5 & 6 & 4 & 3 \\ 
-  4 & 4 & 7 & 4 & 10 & 3 \\ 
-  5 & 2 & 3 & 3 & 3 & 4 \\ 
-  \end{tabular}
+\begin{kframe}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in xtable(df.same\_edges, digits = c(0)): object 'df.same\_edges' not found}}\end{kframe}
 \captionof{table}{Common edges table}
 \end{minipage}
 \end{table}
@@ -671,13 +643,25 @@ Once the heatmap matrices calculated, the native \code{dist()} and \code{hclust(
 R> library("matlib")
 R> par(mfrow=c(1,2))
 R> dist.nodes  <- dist(inv(as.matrix(df.same_nodes)))
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(df.same\_nodes): object 'df.same\_nodes' not found}}\begin{verbatim}
 R> dist.edges  <- dist(inv(as.matrix(df.same_edges)))
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(df.same\_edges): object 'df.same\_edges' not found}}\begin{verbatim}
 R> plot(hclust(dist.nodes), hang = -1, main = "common nodes")
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in hclust(dist.nodes): object 'dist.nodes' not found}}\begin{verbatim}
 R> plot(hclust(dist.edges), hang = -1, main = "common edges")
 \end{verbatim}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in hclust(dist.edges): object 'dist.edges' not found}}\end{kframe}
 \end{figure}
 
 Results of classifications show that for both common nodes and common edges, the most different decorations are \code{1} and \code{4}. These two decorations share four (4) common nodes and, as previously seen, only two (2) common edges.
@@ -688,24 +672,33 @@ In any cases decorations \code{2} and \code{3} are closer to decoration \code{4}
 R> par(mar=c(0,0,0,0))
 R> par(mfrow=c(2,1))
 R> g.compar <- list_compar(lgrph,"type")
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in utils::combn(1:length(lgrph), 2): object 'lgrph' not found}}\begin{verbatim}
 R> nds_compar.3.4 <- plot_nds_compar(g.compar, c(3,4),
 +                                    doss = system.file("extdata", package = "decorr"))
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot\_nds\_compar(g.compar, c(3, 4), doss = system.file("{}extdata"{}, : could not find function "{}plot\_nds\_compar"{}}}\begin{verbatim}
 R> plot(image_read(nds_compar.3.4))
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in image\_read(nds\_compar.3.4): object 'nds\_compar.3.4' not found}}\begin{verbatim}
 R> # g.compar <- list_eds_compar(lgrph,"type")
 R> eds_compar.3.4 <- plot_eds_compar(g.compar, c(3,4),
 +                                doss = system.file("extdata", package = "decorr"))
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot\_eds\_compar(g.compar, c(3, 4), doss = system.file("{}extdata"{}, : could not find function "{}plot\_eds\_compar"{}}}\begin{verbatim}
 R> plot(image_read(eds_compar.3.4))
 \end{verbatim}
-\end{kframe}\begin{figure}[H]
-
-{\centering \includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
-
-}
-
-\caption{\label{fig:figs}Decoration comparisons between 3 and 4}\label{fig:unnamed-chunk-11}
-\end{figure}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in image\_read(eds\_compar.3.4): object 'eds\_compar.3.4' not found}}\end{kframe}
 
 Decorations \code{3} and \code{4} share four (4) common GUs (\code{bouclier, epee, lance, miroir}) but  these GUs have different spatial organisations with only one common edge (\code{bouclier -=- lance}). At the opposite, decorations \code{2} and \code{4} show more properly the same compositions.
 
