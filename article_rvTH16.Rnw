@@ -49,21 +49,21 @@ loadfonts(device = "win")
 
 %% - \Abstract{} almost as usual
 \Abstract{
-  By definition, Prehistorical societies are characterised by the absence of a writing system. During, the largest part of human history -- from far -- symbolic expressions belong to illiterate societies which express themself with rock-art paintings, pottery decorations, figurines and statuary, etc., and a lot of now disappeared carved woods, textil design, etc. At the composition level, recognition of meaningful associations of signs and reccurent patterns indicate clearly the existence of social conventions in the way to display and to read these expressions.
-  We present the \pkg{decorr} \proglang{R} package which grounds concepts, methods and tools to analyse any ancient graphical systems. Our asumption is that i) any graphical system is a spatial distribution of features, and ii) these features have possibly any meaningful relationships one with another depending on their pairwise spatial proximities. To model the graphical compositions we employ concepts coming from the Graph Theory. To ensure the feasability of this type of analysis, we propose a GIS-based method for inputs and a serie of functions for data management.   
+By definition, Prehistorical societies are characterised by the absence of a writing system. During, the largest part of human history -- from far -- symbolic expressions belong to illiterate societies which express themself with rock-art paintings, pottery decorations, figurines and statuary, etc., and a lot of now disappeared carved woods, textil design, etc. At the composition level, recognition of meaningful associations of signs and reccurent patterns indicate clearly the existence of social conventions in the way to display and to read these expressions.
+We present the \pkg{decorr} \proglang{R} package which grounds concepts, methods and tools to analyse any ancient graphical systems. Our asumption is that i) any graphical system is a spatial distribution of features, and ii) these features have possibly any meaningful relationships one with another depending on their pairwise spatial proximities. To model the graphical compositions we employ concepts coming from the Graph Theory. To ensure the feasability of this type of analysis, we propose a GIS-based method for inputs and a serie of functions for data management.   
 }
 
 \Keywords{Semiotics, Iconography, Prehistory, Graphs, Spatial Analysis, Binary Topological Relationships (\emph{birel}), \proglang{R}}
 \Plainkeywords{Semiotics, Iconography, Prehistory, Graphs, Spatial Analysis, Binary Topological Relationships (birel), R}
 
 \Address{
-  Thomas Huet\\
-  CNRS-UMR 5140 \\
-  Archeologie des Societes Mediterraneennes\\
-  Universite Paul Valery\\
-  route de Mende\\
-  Montpellier 34199, France\\
-  E-mail: \email{thomashuet7@gmail.com}\\
+Thomas Huet\\
+CNRS-UMR 5140 \\
+Archeologie des Societes Mediterraneennes\\
+Universite Paul Valery\\
+route de Mende\\
+Montpellier 34199, France\\
+E-mail: \email{thomashuet7@gmail.com}\\
 %  URL: \url{https://eeecon.uibk.ac.at/~zeileis/}
 }
 
@@ -74,12 +74,11 @@ loadfonts(device = "win")
 
 \section[Introduction]{Introduction} \label{sec:intro}
 
-Symbolic practices is a characteristic trait of human societies. Even discussed, such practices seems to start between 233,000 to 800,00 BC \citep{dErrico00}, covering more than 97\% of total human societies time span. Symbolism cover a large range of practices, from ochre deposit in a tomb, to menhir alignements, passing through wall fresco. This latter, what might be called "iconographical practices", probably shows the most complex and interesting testimonies of past societies symbolism. For decades, its study was linked to history of religion because commonly seen as closely linked to cultual practices and believes. Since the \textit{New Archaeology} developpement during the 60's \citep{Clarke14}, symbolic expressions start to be studied with the same formal methods (statistics, seriations, distribution maps, etc.) as any another aspect of social organisation: settlement patterns, tools \emph{chaine op\'eratoire}, susbsitence strategies, etc. \citep{Renfrew91}. But unlike many aspects of the material culture where technological requirements and technical efficiency determine the choice of the raw material and the shape of the object -- a flint blade for cutting, a pottery for containing, a house for living --, the function of an iconographic composition cannot be drawn directly from itself. Whether these last decades study of ancient iconography had  undergone significative improvements at the site scale -- with GIS/database statistics, paleoenvironmental restitutions, etc. -- and at the sign scale with the development of archaeological sciences -- radiocarbon dating, use-wear analysis, elemental analysis, etc. --, these improvement do not necessarly help to understand the semantic content of the iconography.
-
+Symbolic practices is a characteristic trait of human societies. Even discussed, such practices seems to start between 233,000 to 800,00 BC \citep{dErrico00}, covering more than 97\% of total human societies time span. Symbolism cover a large range of practices, from ochre deposit in a tomb, to menhir alignements, passing through wall fresco. This latter, what might be called "iconographical practices", probably shows the most complex and interesting testimonies of past societies symbolism. For decades, its study was linked to history of religion because commonly seen as closely linked to cultual practices and believes. Since the \textit{New Archaeology} developpement during the 60's \citep{Clarke14}, symbolic expressions start to be studied with the same formal methods (statistics, seriations, distribution maps, etc.) as any another aspect of social organisation: settlement patterns, tools \emph{chaine op\'eratoire}, susbsitence strategies, etc. \citep{Renfrew91}. But unlike many aspects of the material culture where technological requirements and technical efficiency determine the choice of the raw material and the shape of the object -- a flint blade for cutting, a pottery for containing, a house for living --, the function of an iconographic composition cannot be drawn directly from itself. Whether these last decades study of ancient iconography had  undergone significative improvements at the site scale -- with GIS/database statistics, paleoenvironmental restitutions, etc. -- and at the sign scale with the development of archaeological sciences -- radiocarbon dating, use-wear analysis, elemental analysis, etc. --, these improvement do not necessarly help to understand the semantic content of the iconography.\\
 Semantics or semiotics can be defined as a system of conventional features -- called signs -- organised also in conventional manners. Until our days, formal methods to study ancient iconography semantics have been mostlty been grounded  -- explicitly or not -- on the prime principle of Saussurian linguistic: the '\emph{linearity of the signifier}' \citep{Saussure89}.  
 Writing is one of the most rational semiographical system with a clear distinction between signified and signifier and the development of the signified on a linear axis. Even if we do not understand the meaning of the signs, writing can easily be modelled with Graph theory and recurent patterns can be identified. For example, the 3-letters word "\code{art}" can be modelled with three vertices (\code{a}, \code{r}, \code{t}) and two edges (one between \code{a} and \code{r}, the other between \code{r} and \code{t}). In \proglang{R}, these features, concatenated in this order with a \code{paste0()}, is \code{art}, and not \code{rat}.
 \smallbreak
-<<a_r_t, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=3, fig.cap="\\label{fig:figs}Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
+<<a_r_t, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", out.height="50%", fig.cap="\\label{fig:figs}Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
 g <- graph_from_literal(a-+r, r-+t)
 plot(g,
      layout = cbind(seq(-1,1,length.out = gorder(g)), 0),
@@ -106,15 +105,15 @@ plot(g,
      vertex.label.cex=1,
      vertex.label.color="black",
      vertex.label.family="Courier New"
-     )
+)
 @
 
 Because of the inherent variability of iconography, and because graphical and spatial proximities between graphical units are generaly not quantified, applying the Saussurian model to any prehistorical graphical content had led to considerable problems:
 \begin{itemize}
 \setlength\itemsep{.05em}
-  \item unexplicit groupings of graphical units -- like graphical units grouped into \emp{figures},  \emp{figures} grouped into \emp{patterns}, \emp{patterns} grouped into \emp{motives}, etc. -- with tedious number of groups
-  \item consistency, proximities and relationships between these groups are often implicit and not quantified
-  \item studies develop proper descriptive vocabularies, singular relationships of grouping, idosyncratic methods at site-dependend or period-dependend scales 
+\item unexplicit groupings of graphical units -- like graphical units grouped into \emp{figures},  \emp{figures} grouped into \emp{patterns}, \emp{patterns} grouped into \emp{motives}, etc. -- with tedious number of groups
+\item consistency, proximities and relationships between these groups are often implicit and not quantified
+\item studies develop proper descriptive vocabularies, singular relationships of grouping, idosyncratic methods at site-dependend or period-dependend scales 
 \end{itemize}
 
 These issues limit drastically the possibility to conduct cross-cultural comparisons and to draw a synthesis of humankind's symbolism at a large scale and over the long-term.  
@@ -155,7 +154,7 @@ It occurs frequently that a GU can be divided into a \emph{main unit} (eg, a cha
 
 \begin{figure}[H] 
 \centering
-\includegraphics[height=8cm]{gis_1}
+\includegraphics[height=10cm, keepaspectratio]{gis_1}
 \caption{\label{fig:gis1} GIS interface, Cerro Muriano 1 decoration. The GUs \code{casque} (helmet) and \code{sexe\_masculin} (male sex) are two nodes attributes of the GU \code{personnage} (anthropomorph).}
 \end{figure}
 
@@ -170,7 +169,7 @@ Finally, it is quite common that a graphical composition shows superimpositions 
 
 \begin{figure}[H] 
 \centering
-\includegraphics[height=8cm]{gis_2}
+\includegraphics[height=10cm, keepaspectratio]{gis_2}
 \caption{\label{fig:gis_2} GIS interface, Ibahernando decoration. The GUs \code{ecriture} (writing) overlaps \code{lance} (spear) and the upper part of the \code{bouclier} (shield).}
 \end{figure}
 
@@ -179,17 +178,17 @@ These different kind of relationships are resumed with their birel equivalencies
 
 \begin{table}[H]
 % \begin{center}
-  \centering
- \begin{tabular}{|p{.5cm} p{.5cm} p{.5cm} p{2cm} p{2cm} p{5cm}|}
- \hline
-  % node A & type of edge & node B & undirected & birel & stratigraphical meaning \\
- GU.1 & edge type & GU.2 & (un)directed & \emph{birel} & description \\
- \hline
-  \code{A} & \code{=} & \code{B} & undirected & $ A \cap B = \emptyset $ & \code{A} and \code{B} are disjoint \code{A} and \code{B} contemporaneous \\
-  \code{A} & \code{+} & \code{B} & directed & $ A \cap B = A $ & \code{A} and \code{B} are contemporaneous, \code{B} is an attribute of \code{A} \\
-  \code{A} & \code{>} & \code{B} & directed & $ A \cap B = \exists $ & \code{A} overlaps \code{B}, \code{A} is more recent than \code{B} \\
- % \code{1} & = & 2 & undirected & A \cap B = \varnothing & 1 and 2 can be contemporaneous \\
- \hline
+\centering
+\begin{tabular}{|p{.5cm} p{.5cm} p{.5cm} p{2cm} p{2cm} p{5cm}|}
+\hline
+% node A & type of edge & node B & undirected & birel & stratigraphical meaning \\
+GU.1 & edge type & GU.2 & (un)directed & \emph{birel} & description \\
+\hline
+\code{A} & \code{=} & \code{B} & undirected & $ A \cap B = \emptyset $ & \code{A} and \code{B} are disjoint \code{A} and \code{B} contemporaneous \\
+\code{A} & \code{+} & \code{B} & directed & $ A \cap B = A $ & \code{A} and \code{B} are contemporaneous, \code{B} is an attribute of \code{A} \\
+\code{A} & \code{>} & \code{B} & directed & $ A \cap B = \exists $ & \code{A} overlaps \code{B}, \code{A} is more recent than \code{B} \\
+% \code{1} & = & 2 & undirected & A \cap B = \varnothing & 1 and 2 can be contemporaneous \\
+\hline
 \end{tabular}
 \caption{Synthesis for the different types of relations between GUs}\label{tab1}
 % \end{center}
@@ -218,10 +217,10 @@ R>   devtools::install_github("zoometh/iconr", build_vignettes=TRUE)
 The \pkg{decorr} package imports the following packages:
 \begin{itemize}
 \setlength\itemsep{.1em}
-  \item \pkg{magick} for image manipulation \citep{Ooms18}
-  \item \pkg{igraph} for graph and network analysis \citep{Csardi06} 
-  \item \pkg{rgdal}  to read \emph{shapefiles} of nodes and edges \citep{Bivand19}
-  \item \pkg{grDevices} for colors and font plotting, \pkg{graphics} for graphics, \pkg{utils} and \pkg{methods} for formally defined methods and \emph{varia} methods (all combinations, etc.) \citep{R19}
+\item \pkg{magick} for image manipulation \citep{Ooms18}
+\item \pkg{igraph} for graph and network analysis \citep{Csardi06} 
+\item \pkg{rgdal}  to read \emph{shapefiles} of nodes and edges \citep{Bivand19}
+\item \pkg{grDevices} for colors and font plotting, \pkg{graphics} for graphics, \pkg{utils} and \pkg{methods} for formally defined methods and \emph{varia} methods (all combinations, etc.) \citep{R19}
 \end{itemize}
 
 \subsection{Data} \label{sec:ext_data}
@@ -314,8 +313,8 @@ The \code{edges} dataframe is quite similar to the \code{nodes} dataframe (Fig. 
 <<teds, results='asis', echo=TRUE>>=
 caption <- "Edges (from \\code{edges.csv} dataframe)}"
 print(xtable::xtable(head(edges),
-               caption=caption,
-               label="edgesdf"),
+                     caption=caption,
+                     label="edgesdf"),
       table.placement="H")
 @
 
@@ -334,7 +333,7 @@ Once these dataframes loaded, the list of decoration graphs can be calculated wi
 The \code{list\_dec()} function allows to calculate graphs for all decorations stored into \code{nodes}, \code{edges} and \code{images}. The result is a list of decoration graph. The first graph of the list can be plotted (Fig. \ref{fig:igraph})
 
 <<igraph, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=4, fig.cap="\\label{fig:figs}R interface. Plot of the first graph of the list">>=
-lgrph <- list_dec(imgs,nodes,edges,var="type")
+lgrph <- list_dec(imgs,nodes,edges)
 plot(lgrph[[1]],
      vertex.color = "orange",
      vertex.frame.color="orange",
@@ -349,9 +348,9 @@ plot(lgrph[[1]],
 
 The others \pkg{decorr} package functions can be divided into:
 \begin{enumerate}
- \item graphical functions
- \item single decoration functions
- \item comparisons between different decorations functions
+\item graphical functions
+\item single decoration functions
+\item comparisons between different decorations functions
 \end{enumerate}
 
 \subsection{Graphical functions} \label{sec:functions_gr}
@@ -369,7 +368,7 @@ Functions allowing to create a RNG for a single decoration are:
 
 \begin{itemize}
 \setlength\itemsep{.1em}
-  \item \code{read_nds()} and \code{read_eds()} functions allow to read respectively a file of nodes and a file of edges (\code{.tsv} or \code{.shp} files)
+\item \code{read_nds()} and \code{read_eds()} functions allow to read respectively a file of nodes and a file of edges (\code{.tsv} or \code{.shp} files)
 \end{itemize}
 
 The \code{read_nds()} function is close to the \proglang{R} native \code{read.table()} function, but allows to read \emph{shapefiles} of nodes. For example, for the Torrejon Rubio 1 decoration, the 6th GUs is a sword (\code{epee}) (Table \ref{nd}).
@@ -401,7 +400,7 @@ print(xtable::xtable(eds.df[1,],
 
 \begin{itemize}
 \setlength\itemsep{.1em}
-  \item \code{plot_dec_grph()} allows to plot a RNG over a decoration image
+\item \code{plot_dec_grph()} allows to plot a RNG over a decoration image
 \end{itemize}
 
 Once, the \code{imgs}, \code{nodes} and \code{edges} dataframes have been read, the decoration graph is build and can be plotted. The \code{lbl.txt} parameter allows to decide which field of the nodes will be displayed as the label, by default this is the \code{nodes$id} field, but here it is the \code{nodes$type} field (Figure \ref{tr_st}).
@@ -419,7 +418,7 @@ img.graph <- plot_dec_grph(nodes = nds.df,
                            site = sit,
                            decor = dec,
                            doss = system.file("extdata", package = "decorr"),
-                           lbl.txt = "type",
+                           nds.lbl = "type",
                            lbl.size=2)
 plot(image_trim(img.graph))
 @
@@ -430,7 +429,7 @@ Functions allowing to compare different decorations with RNG are
 
 \begin{itemize}
 \setlength\itemsep{.1em}
-  \item \code{list_nds_compar()} and \code{list_eds_compar()} functions allow to compare respectively the common nodes and the common edges between two decorations
+\item \code{list_nds_compar()} and \code{list_eds_compar()} functions allow to compare respectively the common nodes and the common edges between two decorations
 \end{itemize}
 
 Comparisons between pairwise of decorations are first stored into a list. These comparisons are performed for nodes and/or edges. There are five (5) decorations in the default dataset, so there is $\frac{5!}{(5-2)!2!}={10}$ pairwise comparisons
@@ -469,7 +468,7 @@ Comparisons between pairwise of decorations are first stored into a list. These 
 
 \begin{itemize}
 \setlength\itemsep{.1em}
-  \item \code{plot_nds_compar()} and \code{plot_eds_compar()} functions allow to plot and save two figures side-by-side for a decorations pairwise with, respectively, common nodes and common edges identified
+\item \code{plot_nds_compar()} and \code{plot_eds_compar()} functions allow to plot and save two figures side-by-side for a decorations pairwise with, respectively, common nodes and common edges identified
 \end{itemize}
 
 The \code{plot_nds_compar()}and \code{plot_eds_compar()} functions create a \code{.png} image of two or more decorations plotted side-by-side with common nodes or edges identified and returns the names of the images. The common edges or nodes are displayed in red by default.
@@ -488,13 +487,13 @@ The comparison shows that \code{1} (Cerro Muriano 1) and \code{4} (Zarza de Mont
 
 \begin{itemize}
 \setlength\itemsep{.1em}
-  \item \code{same_nds()} and \code{same_eds()} functions allow to repectively count matching nodes and matching edges between decoration pairwises
+\item \code{same_elements()} function allows to count matching nodes and matching edges between decoration pairwises
 \end{itemize}
 
-\code{same_nds()} and \code{same_eds()} allow to repectively count matching nodes and matching edges between decoration pairwises. The result is a square matrix between all pairwise comparisons with the number of common nodes or edges in the cells. For example, we can compute the matrix of common edges.
+\code{same_elements()} allows to count matching nodes and matching edges between decoration pairwises. The result is a square matrix between all pairwise comparisons with the number of common nodes or edges in the cells. For example, we can compute the matrix of common edges.
 
 <<results='asis', echo=TRUE>>=
-df.same_edges <- same_neds(lgrph, "type", "edges")
+df.same_edges <- same_elements(lgrph, "type", "edges")
 caption <- "Number of same edges between all decoration pairwise comparisons"
 print(xtable::xtable(df.same_edges,
                      caption = caption,
@@ -524,21 +523,31 @@ library("xtable")
 # edges <- read.table(system.file("extdata", "edges.tsv", package = "decorr"),
 #                     sep="\t",stringsAsFactors = FALSE)
 # lgrph <- list_dec(imgs,nodes,edges,"type")
-df.same_edges <- same_neds(lgrph, "type", "edges")
-df.same_nodes<- same_neds(lgrph, "type", "nodes")
+df.same_edges <- same_elements(lgrph, "type", "edges")
+df.same_nodes<- same_elements(lgrph, "type", "nodes")
 # library("xtable")
-print(xtable(df.same_nodes, digits=c(0)),
-      floating=FALSE,
-      hline.after=NULL)
+print(xtable::xtable(df.same_nodes,
+                     size = 8,
+                     digits = c(0)),
+      table.placement="H",
+      include.rownames = TRUE)
+# print(xtable(df.same_nodes, digits=c(0)),
+#       floating=FALSE,
+#       hline.after=NULL)
 @
 \captionof{table}{Common nodes table}
 \end{minipage}
 \begin{minipage}{.45\textwidth}
 \centering
 <<echo=FALSE,results='asis'>>=
-print(xtable(df.same_edges, digits=c(0)),
-      floating=FALSE,
-      hline.after=NULL)
+print(xtable::xtable(df.same_edges,
+                     size = 8,
+                     digits = c(0)),
+      table.placement="H",
+      include.rownames = TRUE)
+# print(xtable(df.same_edges, digits=c(0)),
+#       floating=FALSE,
+#       hline.after=NULL)
 @
 \captionof{table}{Common edges table}
 \end{minipage}
@@ -564,13 +573,15 @@ In any cases decorations \code{2} and \code{3} are closer to decoration \code{4}
 par(mar=c(0,0,0,0))
 par(mfrow=c(2,1))
 g.compar <- list_compar(lgrph,"type")
-nds_compar.3.4 <- plot_nds_compar(g.compar, c(3,4),
-                                  doss = system.file("extdata", package = "decorr"))
-plot(image_read(nds_compar.3.4))
-# g.compar <- list_eds_compar(lgrph,"type")
-eds_compar.3.4 <- plot_eds_compar(g.compar, c(3,4),
+nds_compar.3.4 <- plot_compar(g.compar, c(3,4),
+                              focus = "nodes",
                               doss = system.file("extdata", package = "decorr"))
-plot(image_read(eds_compar.3.4))
+plot(magick::image_read(nds_compar.3.4))
+# g.compar <- list_eds_compar(lgrph,"type")
+eds_compar.3.4 <- plot_compar(g.compar, c(3,4),
+                              focus = "edges",
+                              doss = system.file("extdata", package = "decorr"))
+plot(magick::image_read(eds_compar.3.4))
 @
 
 Decorations \code{3} and \code{4} share four (4) common GUs (\code{bouclier, epee, lance, miroir}) but  these GUs have different spatial organisations with only one common edge (\code{bouclier -=- lance}). At the opposite, decorations \code{2} and \code{4} show more properly the same compositions.
@@ -629,12 +640,12 @@ For more technical style details, please check out JSS's style FAQ at
 \url{https://www.jstatsoft.org/pages/view/style#frequently-asked-questions}
 which includes the following topics:
 \begin{itemize}
-  \item Title vs.\ sentence case.
-  \item Graphics formatting.
-  \item Naming conventions.
-  \item Turning JSS manuscripts into \proglang{R} package vignettes.
-  \item Trouble shooting.
-  \item Many other potentially helpful details\dots
+\item Title vs.\ sentence case.
+\item Graphics formatting.
+\item Naming conventions.
+\item Turning JSS manuscripts into \proglang{R} package vignettes.
+\item Trouble shooting.
+\item Many other potentially helpful details\dots
 \end{itemize}
 \end{leftbar}
 
@@ -654,13 +665,13 @@ when acquiring the entries automatically from mixed online sources. However,
 it is important that informations are complete and presented in a consistent
 style to avoid confusions. JSS requires the following format.
 \begin{itemize}
-  \item JSS-specific markup (\verb|\proglang|, \verb|\pkg|, \verb|\code|) should
-    be used in the references.
-  \item Titles should be in title case.
-  \item Journal titles should not be abbreviated and in title case.
-  \item DOIs should be included where available.
-  \item Software should be properly cited as well. For \proglang{R} packages
-    \code{citation("pkgname")} typically provides a good starting point.
+\item JSS-specific markup (\verb|\proglang|, \verb|\pkg|, \verb|\code|) should
+be used in the references.
+\item Titles should be in title case.
+\item Journal titles should not be abbreviated and in title case.
+\item DOIs should be included where available.
+\item Software should be properly cited as well. For \proglang{R} packages
+\code{citation("pkgname")} typically provides a good starting point.
 \end{itemize}
 \end{leftbar}
 
