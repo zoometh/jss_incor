@@ -1,34 +1,107 @@
-\documentclass{article}
-\usepackage{setspace}
-\begin{document}
-\doublespacing
-\section*{Question Part 1.}
-I am writing this document inside RStudio, using Sweave. I want everything 
-in the document to be doublespaced with the exception of R code chunks, 
-which I want to be singlespaced for the sake of tidiness and saving space. 
-It is important that the code chunks also run in R, since they may be doing 
-things like telling R to draw plots which will be part of the document.
-\section*{Question Part 2.}
-The problem that I seem to be having is that when I put in a command to 
-begin singlespacing and a command to end single spacing around an R code 
-chunk, text that is not inside the begin and end singlespacing command, for 
-some reason, ends up being singlespaced as well, even though as far as I can 
-tell it should be doublespaced, as can be seen with the text in this very 
-paragraph (if you've compiled it into a .pdf).
+\documentclass[article]{jss}
 
-\begin{minipage}{\linewidth}
-\singlespacing
-<<echo=TRUE>>=
-k=3
-mse=0.347
-d=0.85
-alpha=0.05
-n=30
-pwr.df=data.frame(row.names = 1:n)
-pwr.df$n=1:n
+%% -- LaTeX packages and custom commands ---------------------------------------
+
+%% recommended packages
+\usepackage{thumbpdf,lmodern}
+\usepackage{float,tikz}
+%% another package (only for this demo article)
+\usepackage{framed}
+%% author pakckage
+\usepackage{xcolor,caption, float}
+
+\graphicspath{ {./imgs/} }
+
+%% new custom commands
+\newcommand{\class}[1]{`\code{#1}'}
+\newcommand{\fct}[1]{\code{#1()}}
+% \setlist[itemize]{noitemsep, topsep=0pt}
+\SweaveOpts{engine=R, eps=FALSE, keep.source = TRUE}
+
+<<preliminaries, echo=FALSE, include=FALSE, cache=FALSE >>=
+# options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
+library("MASS")
+library("extrafont") #;library("ggplot")
+library("igraph")
+opts_chunk$set(prompt=TRUE, fig.pos = 'H', results='asis', highlight=FALSE)
+options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
+options(SweaveHooks=list(fig=function() par(mar=c(0, 0, 0, 0))))
+# options(replace.assign=TRUE, width=90, prompt="R> ")
+opts_knit$set(concordance=TRUE, self.contained=FALSE, background = "#FFFFFF")
+# knitr::opts_chunk$set(fig.pos = 'H')
+loadfonts(device = "win")
 @
-\end{minipage}
-Strangely, the problem doesn't occur for text which follows the "end" of the 
-singlespacing commmand, but text which comes before the 'begin' 
-singlespacing command is affected, as can be seen here.
+
+%% -- Article metainformation (author, title, ...) -----------------------------
+
+%% - \author{} with primary affiliation
+%% - \Plainauthor{} without affiliations
+%% - Separate authors by \And or \AND (in \author) or by comma (in \Plainauthor).
+%% - \AND starts a new line, \And does not.
+\author{Thomas Huet\\UMR 5140 \And Craig Alexander \And Jose Pozo}
+%   \And Second Author\\Plus Affiliation}
+\Plainauthor{Thomas Huet, Craig Alexander, Jose Pozo}
+
+%% - \title{} in title case
+%% - \Plaintitle{} without LaTeX markup (if any)
+%% - \Shorttitle{} with LaTeX markup (if any), used as running title
+\title{Modelling Prehistoric Iconographic Compositions. The \proglang{R} package \pkg{decorr}}
+\Plaintitle{Modelling Prehistoric Iconographic Compositions. The R package 'decorr'}
+\Shorttitle{Modelling Prehistoric Iconographic Compositions}
+
+%% - \Abstract{} almost as usual
+\Abstract{
+By definition, Prehistorical societies are characterised by the absence of a writing system. During, the largest part of human history -- from far -- symbolic expressions belong to illiterate societies which express themself with rock-art paintings, pottery decorations, figurines and statuary, etc., and a lot of now disappeared carved woods, textil design, etc. At the composition level, recognition of meaningful associations of signs and reccurent patterns indicate clearly the existence of social conventions in the way to display and to read these expressions.
+We present the \pkg{decorr} \proglang{R} package which grounds concepts, methods and tools to analyse any ancient graphical systems. Our asumption is that i) any graphical system is a spatial distribution of features, and ii) these features have possibly any meaningful relationships one with another depending on their pairwise spatial proximities. To model the graphical compositions we employ concepts coming from the Graph Theory. To ensure the feasability of this type of analysis, we propose a GIS-based method for inputs and a serie of functions for data management.   
+}
+
+\Keywords{Semiotics, Iconography, Prehistory, Graphs, Spatial Analysis, Binary Topological Relationships (\emph{birel}), \proglang{R}}
+\Plainkeywords{Semiotics, Iconography, Prehistory, Graphs, Spatial Analysis, Binary Topological Relationships (birel), R}
+
+\Address{
+Thomas Huet\\
+CNRS-UMR 5140 \\
+Archeologie des Societes Mediterraneennes\\
+Universite Paul Valery\\
+route de Mende\\
+Montpellier 34199, France\\
+E-mail: \email{thomashuet7@gmail.com}\\
+%  URL: \url{https://eeecon.uibk.ac.at/~zeileis/}
+}
+
+\begin{document}
+% \SweaveOpts{concordance=TRUE}
+% \Sweave2knitr("article_rvTH14_1.Rnw")
+% \SweaveOpts{concordance=TRUE}
+
+\section[Introduction]{Introduction} \label{sec:intro}
+
+The \pkg{decorr} package training dataset is composed by five stelaes decorations drawings \citep{DiazGuardamino10} belonging to the so-called 'Warrior stelae' family -- with about 140 stelae -- dated to the Late Bronze Age of SW Iberian peninsula \citep{Celestino01}. \\
+At first the drawings dataset can be checked by using the \code{imgs} dataframe and the \pkg{magick} package (Fig. \ref{fig:timg})
+%
+<<timg, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = 'H', fig.align="center", fig.width=18, fig.height=13, fig.cap="\\label{fig:figs}Decoration images of the training dataset">>=
+# library("magick")
+pth <- system.file("extdata", package = "decorr")
+imgs <- read.table(system.file("extdata", "imgs.tsv", package = "decorr"),
+                   sep="\t", stringsAsFactors = FALSE)
+lims <- list()
+for(i in 1:nrow(imgs)){
+  i1 <- image_read(paste0(pth,"\\",imgs[i,"img"]))
+  lbl.txt <- paste0(imgs[i,"idf"],"\n",
+                    imgs[i,"site"],"\n",
+                    imgs[i,"decor"],"\n",
+                    imgs[i,"img"],"\n",
+                    image_info(i1)$width,"*",image_info(i1)$height," px")
+  i1 <- image_annotate(i1,lbl.txt,location = "northwest",
+                       size = 30, color = "red")
+  lims[[length(lims)+1]]<- i1
+}
+out.img <- image_append(c(image_append(c(lims[[1]],lims[[2]],lims[[3]])),
+                          image_append(c(lims[[4]],lims[[5]]))),
+                        stack = TRUE)
+plot(out.img)
+@
+%
+To construct a graph overlapping the decoration images listed in the \code{images} dataframe, the first step is to load \code{nodes} and \code{edges} dataframes.
+
 \end{document}
