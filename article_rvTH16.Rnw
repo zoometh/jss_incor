@@ -431,7 +431,7 @@ img.graph <- plot_dec_grph(nodes = nds.df,
                            doss = system.file("extdata", package = "decorr"),
                            nd.var = "type",
                            lbl.size=2)
-plot(image_trim(img.graph))
+image_read(img.graph)
 @
 
 \subsection{Decoration comparison functions} \label{sec:functions_one}
