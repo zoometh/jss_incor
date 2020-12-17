@@ -124,7 +124,7 @@ plot(g,
 )
 @
 
-Because of the inherent variability of iconography, and because graphical and spatial proximities between graphical units are generally not quantified, applying the Saussurian model to any prehistorical graphical content had led to considerable problems:
+Because of the inherent variability of iconography, and because graphical and spatial proximities between graphical units are generally not quantified, applying the Saussurian model to any structured prehistorical graphical content had led to considerable problems:
 \begin{itemize}
 \item unexplicit spatial groupings of graphical units -- like graphical units grouped into \emph{figures},  \emph{figures} grouped into \emph{patterns}, \emph{patterns} grouped into \emph{motives}, etc. -- with tedious number of groups
 \item consistency, proximities and relationships between these groups are often implicit and not quantified
@@ -153,7 +153,50 @@ The entire graphical content of the decoration is mapped with a geometric graph 
 \caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age Cerro Muriano 1 stelae (drawing: \cite{DiazGuardamino10}) opened in new GIS project without any projection system with its extent (\code{xmin, xmax, ymin, ymax} in pixels); B) Polygonisation of the GUs, calculation of their centroids (nodes), calculation of the Voronoi cells, calculation of the proximity links (edges); C) plot of the relative \emph{x} and \emph{y} coordinates of the GUs centroids; D) plot of the values in the \code{type} of the GUs}
 \end{figure}
 
-Whether this theoretical process includes image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.
+Whether this theoretical process includes image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.\\
+
+The notation of with nodes allows also to avoid, empirical and  top-down hierachical typologies . According to us, it is more convenient to record GUs (eg, an anthropomorph) and GUs varietes (an anthropomorph wearing an helmet) with different spatialized nodes (firstly within a GIS) rather than multiplying hierarchical levels of categories (e.g., a category of graphical units with \emph{n} types, a type with \emph{n} subtypes, a subtype with \emph{n} varieties, etc.) that lead also to tedious idiosynchratic inventories and difficult possible comparisons \emph{within} and \emph{between} these categories. For example, with the two types of GUs \code{casque} (helmet) and \code{personnage} (anthropomorphe) and the \emph{attribute} edge it is possible to describe: (1) a case where an anthropomorph wears a helmet (like for the Cerro Muriano steale, Figure \ref{fig:dec.1.4} left), (2) a case where an anthropomorph is separated from a helmet (like for the Zarza de Montanchez, Figure \ref{fig:dec.1.4} right). With a top-down hierachical typology, three types of GUs would have been required: (1) anthropomorph wearing a helmet (Cerro Muriano); (2) anthropomorph and (3) helmet (Zarza de Montanchez).
+
+<<dec.1.4, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=15, fig.asp=0.5630631, fig.cap="\\label{fig:dec.1.4} Cerro Muriano 1 and Zarza de Montanchez decorations.">>=
+library(decorr)
+par(mar=c(0, 0, 0, 0))
+nds.df <- read_nds(site = "Cerro Muriano", 
+                   decor = "Cerro Muriano 1",
+                   doss = system.file("extdata", 
+                                      package = "decorr"))
+eds.df <- read_eds(site = "Cerro Muriano",
+                   decor = "Cerro Muriano 1",
+                   doss = system.file("extdata", 
+                                      package = "decorr"))
+cm1 <- plot_dec_grph(nodes = nds.df,
+                     edges = eds.df,
+                     site = "Cerro Muriano",
+                     decor = "Cerro Muriano 1",
+                     nd.var = "type",
+                     lbl.size = 1.7,
+                     doss = system.file("extdata", 
+                                        package = "decorr"))
+cm1.img <- magick::image_read(cm1)
+nds.df <- read_nds(site = "Zarza de Montanchez", 
+                   decor = "Zarza De Montanchez",
+                   doss = system.file("extdata", 
+                                      package = "decorr"))
+eds.df <- read_eds(site = "Zarza de Montanchez",
+                   decor = "Zarza De Montanchez",
+                   doss = system.file("extdata", 
+                                      package = "decorr"))
+zm <- plot_dec_grph(nodes = nds.df,
+                            edges = eds.df,
+                            site = "Zarza de Montanchez",
+                            decor = "Zarza De Montanchez",
+                            nd.var = "type",
+                            lbl.size = 1.7,
+                            doss = system.file("extdata", 
+                                               package = "decorr"))
+zm.img <- magick::image_read(zm)
+out.img <- magick::image_append(c(cm1.img, zm.img))
+plot(out.img)
+@
 
 \subsection{Node types} \label{sec:nodes}
 
@@ -335,7 +378,7 @@ print(xtable::xtable(nodes,
       table.placement = "!htbp")
 @
 
-Since a prehistorical site can have various decorated objects, the primary key of the decoration is based on two fields: \code{nodes$site} and \code{nodes$decor}. The \code{nodes$id} is the identifier of the node. The \code{nodes$type} field is the default variable for further statistical analysis. Here, \code{nodes$type} refers to the typology of the nodes (anthropomorph, weapons, etc.). The \code{nodes$x} and \code{nodes$y} columns refer to the \emph{x} and \emph{}y coordinates of the nodes. As said, in the first place theses coordinates come from the GIS. But, in a GIS, the coordinates origin (0, 0) is the bottom-left corner and exist negative values, while this origin is top-left for any \proglang{R} matrices (rasters, grids, dataframes, etc.) with only positive values. To recover the local \emph{y} value of nodes and edges on the decoration image, the absolute value \emph{y} value and the image height, as a constant offset, are computed.
+Since a prehistorical site can have various decorated objects, the primary key of the decoration is based on two fields: \code{nodes$site} and \code{nodes$decor}. The \code{nodes$id} is the identifier of the node. The \code{nodes$type} field is the default variable for further statistical analysis. Here, \code{nodes$type} refers to the typology of the nodes (anthropomorph, weapons, etc.). The \code{nodes$x} and \code{nodes$y} columns refer to the \emph{x} and \emph{}y coordinates of the nodes. As said, in the first place theses coordinates come from the GIS where the origin (0, 0) is the bottom-left corner, while for any \proglang{R} matrices (rasters, grids, dataframes, etc.) this origin is top-left (see Figure \ref{fig:gis}. A). To recover the local \emph{y} value of nodes and edges on the decoration image, the absolute value \emph{y} value and the image height, as a constant offset, are computed.
 
 \subsubsection{Edges dataframe}
 Analogously, the edges for the five decorations are stored in different formats in \code{edges.csv}, \code{edges.tsv}, and \code{edges.shp}. This can be read by 
@@ -349,7 +392,7 @@ generating the corresponding edges dataframe (Table \ref{tab:teds}).
 
 <<tedss, results='asis', echo=FALSE>>=
 caption <- "Edges of Cerro Muriano 1 (from \\code{edges.csv} dataframe)"
-print(xtable::xtable(edges,
+print(xtable::xtable(edges[edges$decor == "Cerro Muriano 1", ],
                      align = "rllrrc",
                      caption=caption,
                      label="tab:teds"),
@@ -383,19 +426,25 @@ list_dec(imgs,
          edges)
 \end{Code}
 
-Once imgs, nodes and edges dataframes loaded, the \code{list\_dec()} function allows to create graphs for all decorations within these dataframes. The result is a list of \code{igraph} objects. As an example, the first graph of the list can be plotted with the \code{igraph::plot()} function (Figure \ref{fig:igraph})
+Once imgs, nodes and edges dataframes loaded, the \code{list\_dec()} function allows to create graphs for all decorations within these dataframes. The result is a list of \code{igraph} objects. As an example, the first graph of the list can be plotted with the \code{igraph::plot()} function. By default, the graphs spazialisation (\code{layout}) is based on \code{x} and \code{y} columns, when exist. This is our case since we work with geometric graphs. For a same graph, very different layouts (\emph{réalisations}) exist \citep{Mathis03}(\emp{graph drawing}) (Figure \ref{fig:igraph})
 
-<<igraphs, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=2.5, fig.height=2.5, fig.cap="\\label{fig:igraph}R interface. Plot of the first graph of the list (Cerro Muriano 1 decoration)">>=
+<<igraphs, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=6, fig.height=4, fig.cap="\\label{fig:igraph}R interface. Plot of the first graph of the list (Cerro Muriano 1 decoration) with graph drawing on x, y coordinates (left), and force-directed graph drawing with nodes sized on their degree centralities (right)">>=
 lgrph <- list_dec(imgs, nodes, edges)
-par(mar=c(0, 0, 0, 0))
-plot(lgrph[[1]],
-     vertex.color = "orange",
-     vertex.frame.color = "orange",
-     vertex.label.color = "black",
+g <- lgrph[[1]]
+par(mar = c(0, 0, 0, 0), mfrow = c(1, 2))
+coords <- layout.fruchterman.reingold(g)
+plot(g,
      vertex.size = 14,
-     vertex.label.cex = .8,
+     vertex.label.family = "Helvetica",
      edge.color = "orange",
-     vertex.label.family = "Helvetica"
+     vertex.label.cex = .8
+)
+plot(g,
+     layout = coords,
+     vertex.size = 4 + (degree(g)*10),
+     vertex.label.family = "Helvetica",
+     edge.color = "orange",
+     vertex.label.cex = .8
 )
 @
 
@@ -472,7 +521,7 @@ The \code{named\_elements()} function allows to calculate the textual expression
 \begin{CodeChunk}
 \begin{CodeInput}
 R> lgrph <- list_dec(imgs, nodes, edges)
-R> as.character(named_elements(lgrph[[2]], focus = "edges", nd.var="type"))
+R> named_elements(lgrph[[2]], focus = "edges", nd.var="type")
 ## [1] "epee-=-fibule" "bouclier-=-miroir"
 ## [3] "epee-=-lance" "bouclier-=-chariot_char"
 ## [5] "chariot_char-+-cheval" "chariot_char-+-cheval#"
@@ -776,10 +825,10 @@ A hierachical clustering (HC) of the distance matrices, with the native function
 
 <<hclust, echo=TRUE, warning=FALSE, fig.height=4, fig.width=8, fig.pos = '!htbp', fig.cap="\\label{fig:hclust}Hierachical clusterings on decoration common elements">>=
 par(mfrow=c(1, 2), mar=c(0.2,4,1.2,0.5))
-hc1 <- hclust(dist.nodes, method = "ward.D")
-hc2 <- hclust(dist.edges, method = "ward.D") 
-plot(hc1, main = "Common nodes", cex.main = 1.1)
-plot(hc2, main = "Common edges", cex.main = 1.1)
+hc.nds <- hclust(dist.nodes, method = "ward.D")
+hc.eds <- hclust(dist.edges, method = "ward.D") 
+plot(hc.nds, main = "common nodes", cex = 1.1)
+plot(hc.eds, main = "common edges", cex = 1.1)
 @
 
 Even if in this example the clustering of decorations on common nodes and the clustering of decorations on common edges give the same results, another distribution of the same nodes, could give two different clusterings. The clustering on common nodes and the clustering on common edges can be compared with the \code{tanglegram()} function from the \pkg{dendextend} package \citep{Galili15} (Figure \ref{fig:hclust2})
@@ -787,65 +836,36 @@ Even if in this example the clustering of decorations on common nodes and the cl
 <<hclust2, echo=TRUE, warning=FALSE, fig.height=3, fig.pos = '!htbp', fig.cap="\\label{fig:hclust2}Comparison of hierachical clusterings on decoration common elements, nodes (left) and edges (right)">>=
 suppressPackageStartupMessages(library(dendextend))
 suppressPackageStartupMessages(library(dplyr))
-dend1 <- as.dendrogram (hc1)
-dend2 <- as.dendrogram (hc2)
-dendlist(dend1, dend2) %>%
+par(mfrow=c(1, 2))
+dend.nds <- as.dendrogram (hc.nds)
+dend.eds <- as.dendrogram (hc.eds)
+dendlist(dend.nds, dend.eds) %>%
   untangle(method = "step1side") %>% 
-  tanglegram(main_left="Common nodes", main_right="Common edges", cex.main=1.5,
-             margin_top = 2)                       
+  tanglegram(columns_width = c(6, 1, 6),
+             main_left = "common nodes",
+             main_right = "common edges",
+             lab.cex = 1.5,
+             cex_main = 1.5,
+             highlight_branches_lwd = F)                    
 @
 
 %% -- Summary/conclusions/discussion -------------------------------------------
 
 \section{Summary and discussion} \label{sec:summary}
 
-The \pkg{decorr} framework is grounded on a parsimonious model, where Tobler's \emph{near things} \citep{Tobler70} of any iconographical content is recorded with a minimal of \emph{a priori} definitions. Those definitions only concern the graph elements: graphical units variables (ie, nodes variables) and types of relations they share (edges). In this example we propose the iconographical \code{type} (\code{personnage}, \code{casque}, etc.) nodes as the studied variable (\code{nd.var}), but the user of the package can create and choose any other study variable: \code{technique}, \code{color}, etc. The current edge notation with \emph{normal} edge, \emph{attribute} edge, and \emph{overlap} edge allow to describe most cases of Prehistorical iconography, but can also be extended to accept new types like, for example, the \emph{interact} edge when two graphical units interact (ie, when an action is visible). Currently, the undecorated parts of the support -- the background -- is inactive and considered as homogeneous it is possible to consider but a crack on a rock or a carene on a pottery \citep{Huet18a}, like relevant topologic entities to understand the iconographical composition. Then a new class of nodes, beside the graphical units, can be registred to create a multipartite graph (\emph{n}-mode graph). The plasticity of graph theory will allow to filter these different classes of nodes. 
+In Archaeology, the iconography has been considered as a privileged elements to the identification of cultural facies \citep{Renfrew91}. By integrating the recording, the management and the analysis process in a simple manner, within the framework of graph Theory and binary topological telationships (\emph{birel}), the \pkg{decorr} framework opens possibilities of studying graphical systems with normalized indexes over large series (Later Paleolithic cave paintings, \emph{cups-and-rings} art, Valcamonica Iron Age \emph{pittoti}, etc.) a long period of time, and on heterogeneous source data.
+\\
+The \pkg{decorr} framework is grounded on a parsimonious model, where Tobler's '\emph{near things}' \citep{Tobler70} of any iconographical content is recorded with a minimal of \emph{a priori} definitions. Those definitions only concern the graph elements: graphical units variables (ie, nodes variables) and types of relations they share (edges). The current edge notation with \emph{normal} edge, \emph{attribute} edge, and \emph{overlap} edge allow to describe most cases of Prehistorical iconography, but can also be extended to accept new types like, for example, the \emph{interact} edge when two graphical units interact (ie, when an action is visible). For the nodes, we have only considered the iconographical \code{type} (\code{personnage}, \code{casque}, etc.) as the studied variable (\code{nd.var}), but the package user can create and select any other structured vocabularies: \code{technique}, \code{color}, etc. Tree structures for hierarchical datasets allow generalization processes (up, the parent level) and specification processes (down, the children level). Such a formalism can be used to weight the differences between nodes, to conduct analysis with different level of precision or to overcome idiosynchratic typologies issues. To record the relative chronology of archaeological layers (in a case of an excavation) or the relative chronology of iconographical layers (in case of a decorated support), archaeologists use quite commonly a hierachical dataset to model : the Harris matrix. The \emph{overlap} edge, by recording the anterior-posterior relation between pairwises of graphical units, is first operator permiting to trace the Harris matrix directly of the studied decoration. The Harris matrix can be then traced with R data tree package (\pkg{data.tree}, \cite{Glur19}) and integrated into an interactive Reingold-Tilford tree diagram  (\pkg{collapsibleTree}, \cite{Khan18}).
 
-Beside giving a parsimonious framework to register, manage and analyse compositions, for further statistical analysis, the \pkg{decorr} package allows also to avoid, empirical and idiosynchratic top-down hierachical typologies (e.g., a category of graphical units with \emph{n} types, a type with \emph{n} subtypes, a subtype with \emph{n} varieties, etc.) that lead also to tedious inventories and difficult possible comparisons \emph{within} and \emph{between} these categories. Indeed, to quote the GUs it is more parsimonious to use the edge notation rather than multiplying hierarchical categories. For example, with the two types of GUs \code{casque} (helmet) and \code{personnage} (anthropomorphe) and the \emph{attribute} edge it is possible to describe: (1) a case where an anthropomorph wears a helmet (like for the Cerro Muriano steale, Figure \ref{fig:dec.1.4} left), (2) a case where an anthropomorph is separated from a helmet (like for the Zarza de Montanchez, Figure \ref{fig:dec.1.4} right). With a top-down hierachical typology, three types of GUs would have been required: (1) anthropomorph wearing a helmet (Cerro Muriano); (2) anthropomorph and (3) helmet (Zarza de Montanchez).
+Here, the undecorated parts of the support -- the background -- is inactive and considered as homogeneous it is possible to consider but a crack on a rock or a carene on a pottery \citep{Huet18a}, like relevant topologic entities to understand the iconographical composition. Then a new class of nodes (eg, topographical units), beside the graphical units, can be registred to create a \emph{n}-mode graph (graph approach), or adding a new raster (eg, a Digital Elevation Model) within a decoration GIS project file (geostatistical approach).
 
-<<dec.1.4, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=15, fig.asp=0.5630631, fig.cap="\\label{fig:dec.1.4}Ibahernando stelae before and after the selection of node 4 (sword) graph component">>=
-par(mar=c(0, 0, 0, 0))
-nds.df <- read_nds(site = "Cerro Muriano", 
-                   decor = "Cerro Muriano 1",
-                   doss = system.file("extdata", 
-                                      package = "decorr"))
-eds.df <- read_eds(site = "Cerro Muriano",
-                   decor = "Cerro Muriano 1",
-                   doss = system.file("extdata", 
-                                      package = "decorr"))
-cm1 <- plot_dec_grph(nodes = nds.df,
-                     edges = eds.df,
-                     site = "Cerro Muriano",
-                     decor = "Cerro Muriano 1",
-                     nd.var = "type",
-                     lbl.size = 1.7,
-                     doss = system.file("extdata", 
-                                        package = "decorr"))
-cm1.img <- magick::image_read(cm1)
-nds.df <- read_nds(site = "Zarza de Montanchez", 
-                   decor = "Zarza De Montanchez",
-                   doss = system.file("extdata", 
-                                      package = "decorr"))
-eds.df <- read_eds(site = "Zarza de Montanchez",
-                   decor = "Zarza De Montanchez",
-                   doss = system.file("extdata", 
-                                      package = "decorr"))
-zm <- plot_dec_grph(nodes = nds.df,
-                            edges = eds.df,
-                            site = "Zarza de Montanchez",
-                            decor = "Zarza De Montanchez",
-                            nd.var = "type",
-                            lbl.size = 1.7,
-                            doss = system.file("extdata", 
-                                               package = "decorr"))
-zm.img <- magick::image_read(zm)
-out.img <- magick::image_append(c(cm1.img, zm.img))
-plot(out.img)
-@
 
-Archaeologists use quite commonly the Harris matrix to model the relative chronology of archaeological layers (in a case of an excavation) or the relative chronology of iconographical layers (in case of a decorated support). The \emph{overlap} edge, by recording the anterior-posterior relation between pairwises of graphical units, is first operator permiting to trace the Harris matrix directly of the studied decoration. 
 
-In Archaeology, the iconography has been considered as a privileged elements to the identification of cultural facies \citep{Renfrew91}. By integrating the recording, the management and the analysis process in a simple manner, within the framework of graph Theory and binary topological telationships (\emph{birel}), the \pkg{decorr} framework opens possibilities of studying graphical systems with normalized indexes over large series (Later Paleolithic cave paintings, \emph{cups-and-rings} art, Valcamonica Iron Age \emph{pittoti}, etc.) a long period of time, and on heterogeneous source data. 
+
+
+
+
+
 
 \section*{Acknowledgments}
 
