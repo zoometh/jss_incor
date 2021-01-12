@@ -21,6 +21,12 @@
 %% or table to take the full page (with no additional text).
 %% Check if the journal does not have any rule about not changing this.
 \renewcommand{\floatpagefraction}{.8}
+%\definecolor{shadecolor}{rgb}{1, 1, 1}
+\definecolor{fgcolor}{rgb}{0, 0, 0}
+\makeatletter
+\def\verbatim@font{\ttfamily\slshape}
+\makeatother
+
 
 % \setlist[itemize]{noitemsep, topsep=0pt}
 <<preliminaries, echo=FALSE, include=FALSE, cache=FALSE >>=
@@ -28,8 +34,9 @@
 library("MASS")
 library("extrafont") #;library("ggplot")
 library("igraph")
-opts_chunk$set(prompt=TRUE, fig.pos = '!htbp', results='asis', highlight=FALSE,
-               class.source = "bg-success")
+knitr::opts_chunk$set(prompt=TRUE, fig.pos = '!htbp',
+                      background = 'white', highlight=FALSE,
+                      class.source = "bg-success")
 options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
 options(SweaveHooks=list(fig=function() par(mar=c(0, 0, 0, 0))))
 # options(replace.assign=TRUE, width=90, prompt="R> ")
@@ -79,6 +86,7 @@ E-mail: \email{thomashuet7@gmail.com}\\
 \begin{document}
 %\SweaveOpts{concordance=TRUE}
 %\SweaveOpts{concordance=TRUE}
+%\SweaveOpts{concordance=TRUE}
 % \SweaveOpts{concordance=TRUE}
 % \Sweave2knitr("article_rvTH14_1.Rnw")
 % \SweaveOpts{concordance=TRUE}
@@ -87,9 +95,9 @@ E-mail: \email{thomashuet7@gmail.com}\\
 
 Symbolic practices is a characteristic trait of human societies. Even discussed, such practices seems to start between 233,000 to 800,00 BC \citep{dErrico00}, covering more than 97\% of total human societies time span. Symbolism cover a large range of practices, from ochre deposit in a tomb, to menhir alignements, passing through wall fresco. This latter, what might be called "iconographical practices", probably shows the most complex and interesting testimonies of past societies symbolism. For decades, its study was linked to history of religion because commonly seen as closely linked to cultual practices and believes. Since the \textit{New Archaeology} developpement during the 60's \citep{Clarke14}, symbolic expressions start to be studied with the same formal methods (statistics, seriations, distribution maps, etc.) as any another aspect of social organisation: settlement patterns, tools \emph{chaine op\'eratoire}, susbsitence strategies, etc. \citep{Renfrew91}. But unlike many aspects of the material culture where technological requirements and technical efficiency determine the choice of the raw material and the shape of the object -- a flint blade for cutting, a pottery for containing, a house for living --, the function of an iconographic composition cannot be drawn directly from itself. Furthermore, there is no specific and controled vocabularies to describe hand-made images. There is always a difficulty to decribe an iconographical content with alphanumerical signs. Whether these last decades study of ancient iconography had  undergone significative improvements at the site scale -- with GIS/database statistics, paleoenvironmental restitutions, etc. -- and at the sign scale with the development of archaeological sciences -- radiocarbon dating, use-wear analysis, elemental analysis, etc. --, these improvement do not necessarly help to understand the semantic content of the iconography.\\
 Semantics or semiotics can be defined as a system of conventional features -- called signs -- organised also in conventional manners. Until our days, formal methods to study ancient iconography semantics have been mostlty been grounded  -- explicitly or not -- on the prime principle of Saussurian linguistic: the '\emph{linearity of the signifier}' \citep{Saussure89}.
-Writing is one of the most rational semiographical system with a clear distinction between signified and signifier and the development of the signified on a linear axis. Even if we do not understand the meaning of the signs, writing can easily be modelled with Graph theory and recurent patterns can be identified. For example, the 3-letters word "\code{art}" can be modelled with three vertices (\code{a}, \code{r}, \code{t}) and two edges (one between \code{a} and \code{r}, the other between \code{r} and \code{t}). In \proglang{R}, these features, concatenated in this order with a \code{paste0()}, is \code{art}, and not \code{rat} (Figure \ref{fig:fart}).
+Writing is one of the most rational semiographical system with a clear distinction between signified and signifier and the development of the signified on a linear axis. Even if we do not understand the meaning of the signs, writing can easily be modelled with Graph theory and recurent patterns can be identified. For example, the 3-letters word "\code{art}" can be modelled with three vertices (\code{a}, \code{r}, \code{t}) and two edges (one between \code{a} and \code{r}, the other between \code{r} and \code{t}). In \proglang{R}, these features, concatenated in this order with a \code{paste0()}, is \code{art}, and not \code{rat} (Figure \ref{fig:a_r_t}).
 
-<<a_r_t, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=1.25, fig.height=0.25, fig.cap="\\label{fig:fart}Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
+<<a_r_t, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=1.25, fig.height=0.25, fig.cap="Concatenate of 'a', 'r' and 't' graphical units is 'art'">>=
 par(mar=c(0.1,0.1,0.1,0.1) )
 g <- graph_from_literal(a-+r, r-+t)
 plot(g,
@@ -101,13 +109,13 @@ plot(g,
      vertex.label.color="black",
      vertex.label.family="Courier",
      edge.arrow.size=0.5,
-     xlim=c(-0.94,0.94), 
+     xlim=c(-0.94,0.94),
      ylim=c(-1,-1))
 @
 
 But, as stated, in Prehistorical the writing system does not exists. Spatial relationships between graphical features, or graphical units, are not necessarly linear and directed but could most probably be more multi-directional and undirected: the direction of the interactions of pairwise graphical units can be in any order (Figure \ref{fig:fratar}).
 
-<<echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=1.4, fig.height=1.4, fig.cap="\\label{fig:fratar}Potential spatial relations between graphical units">>=
+<<fratar, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=1.4, fig.height=1.4, fig.cap="Potential spatial relations between graphical units">>=
 par(mar=c(0,0,0,0))
 ugs <- data.frame(name=c("a","r","t"))
 lks <- data.frame(from=c("a", "r", "t"), to=c("r", "t", "a"), type=c("=","=","="))
@@ -119,7 +127,7 @@ plot(g,
      vertex.label.cex=1,
      vertex.label.color="black",
      vertex.label.family="Courier",
-     xlim=c(-0.65,0.65), 
+     xlim=c(-0.65,0.65),
      ylim=c(-0.65,0.65)
 )
 @
@@ -128,12 +136,12 @@ Because of the inherent variability of iconography, and because graphical and sp
 \begin{itemize}
 \item unexplicit spatial groupings of graphical units -- like graphical units grouped into \emph{figures},  \emph{figures} grouped into \emph{patterns}, \emph{patterns} grouped into \emph{motives}, etc. -- with tedious number of groups
 \item consistency, proximities and relationships between these groups are often implicit and not quantified
-\item studies develop proper descriptive vocabularies, singular relationships of grouping, idosyncratic methods at site-dependent or period-dependent scales
+\item studies develop proper descriptive vocabularies, singular relationships of grouping, ido\-syn\-crat\-ic methods at site-dependent or period-dependent scales
 \end{itemize}
 
 These issues limit drastically the possibility to conduct cross-cultural comparisons and to draw a synthesis of humankind's symbolism at a large scale and over the long-term.
 
-According to us, prehistorical composition -- like any formal system -- are spatial features (mostly shapes) related one with the other depending on rules of spatial proximities. Then, the First Law of Geography: "\emph{everything is related to everything else, but near things are more related than distant things}" \citep{Tobler70} should be more operative than the Saussurian '\emph{linearity of the signifier}' principle \citep{Saussure89}. To get these '\emph{near things}', or features proximities, we use concepts coming from the Graph Theory, which offers a general framework to manage neighbourhoods. Furthermore, we address the questions of managing graphical units attributes (for example an anthropomorph with a sword \emph{vs} an anthropomorph with a spear) and superimpositions of graphical units.  
+According to us, prehistorical composition -- like any formal system -- are spatial features (mostly shapes) related one with the other depending on rules of spatial proximities. Then, the First Law of Geography: "\emph{everything is related to everything else, but near things are more related than distant things}" \citep{Tobler70} should be more operative than the Saussurian '\emph{linearity of the signifier}' principle \citep{Saussure89}. To get these '\emph{near things}', or features proximities, we use concepts coming from the Graph Theory, which offers a general framework to manage neighbourhoods. Furthermore, we address the questions of managing graphical units attributes (for example an anthropomorph with a sword \emph{vs} an anthropomorph with a spear) and superimpositions of graphical units.
 % and particularly relative neighborhood graphs (RNG) which is '\emph{a powerful model of low-level visual process}' \citep{Toussaint80}
 
 In this article we present the \proglang{R} package \pkg{iconr}. Its purpose is to formalise a method and offer tools to analyse any graphical content (here: decorations) with methods coming from raph Theory, GIS and binary topological relationships (\emph{birel}) modeling. This package has been grounded on the seminal work of \citet{Alexander08} and its first IT implementation by \citet{Huet18a}.
@@ -142,7 +150,7 @@ In this article we present the \proglang{R} package \pkg{iconr}. Its purpose is 
 
 Graph theory offers a conceptual framework and indices (global at the entire graph scale, local at the vertex scale) to deal with notions of networks, relationships and neighbourhoods. Graphical units (GUs) can be modelled as vertices (nodes) separated one with another by undecorated areas. Their spatial relations can be modelled as edges. The different levels of GUs spatial organisation can be retrieve by graphs analysis (Graph Theory) and a spatial (GIS) analysis.
 
-Graph elements, nodes and edges -- repectively GUs and connexions between GUs -- are created on a GIS interface.  
+Graph elements, nodes and edges -- repectively GUs and connexions between GUs -- are created on a GIS interface.
 Indeed, for large series of decorated supports, GIS offers the most suitable and flexible interface to register all GUs and to get their coordinates, makes easy the updating of GUs and GUs relation and opens to develop further spatial analysis.  The decoration image is considerated as the basemap of the project and will cover the region of interest of the analysis (ie, all the graphical content). The decoration image can be binarized: GUs are considerated active, the undecorated parts of the support -- the background -- are considerated inactive. The polygonisation of the GUs (\code{POLYGONS}), including the border of the stelae, allows to calculated their Voronoi seeds (ie, their centroid) and Voronoi cells (ie, Thiessen polygons, their area of influence). So, the entire decoration image is tiled and condidered as a Voronoi diagram. Centroids of the GUs (\code{POINTS}) are calculated and considered as the graph nodes, their locations (\emph{x} and \emph{y} coordinates, measured in pixels) are relative to each decoration. Exist edges (\code{LINES}) between pairs of GUs when their Voronoi cells share a common border (\emph{birel}: 'touches').
 
 The entire graphical content of the decoration is mapped with a geometric graph -- or planar graph -- of GUs centroids (nodes) and GUs proximity links (edges). Thus, a decoration graph is a one component graph. This graph is the dual graph of the decoration Voronoi diagram (Figure \ref{fig:gis}).
@@ -153,49 +161,28 @@ The entire graphical content of the decoration is mapped with a geometric graph 
 \caption{\label{fig:gis} GIS interface. A) Original decoration of the Late Bronze Age Cerro Muriano 1 stelae (drawing: \cite{DiazGuardamino10}) opened in new GIS project without any projection system with its extent (\code{xmin, xmax, ymin, ymax} in pixels); B) Polygonisation of the GUs, calculation of their centroids (nodes), calculation of the Voronoi cells, calculation of the proximity links (edges); C) plot of the relative \emph{x} and \emph{y} coordinates of the GUs centroids; D) plot of the values in the \code{type} of the GUs}
 \end{figure}
 
-Whether this theoretical process includes image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.\\
+Whether this theoretical process includes image binarization, polygonization and \emph{birel} analysis, a simplier solution will be to create directly centroids on the GUs and to draw the edges manually. Then \emph{x} and \emph{y} coordinates of nodes can be easily retrieved.
 
 The notation of with nodes allows also to avoid, empirical and  top-down hierachical typologies. According to us, it is more convenient to record GUs (eg, an anthropomorph) and GUs varietes (an anthropomorph wearing an helmet) with discrete spatialized nodes (firstly within a GIS) rather than multiplying a-spatial levels of hierarchical categories (e.g., a category of graphical units with \emph{n} types, a type with \emph{n} subtypes, a subtype with \emph{n} varieties, etc.) that lead also to tedious idiosynchratic inventories and difficult possible comparisons \emph{within} and \emph{between} these categories. For example, with the two types of GUs \code{casque} (helmet) and \code{personnage} (anthropomorphe) and the \emph{attribute} edge it is possible to describe: (1) a case where an anthropomorph wears a helmet (like for the Cerro Muriano steale, Figure \ref{fig:dec.1.4} left), (2) a case where an anthropomorph is separated from a helmet (like for the Zarza de Montanchez, Figure \ref{fig:dec.1.4} right). With a top-down hierachical typology, three types of GUs would have been required: (1) anthropomorph wearing a helmet (Cerro Muriano); (2) anthropomorph and (3) helmet (Zarza de Montanchez).
 
-<<dec.1.4, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=15, fig.asp=0.5630631, fig.cap="\\label{fig:dec.1.4} Cerro Muriano 1 and Zarza de Montanchez decorations.">>=
+<<dec.1.4, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=8, fig.asp=0.5, fig.cap="Cerro Muriano 1 and Zarza de Montanchez decorations.">>=
 library(iconr)
-par(mar=c(0, 0, 0, 0))
-nds.df <- read_nds(site = "Cerro Muriano", 
-                   decor = "Cerro Muriano 1",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-eds.df <- read_eds(site = "Cerro Muriano",
-                   decor = "Cerro Muriano 1",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-cm1 <- plot_dec_grph(nodes = nds.df,
-                     edges = eds.df,
-                     site = "Cerro Muriano",
-                     decor = "Cerro Muriano 1",
-                     nd.var = "type",
-                     lbl.size = 1.7,
-                     doss = system.file("extdata", 
-                                        package = "iconr"))
-cm1.img <- magick::image_read(cm1)
-nds.df <- read_nds(site = "Zarza de Montanchez", 
-                   decor = "Zarza De Montanchez",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-eds.df <- read_eds(site = "Zarza de Montanchez",
-                   decor = "Zarza De Montanchez",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-zm <- plot_dec_grph(nodes = nds.df,
-                            edges = eds.df,
-                            site = "Zarza de Montanchez",
-                            decor = "Zarza De Montanchez",
-                            nd.var = "type",
-                            lbl.size = 1.7,
-                            doss = system.file("extdata", 
-                                               package = "iconr"))
-zm.img <- magick::image_read(zm)
-out.img <- magick::image_append(c(cm1.img, zm.img))
-plot(out.img)
+imgs <- read.table(system.file("extdata", "imgs.tsv", package = "iconr"),
+                   sep="\t", stringsAsFactors = FALSE)
+sites = c("Cerro Muriano", "Zarza de Montanchez")
+decors = c("Cerro Muriano 1", "Zarza De Montanchez")
+par(mfrow = c(1, 2))
+for(i in 1:2) {
+  nds.df <- read_nds(sites[i], decors[i],
+                     dir = system.file("extdata", package = "iconr"))
+  eds.df <- read_eds(sites[i], decors[i],
+                     dir = system.file("extdata", package = "iconr"))
+  plot_dec_grph(nds.df, eds.df, imgs,
+                sites[i], decors[i],
+                nd.var = "type",
+                dir = system.file("extdata", package = "iconr"),
+                img.format = NULL)
+}
 @
 
 \subsection{Node types} \label{sec:nodes}
@@ -216,7 +203,7 @@ Frequently a node can be divided into a main unit (eg, an anthropomorph) and one
 \item[\emph{Diachronic edges.}]
 Sometimes a graphical composition shows decoration phases. These decoration phases can be identified by observing the superimpositions between different nodes or by other means (differences in the techniques or in the patina for example). In the first case, two nodes belonging to two different phase will have a common part (the overlapped intersection) while in the second case the two nodes will not necessarly share a part of their surface. To record this relative chronology, an edge between two non-contemporaneous nodes is tagged \code{'>'} (\code{type = '>'}), represented with a blue plain line and its textual notation is \code{'->-'}. For example \code{ecriture ->- bouclier} means that \code{ecriture} is more recent than the \code{bouclier}, or \emph{overlaps} the\code{bouclier} in the stratigraphical sense. The edge is directed since \code{ecriture ->- bouclier} (ie, \code{ecriture} \emph{overlaps} \code{bouclier}) is not equal to \code{bouclier ->- ecriture} (ie, \code{bouclier} \emph{overlaps} \code{ecriture}) (Figure \ref{fig:gis_2}).
 
-This stratigraphical information (node 1 \emph{over} node 2, or node 2 \emph{under} node 1) helps to understand the relative chronology between nodes and must be recorded. The analysis of the iconographical content can be stratified (stratified analysis) and performed on each different phases of decoration separately. 
+This stratigraphical information (node 1 \emph{over} node 2, or node 2 \emph{under} node 1) helps to understand the relative chronology between nodes and must be recorded. The analysis of the iconographical content can be stratified (stratified analysis) and performed on each different phases of decoration separately.
 
 \end{description}
 
@@ -242,11 +229,11 @@ These three relationship types are resumed with their \emph{birel} equivalencies
 % node A & type of edge & node B & undirected & birel & stratigraphical meaning \\
 Node 1 & Edge type & Node 2 & Edge directness & \emph{Birel} & Description \rule{0pt}{1em} \\[1pt]
 \hline \rule{0pt}{1em}%
-\code{A} & \code{=} & \code{B} & Undirected & $ A \cap B = \emptyset $ & 
+\code{A} & \code{=} & \code{B} & Undirected & $ A \cap B = \emptyset $ &
 \code{A} and \code{B} contemporaneous \newline and disjoint. \\
-\code{A} & \code{+} & \code{B} & Directed & $ A \cap B = A $ & 
+\code{A} & \code{+} & \code{B} & Directed & $ A \cap B = A $ &
 \code{A} and \code{B} contemporaneous. \code{B} is an attribute of \code{A}. \\
-\code{A} & \code{>} & \code{B} & Directed & Any $A \cap B$ & 
+\code{A} & \code{>} & \code{B} & Directed & Any $A \cap B$ &
 \code{A} more recent than \code{B}. \newline Overlapping or disjoint. \\
 % \code{1} & = & 2 & undirected & A \cap B = \varnothing & 1 and 2 can be contemporaneous \\
 \hline
@@ -258,15 +245,15 @@ Node 1 & Edge type & Node 2 & Edge directness & \emph{Birel} & Description \rule
 <<equalities, results='asis', echo=FALSE, fig.pos = '!htbp'>>=
 caption <- paste0("Example of equalities and differences for nodes and edges ")
 df.ex <- as.data.frame(t(array(c(
-  "node", "epee", "epee", "True", 
-  "node", "epee", "lance", "False", 
-  "edge", "epee --=-- lance", "epee --=-- lance", "True", 
-  "edge", "epee --=-- lance", "lance --=-- epee", "True", 
+  "node", "epee", "epee", "True",
+  "node", "epee", "lance", "False",
+  "edge", "epee --=-- lance", "epee --=-- lance", "True",
+  "edge", "epee --=-- lance", "lance --=-- epee", "True",
   "edge", "personnage --+-- bouclier", "personnage --+-- bouclier", "True",
   "edge", "personnage --+-- bouclier", "bouclier --+-- personnage", "False",
   "edge", "ecriture -->-- bouclier", "ecriture -->-- bouclier", "True",
   "edge", "ecriture -->-- bouclier", "bouclier -->-- ecriture", "False",
-  "edge", "epee --=-- lance", "epee --=-- bouclier", "False", 
+  "edge", "epee --=-- lance", "epee --=-- bouclier", "False",
   "edge", "personnage --=-- bouclier", "personnage --+-- bouclier", "False"),
       dim = c(4,10))))
 names(df.ex) <- c("Element class", "Element 1", "Element 2", "is.equal?")
@@ -282,7 +269,7 @@ print(xtable::xtable(df.ex,
 
 \section{The R package iconr} \label{sec:models}
 
-<<results='asis', include=FALSE, echo=FALSE, warning=FALSE>>=
+<<include=FALSE, echo=FALSE, warning=FALSE>>=
 library("iconr")
 library("igraph")
 library("magick")
@@ -292,7 +279,7 @@ The \pkg{iconr} package can be downloaded from GitHub
 %
 \begin{CodeChunk}
 \begin{CodeInput}
-R>   devtools::install_github("zoometh/iconr", build_vignettes=TRUE)
+R> devtools::install_github("zoometh/iconr", build_vignettes=TRUE)
 \end{CodeInput}
 \end{CodeChunk}
 %
@@ -315,7 +302,7 @@ A small testing dataset is provided with the \pkg{iconr} package, stored in its 
 \subsubsection{Imgs dataframe}
 The inventory of decorations is stored in the comma-separated values file \code{imgs.csv} and the tab-separated values files \code{imgs.tsv}. Any of them can be read as a dataframe (Table \ref{tab:timg}),
 %
-<<results='asis', echo=TRUE, warning=FALSE>>=
+<<echo=TRUE, warning=FALSE>>=
 imgs <- read.table(system.file("extdata", "imgs.tsv", package = "iconr"),
                    sep="\t", stringsAsFactors = FALSE)
 @
@@ -337,18 +324,18 @@ print(xtable::xtable(imgs,
 
 At first the drawings dataset \citep{DiazGuardamino10} can be checked by using the information in the \code{imgs} dataframe and the \pkg{magick} package (Figure \ref{fig:dataset})
 %
-<<timg, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=15, fig.asp=0.7507508, fig.cap="\\label{fig:dataset}Decoration images of the training dataset">>=
-pth <- system.file("extdata", package = "iconr")
-lims <- list()
+<<dataset, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=15, fig.asp=0.7507508, fig.cap="Decoration images of the training dataset">>=
+ims <- list()
 for(i in 1:nrow(imgs)){
-  i1 <- image_read(paste0(pth,"/",imgs$img[i]))
+  im <- image_read(system.file("extdata", imgs$img[i], package = "iconr"))
   lbl.txt <- paste0(paste(imgs[i,], collapse = "\n"), "\n",
-                    image_info(i1)$width, "*", image_info(i1)$height, " px")
-  lims[[i]] <- image_annotate(i1, lbl.txt, location = "northwest",
-                              size = 28, color = "red")
+                    image_info(im)$width, "*", image_info(im)$height,
+                    " px")
+  ims[[i]] <- image_annotate(im, lbl.txt, location = "northwest",
+                             size = 28, color = "red")
 }
-out.img <- image_append(c(image_append(c(lims[[1]], lims[[2]], lims[[3]])),
-                          image_append(c(lims[[4]], lims[[5]]))),
+out.img <- image_append(c(image_append(c(ims[[1]], ims[[2]], ims[[3]])),
+                          image_append(c(ims[[4]], ims[[5]]))),
                         stack = TRUE)
 par(mar=c(0, 0, 0, 0))
 plot(out.img)
@@ -360,10 +347,11 @@ To construct a graph overlapping the decoration images listed in the \code{imgs}
 % \end{itemize}
 
 \subsubsection{Nodes dataframe}
-The nodes for the five decorations are stored in different formats in \code{nodes.csv}, \code{nodes.tsv}, and \code{nodes.shp}. This can be read by 
+The nodes for the five decorations are stored in different formats in \code{nodes.csv}, \code{nodes.tsv}, and \code{nodes.shp}. This can be read by
 
-<<results='asis', echo=TRUE>>=
-nodes <- read.table(system.file("extdata", "nodes.csv", package = "iconr"),
+<<echo=TRUE>>=
+nodes <- read.table(system.file("extdata", "nodes.csv",
+                                package = "iconr"),
                     sep=";", stringsAsFactors = FALSE)
 @
 
@@ -381,9 +369,9 @@ print(xtable::xtable(nodes,
 Since a prehistorical site can have various decorated objects, the primary key of the decoration is based on two fields: \code{nodes$site} and \code{nodes$decor}. The \code{nodes$id} is the identifier of the node. The \code{nodes$type} field is the default variable for further statistical analysis. Here, \code{nodes$type} refers to the typology of the nodes (anthropomorph, weapons, etc.). The \code{nodes$x} and \code{nodes$y} columns refer to the \emph{x} and \emph{}y coordinates of the nodes. As said, in the first place theses coordinates come from the GIS where the origin (0, 0) is the bottom-left corner, while for any \proglang{R} matrices (rasters, grids, dataframes, etc.) this origin is top-left (see Figure \ref{fig:gis}. A). To recover the local \emph{y} value of nodes and edges on the decoration image, the absolute value \emph{y} value and the image height, as a constant offset, are computed.
 
 \subsubsection{Edges dataframe}
-Analogously, the edges for the five decorations are stored in different formats in \code{edges.csv}, \code{edges.tsv}, and \code{edges.shp}. This can be read by 
-<<results='asis', echo=TRUE>>=
-edges <- read.table(system.file("extdata", "edges.csv", 
+Analogously, the edges for the five decorations are stored in different formats in \code{edges.csv}, \code{edges.tsv}, and \code{edges.shp}. This can be read by
+<<echo=TRUE>>=
+edges <- read.table(system.file("extdata", "edges.csv",
                                 package = "iconr"),
                     sep=";",stringsAsFactors = FALSE)
 @
@@ -397,13 +385,13 @@ print(xtable::xtable(edges[edges$decor == "Cerro Muriano 1", ],
                      caption=caption,
                      label="tab:teds"),
       include.rownames = FALSE,
-      scalebox = 0.95,
-      size = "\\renewcommand{\\arraystretch}{0.92}",
+#      scalebox = 0.95,
+#      size = "\\renewcommand{\\arraystretch}{0.92}",
 #      size = "\\small\\renewcommand{\\arraystretch}{0.989}",
       table.placement="!htbp")
 @
 
-The fields \code{edges$site} and \code{edges$decor} are the primary key of decoration. The fields \code{edges$a} and \code{edges$b} are the equivalent to columns \emph{from} and \emph{to} in Graph theory. Even if undirected graphs will the most common in further studies, this direction helps to distinguish between nodes. The column \code{edges$a} is the identifier of \emph{starting node} or \emph{main node} or \emph{overlapping node}. The column \code{edges$b} is the identifier of the \emph{ending node} or \emph{attribue node} or \emph{overlapped node}. The column \code{edges$type} is the type of relation (normal, attribute, diachronic, etc.) between the node a and the node b. There is no need to record the coordinates of the edges, these coordinates are extracted from the nodes dataframe. 
+The fields \code{edges$site} and \code{edges$decor} are the primary key of decoration. The fields \code{edges$a} and \code{edges$b} are the equivalent to columns \emph{from} and \emph{to} in Graph theory. Even if undirected graphs will the most common in further studies, this direction helps to distinguish between nodes. The column \code{edges$a} is the identifier of \emph{starting node} or \emph{main node} or \emph{overlapping node}. The column \code{edges$b} is the identifier of the \emph{ending node} or \emph{attribue node} or \emph{overlapped node}. The column \code{edges$type} is the type of relation (normal, attribute, diachronic, etc.) between the node a and the node b. There is no need to record the coordinates of the edges, these coordinates are extracted from the nodes dataframe.
 
 \bigskip
 The \pkg{iconr} package functions can be divided into:
@@ -426,13 +414,12 @@ list_dec(imgs,
          edges)
 \end{Code}
 
-Once imgs, nodes and edges dataframes loaded, the \code{list\_dec()} function allows to create graphs for all decorations within these dataframes. The result is a list of \code{igraph} objects. As an example, the first graph of the list can be plotted with the \code{igraph::plot()} function. By default, the graphs spazialisation (\code{layout}) is based on \code{x} and \code{y} columns, when exist. This is our case since we work with geometric graphs. For a same graph, very different layouts (\emph{réalisations}) exist \citep{Mathis03}(\emp{graph drawing}) (Figure \ref{fig:igraph})
+Once imgs, nodes and edges dataframes loaded, the \code{list\_dec()} function allows to create graphs for all decorations within these dataframes. The result is a list of \code{igraph} objects. As an example, the first graph of the list can be plotted with the \code{igraph::plot()} function. By default, the graphs spazialisation (\code{layout}) is based on \code{x} and \code{y} columns, when exist. This is our case since we work with geometric graphs. For a same graph, very different layouts (\emph{réalisations}) exist \citep{Mathis03}(\emp{graph drawing}) (Figure \ref{fig:igraphs})
 
-<<igraphs, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=4, fig.height=4, fig.cap="\\label{fig:igraph}R interface. Plot of the first graph of the list (Cerro Muriano 1 decoration) with graph drawing on x, y coordinates (left), and force-directed graph drawing with nodes sized on their degree centralities (right)">>=
+<<igraphs, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.asp=0.5, fig.height=4, fig.cap="R interface. Plot of the first graph of the list (Cerro Muriano 1 decoration) with graph drawing on x, y coordinates (left), and force-directed graph drawing with nodes sized on their degree centralities (right)">>=
 lgrph <- list_dec(imgs, nodes, edges)
 g <- lgrph[[1]]
 par(mar = c(0, 0, 0, 0), mfrow = c(1, 2))
-coords <- layout.fruchterman.reingold(g)
 plot(g,
      vertex.size = 14,
      vertex.label.family = "Helvetica",
@@ -440,7 +427,7 @@ plot(g,
      vertex.label.cex = .8
 )
 plot(g,
-     layout = coords,
+     layout = layout.fruchterman.reingold(g),
      vertex.size = 4 + (degree(g)*10),
      vertex.label.family = "Helvetica",
      edge.color = "orange",
@@ -450,64 +437,73 @@ plot(g,
 
 It occurs that some nodes are non-contemporaneous one with the others, like for the Ibahernando stelae. This stelae have been found reused as a funerary steale during Roman times \citep{Almagro66b}. A latin inscription (\code{ecriture}, node 1) have been carved over a spear (\code{lance}, node 2) and overlaps partially a V-notched shield (\code{bouclier}, node 3). The edges between node 1 and node 2, and the edge between node 1 and node 3, are \emph{diachronic} edges (Figure \ref{fig:ibah}).
 
-<<ibah, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=3.5, fig.asp=1.126126, fig.cap="\\label{fig:ibah}Ibahernando decoration, node 1 overlaps node 2 and node 3">>=
+<<ibah, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=3.2, fig.asp=1.126126, fig.cap="Ibahernando decoration{:} node 1 overlaps node 2 and node 3.">>=
+site = "Ibahernando"
+decor = "Ibahernando"
+dataDir = system.file("extdata", package = "iconr")
+nds.df <- read_nds(site, decor, dataDir)
+eds.df <- read_eds(site, decor, dataDir)
 par(mar=c(0,0,0,0))
-nds.df <- read_nds(site = "Ibahernando", 
-                   decor = "Ibahernando",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-eds.df <- read_eds(site = "Ibahernando",
-                   decor = "Ibahernando",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-img.graph <- plot_dec_grph(nodes = nds.df,
-                           edges = eds.df,
-                           site = "Ibahernando",
-                           decor = "Ibahernando",
-                           lbl.size = 2,
-                           doss = system.file("extdata", 
-                                              package = "iconr"))
-plot(magick::image_read(img.graph))
+plot_dec_grph(nds.df, eds.df, imgs,
+              site, decor, dir = dataDir,
+              lbl.size = 0.7, img.format = NULL)
 @
 
 In this case, the non-contemporaneous layers of decoration should be removed before the comparison process. To do so, the original graph (1-component) will be splitted into different sub-graphs (\emph{n}-component) by selecting \code{>} edges. The studied graph component will be retrieved with the component membership of a selected node in the \code{contemp_nds()} function parameters.
 
 To study only the Late Bronze Age iconographic layer of the Ibahernando steale, we can choose the Late Bronze Age node 4, the figure of sword (\code{epee}) dated to the middle and final stages of Late Bronze Age (ca 1250-950 BC). This node is supposed to be contemporaneous to node 2 and node 3 (Figure \ref{fig:ibah2}).
 
-<<ibah2, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=8, fig.asp=0.5630631, fig.cap="\\label{fig:ibah2}Ibahernando stelae before and after the selection of node 4 (sword) graph component">>=
-par(mar=c(0,0,0,0))
-selected.nd <- 4
-nds.df <- read_nds(site = "Ibahernando", 
-                   decor = "Ibahernando",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-eds.df <- read_eds(site = "Ibahernando",
-                   decor = "Ibahernando",
-                   doss = system.file("extdata", 
-                                      package = "iconr"))
-l_dec_df <- contemp_nds(nds.df, eds.df, selected.nd)
-Ibahernando <- plot_dec_grph(nodes = nds.df,
-                             edges = eds.df,
-                             site = "Ibahernando",
-                             decor = "Ibahernando",
-                             nd.var = "type",
-                             lbl.color = "brown",
-                             lbl.size=2.2,
-                             doss = system.file("extdata", 
-                                                package = "iconr"))
-Ibahernando.img <- magick::image_read(Ibahernando)
-Ibahernando.contemp <- plot_dec_grph(nodes = l_dec_df[[1]],
-                                     edges = l_dec_df[[2]],
-                                     site = "Ibahernando",
-                                     decor = "Ibahernando",
-                                     nd.var = "type",
-                                     lbl.color = "brown",
-                                     lbl.size=2.2,
-                                     doss = system.file("extdata", 
-                                                        package = "iconr"))
-Ibahernando.contemp.img <- magick::image_read(Ibahernando.contemp)
-out <- magick::image_append(c(Ibahernando.img, Ibahernando.contemp.img))
-plot(out)
+%<<ibah2, echo=TRUE, message=FALSE, warning=FALSE>>=
+%nds.df <- read_nds(site = "Ibahernando",
+%                   decor = "Ibahernando",
+%                   dir = system.file("extdata", package = "iconr"))
+%eds.df <- read_eds(site = "Ibahernando",
+%                   decor = "Ibahernando",
+%                   dir = system.file("extdata", package = "iconr"))
+%l_dec_df <- contemp_nds(nds.df, eds.df, selected.nd = 4)
+%l.nodes = list(nds.df, l_dec_df[[1]])
+%l.edges = list(eds.df, l_dec_df[[2]])
+%out.file.name = paste0("figure/ibah2_", c("a", "b"), ".pdf")
+%img.files <- character(0)
+%for(i in 1:2) {
+%  img.files[i] <- plot_dec_grph(nodes = l.nodes[[i]],
+%                                  edges = l.edges[[i]],
+%                                  site = "Ibahernando",
+%                                  decor = "Ibahernando",
+%                                  nd.var = "type",
+%                                  lbl.color = "brown",
+%                                  lbl.size = 0.7,
+%                                  dir = system.file("extdata",
+%                                                     package = "iconr"),
+%#                                  img.format = "pdf")
+%                                  out.file.name = out.file.name[i])
+%}
+%@
+%\begin{figure}[!htbp]
+%  \centering
+%  \centering
+%  \includegraphics[width=0.48\textwidth]{\Sexpr{img.files[1]}}\quad
+%  \includegraphics[width=0.48\textwidth]{\Sexpr{img.files[2]}}
+%  \caption{Ibahernando stelae before and after the selection of node 4 (sword) graph component.}
+%  \label{fig:ibah2}
+%\end{figure}
+
+<<ibah2, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=8, fig.asp=0.5, fig.cap="Ibahernando stelae before and after the selection of node 4 (sword) graph component">>=
+site = "Ibahernando"
+decor = "Ibahernando"
+dataDir = system.file("extdata", package = "iconr")
+nds.df <- read_nds(site, decor, dataDir)
+eds.df <- read_eds(site, decor, dataDir)
+l_dec_df <- contemp_nds(nds.df, eds.df, selected.nd = 4)
+par(mfrow = c(1, 2), mar = c(0, 0, 0, 0))
+plot_dec_grph(nds.df, eds.df, imgs,
+              site, decor, dir = dataDir,
+              nd.var = "type", lbl.color = "brown", lbl.size = 0.7,
+              img.format = NULL)
+plot_dec_grph(l_dec_df$nodes, l_dec_df$edges, imgs,
+              site, decor, dir = dataDir,
+              nd.var = "type", lbl.color = "brown", lbl.size = 0.7,
+              img.format = NULL)
 @
 
 \begin{Code}
@@ -516,26 +512,14 @@ named_elements(grph,
                nd.var = "type")
 \end{Code}
 
-The \code{named\_elements()} function allows to calculate the textual expression of graph elements (nodes and edges) with a disambiguation of these elements -- adding '\#' suffixes -- when several nodes or edges have the same values. 
+The \code{named\_elements()} function allows to calculate the textual expression of graph elements (nodes and edges) with a disambiguation of these elements -- adding '\#' suffixes -- when several nodes or edges have the same values.
 
-\begin{CodeChunk}
-\begin{CodeInput}
-R> lgrph <- list_dec(imgs, nodes, edges)
-R> named_elements(lgrph[[2]], focus = "edges", nd.var="type")
-## [1] "epee-=-fibule" "bouclier-=-miroir"
-## [3] "epee-=-lance" "bouclier-=-chariot_char"
-## [5] "chariot_char-+-cheval" "chariot_char-+-cheval#"
-## [7] "arc-=-bouclier" "arc-=-chariot_char"
-## [9] "arc-=-miroir" "bouclier-=-fibule"
-## [11] "bouclier-=-epee" "epee-=-miroir"
-## [13] "arc-+-fleche" "chariot_char-+-roue"
-## [15] "chariot_char-+-roue#"
-R> as.character(named_elements(lgrph[[2]], focus = "nodes", nd.var="type"))
-## [1] "chariot_char" "bouclier" "arc" "miroir"
-## [5] "fibule" "epee" "lance" "cheval"
-## [9] "cheval#" "roue" "roue#" "fleche"
-\end{CodeInput}
-\end{CodeChunk}
+<<named_elements, echo=TRUE>>=
+lgrph <- list_dec(imgs, nodes, edges)
+named_elements(lgrph[[2]], focus = "edges", nd.var="type")
+named_elements(lgrph[[2]], focus = "nodes", nd.var="type")
+@
+
 
 \subsection{Graphical functions} \label{sec:functions_gr}
 
@@ -552,7 +536,7 @@ labels_shadow(x, y = NULL, labels,
 \code{labels_shadow()} is a re-use of the \code{shadowtext()} function from the \pkg{TeachingDemos} package \citep{Snow20}. It plots labels (\code{labels}) at specific coordinates (\code{x, y}) with a contrasting buffer to make them more visible.
 
 \begin{Code}
-side_plot(grp, doss, nd.var, focus = "nodes",
+side_plot(grp, dir, nd.var, focus = "nodes",
           nd.color = c("orange", "red"),
           nd.size = c(0.5, 1),
           ed.color = c("orange", "red"),
@@ -560,29 +544,31 @@ side_plot(grp, doss, nd.var, focus = "nodes",
           lbl.size = 0.5)
 \end{Code}
 
-\code{side_plot()} allows to plot two decoration graphs side-by-side for elements (nodes or edges) comparisons. It take a list of two graph (\code{grp}), the path of the working directory (\code{doss}) and the name of the studied node variable (\code{nd.var}) and return an image.
+\code{side_plot()} allows to plot two decoration graphs side-by-side for elements (nodes or edges) comparisons. It take a list of two graph (\code{grp}), the path of the working directory (\code{dir}) and the name of the studied node variable (\code{nd.var}) and return an image.
 
 \subsection{Single decoration functions} \label{sec:functions_one}
 
-Functions allowing to create a geometric graph for a single decoration are \code{read\_nds()} and \code{read\_eds()}. These functions allow to read respectively a file of nodes and a file of edges (\code{.csv}, \code{.tsv} or \code{.shp} files). 
+Functions allowing to create a geometric graph for a single decoration are \code{read\_nds()} and \code{read\_eds()}. These functions allow to read respectively a file of nodes and a file of edges (\code{.csv}, \code{.tsv} or \code{.shp} files).
 
 \begin{Code}
 read_nds(site,
          decor,
-         doss = getwd(),
+         dir = getwd(),
          nodes = "nodes",
          dev = ".tsv")
 \end{Code}
 
-\code{read_nds()} is close to the \proglang{R} native \code{read.table()} function, but allows to read \emph{shapefiles} of nodes. For example, the nodes of the Torrejon Rubio 1 decoration can be read from the the \emph{shapefile}, and the 6\textsuperscript{th} node -- a sword (\code{epee}) -- displayed (Table \ref{tab:nd}).
+\code{read_nds()} is close to the \proglang{R} native \code{read.table()} function, but allows to read \emph{shapefiles} of nodes. For example, the nodes of the Torrejon Rubio 1 decoration can be read from the \emph{shapefile} (Table \ref{tab:nd} displays two nodes as example).
 
-<<nd, results='asis', echo=TRUE>>=
-caption <- "Torrejon Rubio 1 decoration node 6: the sword."
-sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
-nds.df <- read_nds(site = sit, decor = dec, dev = ".shp",
-                   doss = system.file("extdata", package = "iconr"))
-print(xtable::xtable(nds.df[nds.df$id == 6, ],
-                     caption = caption,
+<<nd0, echo=TRUE>>=
+nds.df <- read_nds(site = "Torrejon Rubio",
+                   decor = "Torrejon Rubio 1",
+                   dir = system.file("extdata", package = "iconr"),
+                   dev = ".shp")
+@
+<<nd, results='asis', echo=FALSE>>=
+print(xtable::xtable(nds.df[5:6, ],
+                     caption = "Torrejon Rubio 1 decoration nodes 5 (fibula) and 6 (sword).",
                      label = "tab:nd",
                      size = 7),
       include.rownames = FALSE,
@@ -592,22 +578,24 @@ print(xtable::xtable(nds.df[nds.df$id == 6, ],
 \begin{Code}
 read_eds(site,
          decor,
-         doss = getwd(),
+         dir = getwd(),
          edges = "edges",
          nodes = "nodes",
          dev = ".tsv")
 \end{Code}
 
-\code{read_eds()} permits to read a \code{.csv} or \code{.tsv} dataframe, or a \emph{shapefiles}, of edges. When the data source is a dataframe, the coordinates of the edges are retrieved from the nodes dataframe (Table \ref{tab:ed}).
+\code{read_eds()} permits to read a \code{.csv} or \code{.tsv} dataframe, or a \emph{shapefiles}, of edges. When the data source is a dataframe, the coordinates of the edges are retrieved from the nodes dataframe (Table \ref{tab:ed} displays the first edge as example).
 
-<<ed, results='asis', echo=TRUE >>=
-caption <- paste0("First edge of the Torrejon Rubio 1 decoration, ",
-                  "the proximity between the sword (node 6) ",
-                  "and the fibula (node 5)")
-eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
-                   doss = system.file("extdata", package = "iconr"))
-print(xtable::xtable(eds.df[1,],
-                     caption = caption,
+<<ed0, echo=TRUE >>=
+eds.df <- read_eds(site = "Torrejon Rubio",
+                   decor = "Torrejon Rubio 1",
+                   dir = system.file("extdata", package = "iconr"),
+                   dev = ".tsv")
+@
+<<ed, results='asis', echo=FALSE >>=
+caption <- paste0()
+print(xtable::xtable(eds.df[1, ],
+                     caption = "Torrejon Rubio 1 decoration first edge, representing the proximity between the sword (node 6) and the fibula (node 5)",
                      label = "tab:ed",
                      size = 7),
       include.rownames = FALSE,
@@ -619,37 +607,34 @@ Once, the imgs, nodes and edges dataframes have been read, a geometric graph can
 \begin{Code}
 plot_dec_grph(nodes = NULL,
               edges = NULL,
+              imgs,
               site,
               decor,
-              doss = getwd(),
+              dir = getwd(),
               nd.var = 'id',
-              nd.color = 'orange', nd.size = 1.7,
-              lbl.color = 'black', lbl.size = 1.2,
-              ed.color = c("orange", "blue"), ed.lwd = 4,
-              img.format = "png")
+              nd.color = 'orange', nd.size = 0.5,
+              lbl.color = 'black', lbl.size = 0.5,
+              ed.color = c("orange", "blue"), ed.lwd = 1,
+              dir.out = dir, out.file.name = NULL,
+              img.format = "png", res = 300)
 \end{Code}
 
 The parameters \code{nodes} and \code{edges} concern respectively the nodes and edges dataframes. The parameters \code{site} and \code{decor} allow to choose a specific decoration. The \code{nd.var} parameter allows to decide which field of the nodes will be displayed as the label, by default this is the \code{nodes$id} field. For example, we can plot the graph of the Torrejon Rubio 1 decoration with the type of the nodes (Figure \ref{fig:trst}).
 
-<<trst, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=3.5, fig.asp=1.126126, fig.cap="\\label{fig:trst}Torrejon Rubio 1 decoration">>=
+<<trst, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=3.2, fig.asp=1.126126, fig.cap="Torrejon Rubio 1 decoration">>=
+site <- "Torrejon Rubio"
+decor <- "Torrejon Rubio 1"
+dataDir <- system.file("extdata", package = "iconr")
+nds.df <- read_nds(site, decor, dataDir, dev = ".tsv")
+eds.df <- read_eds(site, decor, dataDir, dev = ".tsv")
 par(mar=c(0, 0, 0, 0))
-sit <- "Torrejon Rubio" ; dec <- "Torrejon Rubio 1"
-nds.df <- read_nds(site = sit, decor = dec, dev = ".tsv",
-                   doss = system.file("extdata", package = "iconr"))
-eds.df <- read_eds(site = sit, decor = dec, dev = ".tsv",
-                   doss = system.file("extdata", package = "iconr"))
-img.graph <- plot_dec_grph(nodes = nds.df,
-                           edges = eds.df,
-                           site = sit,
-                           decor = dec,
-                           doss = system.file("extdata", 
-                                              package = "iconr"),
-                           nd.var = "type", lbl.size = 2)
-out <- magick::image_read(img.graph)
-plot(out)
+plot_dec_grph(nds.df, eds.df, imgs,
+              site, decor, dataDir,
+              nd.var = "type", lbl.size = 0.55,
+              img.format = NULL)
 @
 
-\subsection{Decoration comparison functions} \label{sec:functions_one}
+\subsection{Decoration comparison functions} \label{sec:functions_comp}
 
 These functions allow to compare different graph decorations. The function \code{list_compar()} is used to compare common nodes and common edges depending on the node variable \code{nd.var}.
 
@@ -664,7 +649,7 @@ Whereas the \code{nd.var} (by default, the column \code{type}) refers to the nod
 \begin{Code}
 nds_compar(grphs,
            nd.var = "type")
-           
+
 eds_compar(grphs,
            nd.var = "type")
 \end{Code}
@@ -676,23 +661,39 @@ The function \code{plot_compar()} allows to plot and save two figures side-by-si
 
 \begin{Code}
 plot_compar(listg, graph2 = NULL, focus = "nodes",
-            doss = getwd(),
+            dir = getwd(),
             nd.color = c("orange", "red"), nd.size = c(0.5, 1),
             ed.color = c("orange", "red"), ed.width = c(1, 2),
-            lbl.size = 0.5, img.format = "png", res = 300)
+            lbl.size = 0.5,
+            dir.out = dir, out.file.name = NULL,
+            img.format = "png", res = 300)
 \end{Code}
 
 \code{plot_compar()} takes a list of graphs \code{listg}, created previously by \code{list_compar()}, and a vector with the ids of the graphs to compare (\code{graph2}). The function creates an image for each pairwise comparison with the decorations plotted side-by-side with elements: common nodes (\code{focus = "nodes"}, by default) or common edges (\code{focus = "edges"}). For each pairwise, if an element exists only in one decoration, it is displayed in orange by default (\code{nd.color[1]} or \code{ed.color[1]}). When an element is present on the two decorations, it is displayed in red by default (\code{nd.color[2]} or \code{ed.color[2]}). The function returns the paths to the created images.
 
 Let us compare the decoration 1 and the decoration 4 and identify common edges (Figure \ref{fig:ceds}).
 
-<<echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.asp=0.5630631, fig.cap="\\label{fig:ceds}Comparison between decoration 1 (Cerro Muriano 1) and decoration 4 (Zarza de Montsanchez)">>=
-par(mar=c(0,0,0,0))
+%<<ceds, echo=TRUE, message=FALSE, warning=FALSE>>=
+%g.compar <- list_compar(lgrph, "type")
+%eds_compar <- plot_compar(g.compar, c(1, 4),
+%                          focus = "edges",
+%                          dir = system.file("extdata", package = "iconr"),
+%                          img.format = "pdf")
+%@
+%\begin{figure}[!htbp]
+%  \centering
+%  \includegraphics[width=\textwidth]{\Sexpr{eds_compar}}
+%  \caption{Comparison between decoration 1 (Cerro Muriano 1) and decoration 4
+%           (Zarza de Montsanchez)}
+%  \label{fig:ceds}
+%\end{figure}
+
+<<ceds, echo=TRUE, message=FALSE, warning=FALSE, fig.pos = '!htbp', fig.align="center", fig.width=8 , fig.asp=0.5, fig.cap="Comparison between decoration 1 (Cerro Muriano 1) and decoration 4 (Zarza de Montsanchez)">>=
 g.compar <- list_compar(lgrph, "type")
-eds_compar <- plot_compar(g.compar, c(1, 4),
-                          focus = "edges",
-                          doss = system.file("extdata", package = "iconr"))
-plot(magick::image_trim(magick::image_read(eds_compar)))
+plot_compar(g.compar, c(1, 4),
+            focus = "edges",
+            dir = system.file("extdata", package = "iconr"),
+            img.format = NULL)
 @
 
 The comparison shows that the decoration 1 (Cerro Muriano 1) and the decoration 4 (Zarza de Montsanchez) have two (2) common edges: \code{lance -=- personnage} and \code{bouclier -=- personnage}.
@@ -707,8 +708,10 @@ same_elements(lgrph,
 
 The \code{same_elements()} function take the list of graphs (\code{lgrph}) produced by \code{list_dec()} and the node variable on which the comparison will be done, by default \code{type} (\code{nd.var = "type"}). The result is a square matrix between all pairwise comparisons with the number of common elements (nodes or edges in the cells). The diagonal of the square matrix shows the total number of element for a given decoration. For example, we can compute the matrix of common edges (Table \ref{tab:mat.ed}).
 
-<<results='asis', echo=TRUE>>=
+<<echo=TRUE>>=
 df.same_edges <- same_elements(lgrph, "type", "edges")
+@
+<<results='asis', echo=FALSE>>=
 caption <- "Number of common edges between all graph decoration pairwises"
 print(xtable::xtable(df.same_edges,
                      caption = caption,
@@ -723,31 +726,22 @@ The edges comparisons between the decoration 1 and the decoration 4 show that th
 
 \section{Illustrations} \label{sec:illustrations}
 
-In order to demonstrate the main insight of a graph-based analysis of the decorations, we will compare two classifications. The first classification is based on the counts of common nodes. Since the precise location of the nodes is usualy not registred, his is the most commonly analysis applied on large series. The second classification is based on the presence of common edges. 
+In order to demonstrate the main insight of a graph-based analysis of the decorations, we will compare two classifications. The first classification is based on the counts of common nodes. Since the precise location of the nodes is usualy not registred, his is the most commonly analysis applied on large series. The second classification is based on the presence of common edges.
 
 At first, the Late Bronze Age phase of Ibahernando stelae must be selected (ie, the Roman latin writing must be removed). After the selection of the graph elements of Ibahernando stelae (decoration 5), nodes and edges of the node 2 connected component, the lance (spear), is selected with \code{contemp_nds()}, a new graph object is created (\code{grph}) and used to update the list of graphs (\code{lgrph}).
 
-<<results='asis', echo=TRUE, fig.height= 5>>=
+<<echo=TRUE>>=
 dataDir <- system.file("extdata", package = "iconr")
-nds.df <- read_nds(site = "Ibahernando",
-                   decor = "Ibahernando",
-                   doss = dataDir)
-eds.df <- read_eds(site = "Ibahernando",
-                   decor = "Ibahernando",
-                   doss = dataDir)
+imgCase <- imgs[5, ]
+nds.df <- read_nds(imgCase$site, imgCase$decor, dataDir)
+eds.df <- read_eds(imgCase$site, imgCase$decor, dataDir)
 l_dec_df <- contemp_nds(nds.df, eds.df, selected.nd = 2)
-l_dec_df[[1]]$site <- l_dec_df[[1]]$decor <- NULL
-l_dec_df[[2]]$site <- l_dec_df[[2]]$decor <- NULL
-grph <- graph_from_data_frame(l_dec_df[[2]], vertices = l_dec_df[[1]],
-                           directed = FALSE)
-grph$site <- grph$decor <- "Ibahernando"
-grph$name <- 5
-lgrph[[5]] <- grph
+lgrph[5] <- list_dec(imgCase, l_dec_df$nodes, l_dec_df$edges)
 @
 
-Then, \code{same_elements()} is done on nodes and edges (Table \ref{tab:common.elts})
+Then, \code{same_elements()} can be applied on nodes and edges (Table \ref{tab:common.elts})
 
-<<results='asis', echo=TRUE>>=
+<<echo=TRUE>>=
 df.same_edges <- same_elements(lgrph, "type", "edges")
 df.same_nodes <- same_elements(lgrph, "type", "nodes")
 @
@@ -758,7 +752,7 @@ df.same_nodes <- same_elements(lgrph, "type", "nodes")
 \begin{minipage}{.3\textwidth}
 \centering
 \textbf{Common nodes}\raisebox{-1ex}{}\\
-<<echo=FALSE,results='asis' >>=
+<<echo=FALSE, results='asis'>>=
 print(xtable::xtable(df.same_nodes,
                      size = 8,
                      digits = 0),
@@ -769,7 +763,7 @@ print(xtable::xtable(df.same_nodes,
 \begin{minipage}{.3\textwidth}
 \centering
 \textbf{Common edges}\raisebox{-1ex}{}\\
-<<echo=FALSE,results='asis'>>=
+<<echo=FALSE, results='asis'>>=
 print(xtable::xtable(df.same_edges,
                      size = 8,
                      digits = 0),
@@ -781,8 +775,13 @@ print(xtable::xtable(df.same_edges,
 \label{tab:common.elts}
 \end{table}
 
-% the inverse values of common nodes and common edges are calculated with the function \code{inv()} from the package \pkg{matlib} \citep{Friendly20}, and then 
+% the inverse values of common nodes and common edges are calculated with the function \code{inv()} from the package \pkg{matlib} \citep{Friendly20}, and then
 Once the heatmap matrices calculated, the distance matrices are calculated with the native \code{dist()} function \citep{R19} (Table \ref{tab:dist.elts}).
+
+<<echo=TRUE>>=
+dist.nodes  <- dist(df.same_nodes)
+dist.edges <- dist(df.same_edges)
+@
 
 \begin{table}[!htbp]
 % \begin{table}[H]
@@ -790,9 +789,8 @@ Once the heatmap matrices calculated, the distance matrices are calculated with 
 \begin{minipage}{.44\textwidth}
 \centering
 \textbf{Distance matrix on nodes}\raisebox{-1ex}{}\\
-<<echo=FALSE,results='asis', warning=F >>=
+<<echo=FALSE, results='asis', warning=FALSE>>=
 library("matlib")
-dist.nodes  <- dist(as.matrix(df.same_nodes), upper=TRUE)
 mat.nodes <- as.matrix(dist.nodes)
 mat.nodes[lower.tri(mat.nodes, diag = TRUE)] <- NA
 print(xtable::xtable(mat.nodes,
@@ -805,8 +803,7 @@ print(xtable::xtable(mat.nodes,
 \begin{minipage}{.44\textwidth}
 \centering
 \textbf{Distance matrix on edges}\raisebox{-1ex}{}\\
-<<echo=FALSE,results='asis'>>=
-dist.edges <- dist(as.matrix(df.same_edges))
+<<echo=FALSE, results='asis'>>=
 mat.edges <- as.matrix(dist.edges)
 mat.edges[lower.tri(mat.edges, diag = TRUE)] <- NA
 print(xtable::xtable(mat.edges,
@@ -823,30 +820,29 @@ print(xtable::xtable(mat.edges,
 For both nodes and edges, the results show that the most important differences are between the decoration 1 and the decoration 2: for nodes, dist = \Sexpr{round(max(mat.nodes, na.rm = T), 2)} ; for edges, dist =  \Sexpr{round(max(mat.edges, na.rm = T), 2)}. At the opposite, the decorations showing the more similar compositions are decoration 3 and decoration 5: for nodes, dist = \Sexpr{round(min(mat.nodes, na.rm = T), 2)} ; for edges, dist =  \Sexpr{round(min(mat.edges, na.rm = T), 2)}. The compared decorations, with their common elements, can be plotted with \code{plot_compar()}.
 A hierachical clustering (HC) of the distance matrices, with the native function \code{hclust()} \citep{R19}, summarize these similarites/dissimilarities (Figure \ref{fig:hclust})
 
-<<hclust, echo=TRUE, warning=FALSE, fig.height=4, fig.width=8, fig.pos = '!htbp', fig.cap="\\label{fig:hclust}Hierachical clusterings on decoration common elements">>=
-par(mfrow=c(1, 2), mar=c(0.2,4,1.2,0.5))
+<<hclust, echo=TRUE, warning=FALSE, fig.height=4, fig.width=8, fig.pos = '!htbp', fig.cap="Hierachical clusterings on decoration common elements">>=
 hc.nds <- hclust(dist.nodes, method = "ward.D")
-hc.eds <- hclust(dist.edges, method = "ward.D") 
-plot(hc.nds, main = "common nodes", cex = 1.1)
-plot(hc.eds, main = "common edges", cex = 1.1)
+hc.eds <- hclust(dist.edges, method = "ward.D")
+par(mfrow=c(1, 2), mar=c(0.2,4,1.2,0.5))
+plot(hc.nds, main = "Common nodes", cex = 1.1)
+plot(hc.eds, main = "Common edges", cex = 1.1)
 @
 
 Even if in this example the clustering of decorations on common nodes and the clustering of decorations on common edges give the same results, another distribution of the same nodes, could give two different clusterings. The clustering on common nodes and the clustering on common edges can be compared with the \code{tanglegram()} function from the \pkg{dendextend} package \citep{Galili15} (Figure \ref{fig:hclust2})
 
-<<hclust2, echo=TRUE, warning=FALSE, fig.height=3, fig.pos = '!htbp', fig.cap="\\label{fig:hclust2}Comparison of hierachical clusterings on decoration common elements, nodes (left) and edges (right)">>=
-suppressPackageStartupMessages(library(dendextend))
-suppressPackageStartupMessages(library(dplyr))
-par(mfrow=c(1, 2))
-dend.nds <- as.dendrogram (hc.nds)
-dend.eds <- as.dendrogram (hc.eds)
+<<hclust2, echo=TRUE, warning=FALSE, message=FALSE, fig.height=3, fig.pos = '!htbp', fig.cap="Comparison of hierachical clusterings on decoration common elements, nodes (left) and edges (right)">>=
+library(dendextend)
+library(dplyr)
+dend.nds <- as.dendrogram(hc.nds)
+dend.eds <- as.dendrogram(hc.eds)
 dendlist(dend.nds, dend.eds) %>%
-  untangle(method = "step1side") %>% 
+  untangle(method = "step1side") %>%
   tanglegram(columns_width = c(6, 1, 6),
-             main_left = "common nodes",
-             main_right = "common edges",
+             main_left = "Common nodes",
+             main_right = "Common edges",
              lab.cex = 1.5,
              cex_main = 1.5,
-             highlight_branches_lwd = F)                    
+             highlight_branches_lwd = FALSE)
 @
 
 %% -- Summary/conclusions/discussion -------------------------------------------
@@ -881,22 +877,22 @@ A part of the IT development of the \pkg{iconr} package has been done in the fra
 
 \bibliography{bibref}
 
-% 
+%
 % %% -- Appendix (if any) --------------------------------------------------------
 % %% - After the bibliography with page break.
 % %% - With proper section titles and _not_ just "Appendix".
-% 
+%
 % \newpage
-% 
+%
 % \begin{appendix}
-% 
+%
 % \section{More technical details} \label{app:technical}
-% 
+%
 % \begin{leftbar}
 % Appendices can be included after the bibliography (with a page break). Each
 % section within the appendix should have a proper section title (rather than
 % just \emph{Appendix}).
-% 
+%
 % For more technical style details, please check out JSS's style FAQ at
 % \url{https://www.jstatsoft.org/pages/view/style#frequently-asked-questions}
 % which includes the following topics:
@@ -909,10 +905,10 @@ A part of the IT development of the \pkg{iconr} package has been done in the fra
 % \item Many other potentially helpful details\dots
 % \end{itemize}
 % \end{leftbar}
-% 
-% 
+%
+%
 % \section[Using BibTeX]{Using \textsc{Bib}{\TeX}} \label{app:bibtex}
-% 
+%
 % \begin{leftbar}
 % References need to be provided in a \textsc{Bib}{\TeX} file (\code{.bib}). All
 % references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
@@ -920,7 +916,7 @@ A part of the IT development of the \pkg{iconr} package has been done in the fra
 % formats of author-year citations and allow to include additional details (e.g.,
 % pages, chapters, \dots) in brackets. In case you are not familiar with these
 % commands see the JSS style FAQ for details.
-% 
+%
 % Cleaning up \textsc{Bib}{\TeX} files is a somewhat tedious task -- especially
 % when acquiring the entries automatically from mixed online sources. However,
 % it is important that informations are complete and presented in a consistent
@@ -935,7 +931,7 @@ A part of the IT development of the \pkg{iconr} package has been done in the fra
 % \code{citation("pkgname")} typically provides a good starting point.
 % \end{itemize}
 % \end{leftbar}
-% 
+%
 % \end{appendix}
 
 %% -----------------------------------------------------------------------------
